@@ -1,0 +1,10 @@
+{
+  "_note": "Baseline A->B reselection on Tuấn's verified PR/quad audit NPZ (MONKEY_V2 dc19b85). Endpoints only: this is NOT a Mix A result. Paths are relative to the workspace root (cải tiến/mới). No gate checks are run here, so the status stays PENDING_REFERENCE_CHECK.",
+  "models": [
+    {"name": "B-Clean", "alpha": "0", "npz": "../../MONKEY_V2/docs/handoff/artifacts/pr_quad_audit_v1/counts/B-Clean_source_counts.npz"},
+    {"name": "B1", "alpha": "1", "npz": "../../MONKEY_V2/docs/handoff/artifacts/pr_quad_audit_v1/counts/B1_source_counts.npz"},
+    {"name": "B0", "alpha": null, "npz": "../../MONKEY_V2/docs/handoff/artifacts/pr_quad_audit_v1/counts/B0_source_counts.npz"}
+  ],
+  "references": {},
+  "checks": {}
+}
