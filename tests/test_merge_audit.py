@@ -108,5 +108,51 @@ class RealBundleTest(unittest.TestCase):
         self.assertEqual((result['status'], result['mismatched']), ('FAIL', 1))
 
 
+PROBE_IDENTITY = Path(__file__).resolve().parents[1]/'results/probe_A100_v1/audit_identity.json'
+
+
+@unittest.skipUnless(PROBE_IDENTITY.is_file(), 'A100 probe identity not present')
+class SameGpuReferenceTest(unittest.TestCase):
+    """Option (a) of plan 4.3: the full run must match the probe identity except for the source subset."""
+
+    def setUp(self):
+        import json
+        self.probe = json.loads(PROBE_IDENTITY.read_text(encoding='utf-8'))
+        self.full = {k: v for k, v in self.probe.items() if k != 'identity_sha256'}
+        self.full.update(probe_sources=None, sources_sha256='other')
+
+    def make_probe_dir(self, tmp, identity, finished=True):
+        from mixab import save_json
+        d = Path(tmp)/'probe'
+        d.mkdir()
+        save_json(d/'audit_identity.json', identity)
+        for name in ('B-Clean', 'B1'):
+            (d/f'{name}_source_counts.npz').write_bytes(b'x')
+        if finished:
+            save_json(d/'gates.json', {})
+        return d
+
+    def test_identity_mismatch_ignores_only_the_subset(self):
+        self.assertEqual(ma.identity_mismatch(self.full, self.probe), [])
+        for key, value in (('gpu', 'NVIDIA A100-SXM4-80GB'), ('cudnn', 1), ('model_config_sha256', '0'),
+                           ('merge_manifest_sha256', '0')):
+            self.assertEqual(ma.identity_mismatch(dict(self.full, **{key: value}), self.probe), [key])
+
+    def test_same_gpu_reference_block(self):
+        with TemporaryDirectory() as tmp:
+            d = self.make_probe_dir(tmp, self.probe)
+            block = ma.same_gpu_reference(d, self.full)
+            self.assertEqual(block['run_gpu'], block['reference_gpu'])
+            self.assertEqual(sorted(block['npz']), ['B-Clean', 'B1'])
+            with self.assertRaises(ValueError):
+                ma.same_gpu_reference(d, dict(self.full, gpu='Tesla T4'))
+        with TemporaryDirectory() as tmp:
+            with self.assertRaises(ValueError):            # unfinished probe
+                ma.same_gpu_reference(self.make_probe_dir(tmp, self.probe, finished=False), self.full)
+        with TemporaryDirectory() as tmp:
+            with self.assertRaises(ValueError):            # a full run is not a probe reference
+                ma.same_gpu_reference(self.make_probe_dir(tmp, dict(self.probe, probe_sources=None)), self.full)
+
+
 if __name__ == '__main__':
     unittest.main()

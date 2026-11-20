@@ -20,24 +20,31 @@ def code(text):
 
 
 md(r'''
-# CS431 · Mix A — E1 (môi trường T4/A100 + doctor) và A2 (probe `merge_audit`)
+# CS431 · Mix A — E1 (môi trường + doctor), A2 (probe), A2r (chạy đầy đủ) và A3 (chọn lại A→B)
 
-Notebook này chỉ làm **hai việc**:
-1. **E1:** dựng môi trường trên Colab T4/A100, rồi chạy doctor tới khi **0 FAIL**.
-2. **A2:** chạy **probe 40 nguồn** của `merge_audit`.
+Notebook gồm **bốn việc**:
+1. **E1:** dựng môi trường trên Colab T4/A100, rồi chạy doctor tới khi **0 FAIL** (Ô 1–4).
+2. **A2:** chạy **probe 40 nguồn** của `merge_audit` (Ô 5–6).
+3. **A2r:** chạy **đầy đủ** 5 model × 2.262 nguồn × (Clean, LR2) (Ô 7).
+4. **A3:** `reselect_split` theo R1 (chọn trên A, khóa, đánh giá trên B), rồi đóng gói kết quả (Ô 8).
 
-Notebook **không** chạy toàn bộ A2r, **không** train Mix B và **không** gửi gì cho ai.
+**Chính sách cổng (kế hoạch §4.3, Tuấn chọn phương án (a) ngày 20/11):**
+- So các α với endpoint **chạy trên cùng GPU** trong cùng job.
+- Hai cổng chính xác quyết định trạng thái: P-map endpoint, và counts của endpoint phải **trùng tuyệt đối** với probe đã chạy trên cùng loại GPU.
+- So sánh với H200 của Tuấn (cổng 3a/3b) vẫn được tính, nhưng chỉ ghi thành **độ lệch giữa các GPU**. Không nới ngưỡng nào.
 
-**Trạng thái kiểm chứng của chính notebook:**
-- Các hàm xử lý dữ liệu (`mixab/colab_helpers.py`) và code CPU đã có test ở máy local.
-- **Mọi bước GPU/cài đặt chưa từng chạy trên Colab:** build MMCV, `install.sh`, doctor trên GPU, probe.
+Notebook **không** train Mix B và **không** gửi gì cho ai.
+
+**Trạng thái kiểm chứng:**
+- Ô 1–6 đã chạy thành công trên Colab A100-SXM4-40GB đêm 19–20/11.
+- Ô 7–8 mới thêm: phần CPU có test ở máy local, **chưa chạy trên Colab**.
 - Nếu một ô lỗi, đọc thông báo tiếng Việt và file log được in ra.
 
 ### Chuẩn bị (một lần)
 1. Trên máy local, chạy `python scripts/make_colab_upload.py` trong thư mục `cải tiến/mới`. Lệnh này tạo `runtime/colab_upload/mixab_code.zip`.
 2. Trên Google Drive, tạo thư mục **`MyDrive/CS431_MixA/upload/`**, rồi tải `mixab_code.zip` lên đó. **Đây là file duy nhất bạn phải tải lên bằng tay.**
 3. Trên Colab: `Runtime → Change runtime type → GPU T4 hoặc A100`.
-4. Chạy lần lượt Ô 1 → Ô 6. Mọi thứ khác notebook tự tải từ nguồn chính thức:
+4. Chạy lần lượt Ô 1 → Ô 8 (nếu probe trên GPU này đã xong, Ô 5 tự bỏ qua; Ô 6 có thể bỏ qua). Mọi thứ khác notebook tự tải từ nguồn chính thức:
    - Ảnh TextVQA: `dl.fbaipublicfiles.com`, ~7,07 GB, chỉ giữ 2.262 ảnh cần dùng.
    - Encoder: Hugging Face `zenosai/MonkeyOCRv2-AS`.
    - Repo `ncat218/MONKEY_V2` và `Yuliang-Liu/MonkeyOCRv2` trên GitHub.
@@ -48,7 +55,7 @@ Notebook **không** chạy toàn bộ A2r, **không** train Mix B và **không**
   - `upload/` (code bạn tải lên)
   - `cache/` (wheel MMCV đã build, encoder, zip 2.262 ảnh)
   - `weights/` (5 checkpoint merge)
-  - `runs/` (kết quả probe, resume được)
+  - `runs/` (kết quả probe, chạy đầy đủ và chọn lại A→B; resume được)
   - `reports/` (env/doctor)
   - `logs/`
   - `export/` (gói zip để gửi lại)
@@ -88,11 +95,13 @@ PIN = dict(
     BCLEAN_SHA256='94f0e4ecbb6881b4430c841845994c6568c145af7bb54fc41514eb0c78f3a6aa',
     B1_SHA256='9c3814e494a73a0a6089ba5a6585f079ea8f5a6defdc9347213bb98a64337147',
     # Môi trường Tuấn đã kiểm (MONKEY_V2 docs/handoff/checkpoints.md + MonkeyOCRv2 detection/mmocr/README.md)
-    TORCH='2.9.0', TORCHVISION='0.24.0', TORCH_INDEX='https://download.pytorch.org/whl/cu128',
+    TORCH='2.9.0', TORCHVISION='0.24.0', TORCHAUDIO='2.9.0', TORCH_INDEX='https://download.pytorch.org/whl/cu128',
     MMENGINE='0.10.7', MMCV='2.0.1', MMOCR='1.0.1', PILLOW='11.3.0', OPENCV='4.10.0.84',
 )
 PROBE_SOURCES = 40       # probe cố định 40 nguồn x 2 điều kiện; KHÔNG đổi giữa các lần resume
 PROBE_CHUNK = 16         # lưu tiến độ sau mỗi 16 task
+FULL_CHUNK = 64          # chạy đầy đủ: lưu tiến độ sau mỗi 64 task (~20 giây trên A100)
+REFERENCE_POLICY = 'same_gpu_endpoints'   # kế hoạch §4.3, phương án (a); KHÔNG đổi nếu chưa ghi quyết định mới
 
 # ---- mount Drive (chỉ chạy trên Colab) ----
 try:
@@ -156,6 +165,8 @@ Thứ tự cài theo hướng dẫn chính thức của MonkeyOCRv2 (`detection/
 5. ghim lại Pillow 11.3.0 và OpenCV 4.10.0.84
 
 - **Build MMCV lâu**, có thể vài chục phút với 2 CPU của T4 (chưa đo). Wheel được lưu vào `cache/wheels/` trên Drive với `TORCH_CUDA_ARCH_LIST=7.5;8.0`, nên lần sau dùng chung cho cả T4 và A100, miễn là cùng phiên bản Python.
+- Nếu Colab mặc định dùng `nvcc` 13.0, ô này tìm CUDA toolkit **12.8** riêng; nếu thiếu thì cài `cuda-toolkit-12-8` từ NVIDIA trên Ubuntu 22.04/24.04 x86_64. Không cài gói driver. Bước này cần tải thêm dữ liệu và chỉ còn trên VM hiện tại.
+- Python 3.13 vẫn chưa được kiểm với toàn bộ stack này; sửa toolkit không đồng nghĩa đã xác nhận tương thích Python. Chỉ coi E1 đạt sau kiểm import và doctor.
 - Mọi lệnh đều được ghi log vào `logs/install_<GPU>.log`. Ô có thể chạy lại: phần nào đúng phiên bản rồi thì bỏ qua.
 - **Restart:** các bước nặng đều chạy trong tiến trình con, nên thường **không cần restart**. Nếu Colab hiện nút *Restart session* sau khi pip đổi gói, bấm restart, **chạy lại Ô 1**, rồi chạy tiếp **Ô 2** (bỏ qua rất nhanh) và **Ô 3**.
 ''')
@@ -177,6 +188,9 @@ def pip(*args):
 # 1) torch
 if ver('torch') != f"{PIN['TORCH']}+cu128" or ver('torchvision') != f"{PIN['TORCHVISION']}+cu128":
     pip(f"torch=={PIN['TORCH']}", f"torchvision=={PIN['TORCHVISION']}", '--index-url', PIN['TORCH_INDEX'])
+# Colab may retain torchaudio built for its original torch. Transformers can import it indirectly.
+if ver('torchaudio') != f"{PIN['TORCHAUDIO']}+cu128":
+    pip('--no-deps', f"torchaudio=={PIN['TORCHAUDIO']}+cu128", '--index-url', PIN['TORCH_INDEX'])
 cuda_ok = ch.output_of([PY, '-c', 'import torch;print(torch.version.cuda, torch.cuda.is_available(), torch.cuda.get_arch_list())'])
 print('torch CUDA:', cuda_ok)
 if not cuda_ok or 'True' not in cuda_ok:
@@ -184,11 +198,20 @@ if not cuda_ok or 'True' not in cuda_ok:
 
 # 2) mmengine + công cụ build
 if ver('mmengine') != PIN['MMENGINE']:
-    pip(f"mmengine=={PIN['MMENGINE']}", 'setuptools<81', 'wheel', 'ninja')
+    pip(f"mmengine=={PIN['MMENGINE']}")
+pip('setuptools<81', 'wheel', 'ninja')
 
 # 3) MMCV 2.0.1 với ops (dùng wheel cache trên Drive nếu có)
 def mmcv_ok():
-    return ver('mmcv') == PIN['MMCV'] and ch.output_of([PY, '-c', 'from mmcv.ops import nms; print("ok")']) == 'ok'
+    if ver('mmcv') != PIN['MMCV']:
+        return False
+    probe = subprocess.run([PY, '-c', 'from mmcv.ops import nms; print("IMPORT_NMS_OK")'],
+                           capture_output=True, text=True)
+    with LOG.open('a', encoding='utf-8') as log:
+        log.write('\nMMCV import probe:\n' + probe.stdout + probe.stderr)
+    if probe.returncode != 0:
+        print(probe.stdout + probe.stderr)
+    return probe.returncode == 0 and 'IMPORT_NMS_OK' in probe.stdout.splitlines()
 
 wheel_dir = CACHE/f"wheels/mmcv{PIN['MMCV']}_py{pyver[0]}{pyver[1]}_torch{PIN['TORCH']}_cu128_sm75-80"
 if not mmcv_ok():
@@ -197,23 +220,49 @@ if not mmcv_ok():
         print('Cài MMCV từ wheel cache:', cached[-1].name)
         pip('--no-deps', str(cached[-1]))
     else:
-        nvcc = shutil.which('nvcc') or '/usr/local/cuda/bin/nvcc'
-        nvcc_ver = ch.output_of([nvcc, '--version']) or ''
-        m = re.search(r'release (\d+)\.(\d+)', nvcc_ver)
-        if not m or m.group(1) != '12':
-            ch.fail(f'Cần CUDA toolkit 12.x (nvcc) để build MMCV cho torch cu128; tìm thấy: {nvcc_ver[-80:]!r}')
-        cuda_home = '/usr/local/cuda-12.8' if Path('/usr/local/cuda-12.8').is_dir() else str(Path(nvcc).resolve().parents[1])
+        nvcc = shutil.which('nvcc')
+        candidates = ['/usr/local/cuda-12.8', os.environ.get('CUDA_HOME'),
+                      str(Path(nvcc).resolve().parents[1]) if nvcc else None,
+                      '/usr/local/cuda']
+        cuda_home = ch.find_cuda_toolkit(candidates)
+        if not cuda_home:
+            distro = platform.freedesktop_os_release()
+            if (distro.get('ID') != 'ubuntu' or distro.get('VERSION_ID') not in ('22.04', '24.04')
+                    or platform.machine() != 'x86_64'):
+                ch.fail('Chưa có toolkit 12.8; tự cài chỉ hỗ trợ Ubuntu 22.04/24.04 x86_64. '
+                        f'Môi trường hiện tại: {distro}, {platform.machine()}')
+            print('Thiếu CUDA toolkit 12.8. Cài toolkit riêng từ NVIDIA (không cài driver)...')
+            from urllib.request import urlretrieve
+            repo = 'ubuntu' + distro['VERSION_ID'].replace('.', '')
+            keyring = T/'cuda-keyring_1.1-1_all.deb'
+            urlretrieve(f'https://developer.download.nvidia.com/compute/cuda/repos/{repo}/x86_64/'
+                        'cuda-keyring_1.1-1_all.deb', keyring)
+            ch.run(['dpkg', '-i', keyring], LOG)
+            ch.run(['apt-get', 'update'], LOG)
+            ch.run(['apt-get', 'install', '-y', '--no-install-recommends', 'cuda-toolkit-12-8'], LOG,
+                   env={'DEBIAN_FRONTEND': 'noninteractive'})
+            cuda_home = ch.find_cuda_toolkit(['/usr/local/cuda-12.8'])
+            if not cuda_home:
+                ch.fail('Đã cài nhưng chưa tìm thấy nvcc 12.8 và cuda.h; xem log cài đặt.')
         src = T/'mmcv_src'
         if not (src/'setup.py').is_file():
             ch.run(['git', 'clone', '-b', f"v{PIN['MMCV']}", '--depth', '1', 'https://github.com/open-mmlab/mmcv.git', src], LOG)
         setup = (src/'setup.py').read_text()
-        if '-std=c++14' in setup:                         # bước sed của README chính thức
-            (src/'setup.py').write_text(setup.replace('-std=c++14', '-std=c++17'))
-        print(f'Build MMCV (CUDA_HOME={cuda_home}, nvcc {m.group(1)}.{m.group(2)}, {os.cpu_count()} CPU). Có thể mất lâu...')
+        setup = setup.replace('-std=c++14', '-std=c++17')  # README chính thức
+        # Python 3.13+: exec/locals need an explicit namespace (PEP 667).
+        old_version = "        exec(compile(f.read(), version_file, 'exec'))\n    return locals()['__version__']"
+        new_version = "        namespace = {}\n        exec(compile(f.read(), version_file, 'exec'), namespace)\n    return namespace['__version__']"
+        if old_version in setup:
+            setup = setup.replace(old_version, new_version)
+        elif new_version not in setup:
+            ch.fail('MMCV setup.py khác cấu trúc get_version đã kiểm; dừng để kiểm tra.')
+        (src/'setup.py').write_text(setup)
+        print(f'Build MMCV (CUDA_HOME={cuda_home}, nvcc 12.8, {os.cpu_count()} CPU). Có thể mất lâu...')
         build_env = dict(CUDA_HOME=cuda_home, MMCV_WITH_OPS='1', MAX_JOBS=str(os.cpu_count() or 2),
+                         PATH=f"{cuda_home}/bin:{os.environ.get('PATH', '')}",
                          TORCH_CUDA_ARCH_LIST='7.5;8.0')
         wheel_tmp = T/'wheelhouse'
-        ch.run([PY, '-m', 'pip', 'wheel', '--no-build-isolation', '--no-deps', '-w', wheel_tmp, src], LOG,
+        ch.run([PY, '-m', 'pip', 'wheel', '-v', '--no-build-isolation', '--no-deps', '-w', wheel_tmp, src], LOG,
                env=build_env, title='build MMCV wheel')
         built = sorted(wheel_tmp.glob('mmcv-*.whl'))
         if not built:
@@ -233,9 +282,27 @@ mmocr_root = addon/'mmocr'
 backbone_file = mmocr_root/'mmocr/models/common/backbones/monkeyocr_v2_vitae.py'
 mmocr_loc = ch.output_of([PY, '-c', 'import mmocr,os;print(os.path.dirname(mmocr.__file__))'])
 if not (ver('mmocr') == PIN['MMOCR'] and backbone_file.is_file() and mmocr_loc and str(mmocr_root) in mmocr_loc):
+    # Prepare upstream checkout before install.sh copies add-ons and installs it.
+    # MMOCR 1.0.1 has the same implicit exec/locals issue as MMCV on Python 3.13.
+    if not (mmocr_root/'.git').is_dir():
+        ch.run(['git', 'clone', '--branch', 'v1.0.1', '--depth', '1',
+                'https://github.com/open-mmlab/mmocr.git', mmocr_root], LOG)
+    setup_path = mmocr_root/'setup.py'
+    setup = setup_path.read_text()
+    old_exec = "        exec(compile(f.read(), version_file, 'exec'))"
+    new_exec = "        namespace = {}\n        exec(compile(f.read(), version_file, 'exec'), namespace)"
+    if old_exec in setup:
+        if setup.count(old_exec) != 1:
+            ch.fail('MMOCR setup.py có nhiều exec khác dự kiến; cần kiểm tra.')
+        setup = setup.replace(old_exec, new_exec)
+        setup = setup.replace("locals()['short_version']", "namespace['short_version']")
+        setup = setup.replace("locals()['__version__']", "namespace['__version__']")
+        setup_path.write_text(setup)
+    elif new_exec not in setup:
+        ch.fail('MMOCR setup.py khác cấu trúc get_version đã kiểm; cần kiểm tra.')
     # install.sh gọi `python`/`pip` theo PATH: đặt interpreter của kernel lên đầu PATH
     ch.run(['bash', 'install.sh'], LOG, cwd=addon, title='MonkeyOCRv2 detection/mmocr/install.sh',
-           env=dict(PATH=f"{Path(PY).parent}:{os.environ.get('PATH', '')}"))
+           env=dict(PATH=f"{Path(PY).parent}:{os.environ.get('PATH', '')}", PIP_VERBOSE='1'))
 
 # 5) ghim lại Pillow / OpenCV (requirements của MMOCR có thể đã kéo bản khác)
 if ver('Pillow') != PIN['PILLOW']:
@@ -254,7 +321,7 @@ from mmocr.registry import MODELS
 from mmcv.ops import nms
 register_all_modules(init_default_scope=True)
 spec = importlib.util.find_spec('mmocr.models.textdet.postprocessors.db_postprocessor')
-out = dict(versions={k: m.version(k) for k in ('torch','torchvision','mmengine','mmcv','mmdet','mmocr','Pillow','opencv-python','numpy','transformers')},
+out = dict(versions={k: m.version(k) for k in ('torch','torchvision','torchaudio','mmengine','mmcv','mmdet','mmocr','Pillow','opencv-python','numpy','transformers')},
            cuda=torch.cuda.is_available(), device=torch.cuda.get_device_name(0), capability=list(torch.cuda.get_device_capability(0)),
            backbone_registered=MODELS.get('MonkeyOCRv2ViTAEBackbone') is not None,
            db_postprocessor_sha256=hashlib.sha256(open(spec.origin,'rb').read()).hexdigest(), db_postprocessor_path=spec.origin)
@@ -283,7 +350,7 @@ md(r'''
 ## Ô 3 · Dữ liệu và weights
 
 Thứ tự phụ thuộc, mỗi bước bỏ qua nếu đã đúng SHA:
-1. **MONKEY_V2** ở commit ghim. Chỉ tải 2 file weights qua Git LFS, rồi chạy `verify_bundle.py --counts --weights` (phải PASS).
+1. **MONKEY_V2** ở commit ghim. Tải 2 file weights và các artifact LFS trong bundle (gồm `review_cards.zip`), rồi chạy `verify_bundle.py --counts --weights` (phải PASS).
 2. **Test CPU** của `mixab` trên đúng bundle và weights này.
 3. **Encoder** MonkeyOCRv2-AS: tải vào `cache/` trên Drive và ghi lại revision. Sau đó tạo bản config chỉ đổi **2 đường dẫn encoder**, mọi thứ khác giữ nguyên.
 4. **Ảnh Clean:** lấy từ `cache/textvqa_val2262_clean.zip` trên Drive nếu đã có. Nếu chưa, tải zip TextVQA 7,07 GB vào thư mục tạm, chỉ trích 2.262 ảnh, kiểm SHA từng ảnh với `source_cohort.csv`, rồi lưu bản cache lên Drive. Lần sau không phải tải lại.
@@ -302,7 +369,8 @@ if ch.output_of(['git', 'lfs', 'version']) is None:
     ch.run(['bash', '-c', 'apt-get -qq update && apt-get -qq install -y git-lfs'], LOG, title='install git-lfs')
 ch.run(['git', '-C', MV2, 'lfs', 'install', '--local'], LOG)
 weights_rel = ['docs/handoff/weights/bclean-inference.pth', 'docs/handoff/weights/b1-inference.pth']
-ch.run(['git', '-C', MV2, 'lfs', 'pull', '--include=' + ','.join(weights_rel)], LOG)
+lfs_include = weights_rel + ['docs/handoff/artifacts/pr_quad_audit_v1/**']
+ch.run(['git', '-C', MV2, 'lfs', 'pull', '--include=' + ','.join(lfs_include), '--exclude='], LOG)
 for rel, want in zip(weights_rel, (PIN['BCLEAN_SHA256'], PIN['B1_SHA256'])):
     if ch.sha256(MV2/rel) != want:
         ch.fail(f'{rel} sai SHA-256 (Git LFS chưa tải đủ?).')
@@ -456,11 +524,8 @@ md(r'''
 - `probe_summary.json`.
 
 Cách đọc kết quả:
-- **Cổng 3a PASS và P-map PASS ở cả hai endpoint:** có thể đề xuất chạy đầy đủ (A2r). Đó là quyết định của lượt sau, không phải của notebook này.
-- **3a FAIL:** nhiều khả năng do khác GPU so với H200. **Không tự nới cổng.** Gửi zip lại để báo Tuấn theo kế hoạch §4.3.
-- **P-map FAIL:** lỗi nạp hoặc lưu trọng số. Dừng và gửi log.
-
-E1 và A2 chỉ được đánh dấu xong trên dashboard **sau khi** đã đọc các file này.
+- **P-map PASS ở cả hai endpoint:** theo phương án (a), được chạy Ô 7. Cổng 3a so với H200 chỉ để biết độ lệch giữa các GPU.
+- **P-map FAIL:** lỗi nạp hoặc lưu trọng số. Dừng và gửi log; Ô 7 sẽ từ chối chạy.
 ''')
 
 code(r'''
@@ -480,7 +545,9 @@ for name, p in profile.items():
 if summary['full_run_estimate_hours'] is not None:
     print(f"Ước lượng chạy đầy đủ 5 model x 4.524 task trên GPU này: ~{summary['full_run_estimate_hours']:.1f} giờ "
           '(chưa tính thời gian kiểm P-map; chỉ là ngoại suy từ probe)')
-print('Sẵn sàng đề xuất chạy đầy đủ:' , 'CÓ' if summary['ready_for_full_run'] else 'KHÔNG — xem cổng FAIL ở trên')
+print('Khớp H200 (cổng 3a + P-map):', 'CÓ' if summary['ready_for_full_run'] else 'KHÔNG (theo phương án (a) chỉ là độ lệch giữa GPU)')
+print('Được chạy Ô 7 theo phương án (a) (P-map PASS cả hai endpoint):',
+      'CÓ' if summary['ready_for_full_run_same_gpu'] else 'KHÔNG — P-map FAIL, dừng và gửi log')
 
 pack = ch.new_path(EXPORT, f'cs431_probe_{GPU}', '.zip')
 (OUT/'probe_summary.json').write_text(json.dumps(summary, indent=1)) if not (OUT/'probe_summary.json').exists() else None
@@ -493,6 +560,114 @@ with zipfile.ZipFile(pack, 'w', compression=zipfile.ZIP_DEFLATED) as zf:
             zf.write(p, f'{folder.name}/{p.name}')
     zf.writestr('code_zip_sha256.txt', code_sha + '\n')
 print(f'\nĐã đóng gói: {pack} ({pack.stat().st_size/1024:.0f} KiB). File nằm trên Drive; có thể tải trực tiếp:')
+try:
+    from google.colab import files
+    files.download(str(pack))
+except Exception as exc:
+    print('Không tự tải được, hãy tải từ Drive:', exc)
+''')
+
+md(r'''
+## Ô 7 · A2r: chạy đầy đủ 5 model (khoảng 2,1 giờ trên A100)
+
+Ô này chạy `merge_audit run` trên **toàn bộ 2.262 nguồn**, với chính sách `same_gpu_endpoints`:
+- Cả 5 checkpoint (α = 0, ¼, ½, ¾, 1) chạy trong **cùng một job, cùng GPU**. Hai endpoint được chạy lại ở đây, không lấy số của H200.
+- Trước khi chạy, code kiểm identity của job phải **trùng** probe của GPU này: cùng code Tuấn, config, manifest, tên GPU, torch/CUDA/cuDNN. Lệch là dừng ngay, chưa tốn GPU.
+- Nếu Colab cấp GPU khác loại (ví dụ A100 80GB thay vì 40GB), Ô 5 sẽ tự chạy probe mới cho GPU đó (khoảng 3 phút); Ô 7 dùng probe cùng GPU.
+
+**Thời gian:** probe đo được 0,335 s/task trên A100-40GB, nên khoảng 2,1 giờ cho 22.620 task, cộng P-map của 2 endpoint. T4 chưa đo và sẽ chậm hơn.
+
+**Bị ngắt giữa chừng:** tiến độ được lưu sau mỗi 64 task trên Drive (`runs/merge_audit_v1_<GPU>/`). Chạy lại **Ô 1 → Ô 2 → Ô 3 → Ô 4 → Ô 7**; nó chạy tiếp từ chỗ dừng. Model nào xong rồi sẽ không chạy lại.
+
+Khi xong, ô in ra cổng P-map và độ lệch so với H200. Phần chọn α và đánh giá nằm ở Ô 8.
+''')
+
+code(r'''
+# ===================== Ô 7 · A2r CHẠY ĐẦY ĐỦ =====================
+pass_flag = T/'doctor_pass.json'
+if not pass_flag.is_file():
+    ch.fail('Chưa có doctor 0 FAIL trong phiên này. Chạy Ô 4 trước.')
+flag = json.loads(pass_flag.read_text())
+if flag['gpu'] != GPU or flag['code_zip_sha256'] != code_sha:
+    ch.fail('Doctor đã chạy với GPU hoặc code khác. Chạy lại Ô 4.')
+PROBE_DIR = RUNS/f'merge_audit_probe_v1_{GPU}'
+if not (PROBE_DIR/'gates.json').is_file():
+    ch.fail(f'Chưa có probe trên GPU {GPU}. Chạy Ô 5 trước (khoảng 3 phút); Ô 7 cần nó làm tham chiếu cùng GPU.')
+probe_gates = json.loads((PROBE_DIR/'gates.json').read_text())
+bad = [n for n in ('B-Clean', 'B1') if probe_gates['models'].get(n, {}).get('pmap_endpoint', {}).get('status') != 'PASS']
+if bad:
+    ch.fail(f'P-map của probe không PASS ở {bad}: lỗi nạp/lưu trọng số, không chạy đầy đủ. Gửi log probe.')
+FULL = RUNS/f'merge_audit_v1_{GPU}'
+if (FULL/'gates.json').is_file():
+    print(f'A2r trên {GPU} đã hoàn tất trước đó ({FULL}). Không chạy lại; sang Ô 8.')
+else:
+    log = ch.new_path(LOGS, f'full_{GPU}', '.log')
+    ch.run([PY, '-m', 'mixab.merge_audit', 'run', '--bundle', BUNDLE, '--clean-root', IMAGES, '--prepared-root', PREPARED,
+            '--model-config', CONFIG_PATH, '--weights-dir', WEIGHTS,
+            '--bclean-export', MV2/'docs/handoff/weights/bclean-inference.pth',
+            '--b1-export', MV2/'docs/handoff/weights/b1-inference.pth',
+            '--chunk', str(FULL_CHUNK), '--reference-policy', REFERENCE_POLICY, '--same-gpu-probe', PROBE_DIR,
+            '--output', FULL],
+           log, cwd=CODE, env=ENV, title=f'merge_audit full run on {GPU}')
+    print(f'\nA2r xong. Kết quả: {FULL}\nLog: {log}')
+gates = json.loads((FULL/'gates.json').read_text())
+for name in ('B-Clean', 'B1'):
+    g = gates['models'][name]
+    print(f"  {name:8} P-map: {g['pmap_endpoint']['status']} (max |dP| = {g['pmap_endpoint']['max_abs_diff']})   "
+          f"độ lệch so với EDA H200 (.30/.40): {g['gate_3a']['mismatched']}/{g['gate_3a']['checked']} ô")
+''')
+
+md(r'''
+## Ô 8 · A3: chọn lại A→B theo R1, rồi đóng gói
+
+Ô này chạy `reselect_split` trên counts của Ô 7, chỉ dùng CPU và mất vài phút:
+- Chia A/B theo SHA-256 của source ID. Chọn setting và α\* **chỉ trên A**, khóa lại, rồi đánh giá trên B. Bootstrap theo nguồn: 2.000 lần lặp.
+- **Cổng tái lập cùng GPU:** counts 11 cột của hai endpoint phải trùng tuyệt đối với probe. Cùng với P-map, đây là hai cổng quyết định `verification`.
+- So sánh với H200 nằm ở `cross_gpu_drift`, chỉ để báo cáo.
+
+Kết quả ở `runs/reselect_v1_<GPU>/` trên Drive. Ô **không ghi đè**: nếu đã có `decision.json` thì chỉ đọc lại.
+
+**Lưu ý khi đọc kết quả:**
+- Mốc tiny 42% và ngưỡng +0,5 pp vẫn là ngưỡng thực dụng, đang chờ Tuấn xác nhận lại.
+- `continue_mix_a` **chưa phải kết luận cuối**. Kết luận sẽ viết trong báo cáo Mix A sau khi đọc kỹ.
+
+Cuối ô tạo `export/cs431_A2r_<GPU>_<thời gian>.zip` để gửi lại.
+''')
+
+code(r'''
+# ===================== Ô 8 · A3 CHỌN LẠI A→B + ĐÓNG GÓI =====================
+FULL = RUNS/f'merge_audit_v1_{GPU}'
+if not (FULL/'gates.json').is_file():
+    ch.fail('Chưa có gates.json của A2r. Chạy Ô 7 trước.')
+SEL = RUNS/f'reselect_v1_{GPU}'
+if (SEL/'decision.json').is_file():
+    print(f'Đã có kết quả chọn lại ({SEL}); chỉ đọc lại, không chạy lại.')
+else:
+    log = ch.new_path(LOGS, f'reselect_{GPU}', '.log')
+    ch.run([PY, '-m', 'mixab.reselect_split', '--spec', FULL/'reselect_spec.json', '--output', SEL],
+           log, cwd=CODE, env=ENV, title=f'reselect_split on {GPU}')
+d = json.loads((SEL/'decision.json').read_text())
+print(f"\nChính sách: {d.get('reference_policy')}   verification: {d['verification']}   cổng: {d['checks']}")
+print('Độ lệch so với H200 (chỉ báo cáo):', d.get('cross_gpu_drift'))
+print(f"α* (khóa trên A): {d['alpha_star']} ({d['alpha_star_model']})   mean Hmean trên B: {d['mean_hmean_B_alpha_star']:.4%}   "
+      f"endpoint tốt nhất: {d['best_endpoint_mean_hmean_B']:.4%}")
+print(f"Vượt +0,5 pp: {d['passes_margin']}   tiny <4 px trên B: {d['lr2_recall_lt4_alpha_star']}   "
+      f"vượt mốc tiny: {d['passes_tiny']}   continue_mix_a: {d.get('continue_mix_a')}")
+print('Ghi chú:', d.get('note'))
+if d['verification'] != 'VERIFIED':
+    print('\nCHÚ Ý: verification không phải VERIFIED. Các số trên chưa được dùng để kết luận; gửi zip để điều tra.')
+
+pack = ch.new_path(EXPORT, f'cs431_A2r_{GPU}', '.zip')
+with zipfile.ZipFile(pack, 'w', compression=zipfile.ZIP_DEFLATED) as zf:
+    for folder, arc in ((FULL, 'run'), (SEL, 'reselect'), (RUNS/f'merge_audit_probe_v1_{GPU}', 'probe')):
+        for p in sorted(folder.iterdir()):
+            if p.is_file() and not p.name.startswith('.'):          # bỏ file tiến độ dở dang (.*.partial.*)
+                zf.write(p, f'{arc}/{p.name}')
+    for folder, pattern in ((REPORTS, f'*_{GPU}_*.json'), (LOGS, f'*{GPU}*.log')):
+        for p in sorted(folder.glob(pattern)):
+            zf.write(p, f'{folder.name}/{p.name}')
+    zf.writestr('code_zip_sha256.txt', code_sha + '\n')
+print(f'\nĐã đóng gói: {pack} ({pack.stat().st_size/2**20:.1f} MiB). File nằm trên Drive; có thể tải trực tiếp:')
 try:
     from google.colab import files
     files.download(str(pack))

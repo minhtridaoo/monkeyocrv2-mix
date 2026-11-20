@@ -1,0 +1,42 @@
+{
+ "versions": {
+  "torch": "2.9.0+cu128",
+  "torchvision": "0.24.0+cu128",
+  "mmengine": "0.10.7",
+  "mmcv": "2.0.1",
+  "mmdet": "3.1.0",
+  "mmocr": "1.0.1",
+  "Pillow": "11.3.0",
+  "opencv-python": "4.10.0.84",
+  "numpy": "2.4.6",
+  "transformers": "4.57.1"
+ },
+ "cuda": true,
+ "device": "NVIDIA A100-SXM4-40GB",
+ "capability": [
+  8,
+  0
+ ],
+ "backbone_registered": true,
+ "db_postprocessor_sha256": "9bfff8aaaca103dd08d7565f2b7a5410ab20a6427fe1f0baad5a5d04d207c8b8",
+ "db_postprocessor_path": "/content/cs431_tmp/MonkeyOCRv2/detection/mmocr/mmocr/mmocr/models/textdet/postprocessors/db_postprocessor.py",
+ "pins": {
+  "MONKEY_V2_URL": "https://github.com/ncat218/MONKEY_V2.git",
+  "MONKEY_V2_COMMIT": "dc19b85c8f73d56dd0510165069597363fe25380",
+  "MONKEYOCRV2_URL": "https://github.com/Yuliang-Liu/MonkeyOCRv2.git",
+  "MONKEYOCRV2_COMMIT": "da96afede92f198c19aca74e1e5f5aa7f4c26af2",
+  "TEXTVQA_ZIP_URL": "https://dl.fbaipublicfiles.com/textvqa/images/train_val_images.zip",
+  "TEXTVQA_ZIP_BYTES": 7072297970,
+  "ENCODER_REPO": "zenosai/MonkeyOCRv2-AS",
+  "BCLEAN_SHA256": "94f0e4ecbb6881b4430c841845994c6568c145af7bb54fc41514eb0c78f3a6aa",
+  "B1_SHA256": "9c3814e494a73a0a6089ba5a6585f079ea8f5a6defdc9347213bb98a64337147",
+  "TORCH": "2.9.0",
+  "TORCHVISION": "0.24.0",
+  "TORCH_INDEX": "https://download.pytorch.org/whl/cu128",
+  "MMENGINE": "0.10.7",
+  "MMCV": "2.0.1",
+  "MMOCR": "1.0.1",
+  "PILLOW": "11.3.0",
+  "OPENCV": "4.10.0.84"
+ }
+}

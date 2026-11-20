@@ -229,3 +229,135 @@ Mỗi mục ghi theo mẫu dưới đây. Cột "Bằng chứng" phải trỏ đ
   - Số đếm trên T4/A100 so với H200 chưa biết.
 - **Trạng thái:** E1 và A2 **chưa xong**; chỉ có notebook đã sẵn sàng.
 - **Tiếp theo:** user chạy notebook rồi gửi zip trong `export/`.
+
+
+## 20/11/2026 — Sửa Ô 2 Colab: nvcc 13.0 / torch cu128
+
+- Làm: helper kiểm compiler và cuda.h thực, ưu tiên toolkit 12.8; nếu thiếu tự cài cuda-toolkit-12-8 từ repo NVIDIA trên Ubuntu 22.04/24.04 x86_64; ghim CUDA_HOME/PATH khi build. Công cụ build được cài độc lập với mmengine. Sinh lại notebook và zip upload.
+- Bằng chứng: user traceback; 51/51 test local PASS gồm tình huống PATH 13.0, tên folder sai phiên bản, thiếu header; kiểm syntax 6 code cells.
+- Chưa kiểm/rủi ro: apt/build MMCV/GPU chưa chạy ở máy này; Python 3.13 còn chưa kiểm tương thích, E1 chưa PASS.
+- Tiếp theo: user thay notebook và zip Drive, chạy Ô 1 rồi Ô 2; chỉ tiếp tục khi kiểm import thành công, doctor còn ở Ô 4.
+
+
+## 20/11 — MMCV metadata trên Python 3.13
+- Làm: vá setup.py get_version dùng namespace explicit, pip wheel verbose; sinh lại notebook/ZIP.
+- Bằng chứng: traceback user KeyError __version__; Python PEP 667; kiểm patch trên upstream v2.0.1, đọc version, chạy lại patch và syntax các ô PASS.
+- Chưa kiểm: build/import GPU; chưa xác nhận toàn stack hỗ trợ Python 3.13.
+- Tiếp: user vá setup.py ở VM hiện tại rồi chạy lại Ô 2; không cần cài lại CUDA.
+
+
+## 20/11 — MMCV build xong, import bi chan boi torchaudio ABI
+- User log: MMCV 2.0.1 cp313 wheel built; import fails in torchaudio _torchaudio.abi3.so, undefined symbol torch_library_impl with torch 2.9.0+cu128.
+- Fix: pin torchaudio 2.9.0+cu128 before MMCV check, preserve torch via --no-deps; log subprocess stderr and use return code plus marker. Regenerate notebook/ZIP.
+- Validation: notebook syntax and isolated import checker (extra stdout, failed import, log) PASS. GPU install/import pending user; E1 not complete.
+
+
+## 20/11 — MMOCR editable metadata
+- Log user: passed MMCV import; mmdet 3.1.0 installed; MMOCR editable build requirements fails with hidden traceback.
+- Upstream MMOCR v1.0.1 setup.py independently confirmed to use implicit exec/locals incompatible with Python 3.13. Added explicit namespace patch before install.sh, including short_version branch; verbose pip enabled.
+- Check: upstream version function both branches and notebook syntax PASS. Colab install still pending; root traceback in user log not available.
+- Next: patch existing VM setup.py, rerun cell 2 with verbose logs, no CUDA/MMCV rebuild needed.
+
+
+## 20/11 — Cell 3 missing LFS review archive
+- User: verify_bundle fails hash/size review/review_cards.zip. Generator only pulled two weights while upstream verifier checks all manifest files; .gitattributes confirms review ZIP uses LFS.
+- Fixed include list to fetch entire pinned audit bundle plus weights, explicit empty exclude. Verifier unchanged. Notebook/ZIP regenerated; syntax/include checks PASS.
+- Pending: user reruns LFS pull and original verifier on Colab. No experiment result claimed.
+
+
+## 2026-11-20 · Đọc kết quả Colab A100: E1 xong, probe A2 chạy xong, cổng 3a FAIL 1/80
+- **Làm:**
+  - Đọc `H:\My Drive\CS431_MixA`: reports, gates, profile, identity, log.
+  - Viết `scripts/compare_probe_reference.py` để so probe với NPZ H200 trên đủ 72 setting; chỉ mô tả, không đổi trạng thái cổng.
+  - Chép JSON nhỏ và `NOTES.md` vào `results/probe_A100_v1/`.
+  - Cập nhật kế hoạch §4.3 (kết quả probe, chờ Tuấn chọn) và điểm 2 của `docs/msg_tuan_20261120.md`.
+- **Bằng chứng:**
+  - `doctor_A100-SXM4-40GB_20261119_193007.json`: 22 PASS, `failed: false`.
+  - `gates.json`: B-Clean 3a FAIL, 1/80 ô lệch (`9dfc8222c88569f0`, LR2, tp 144 so với 145); B1 3a PASS; P-map của cả hai max diff 0,0.
+  - `compare_vs_H200_probe40.json`: B-Clean 104/5.760 ô lệch, B1 92/5.760; `gt` không lệch; |ΔHmean| lớn nhất 0,153 và 0,262 pp.
+  - `profile.json`: 0,335 s/task, peak 1.153 MiB.
+  - `rev4/stage_a.py:188–189`: cờ TF32 giống Tuấn.
+  - MONKEY_V2 fetch: không có commit mới (`dc19b85`).
+  - Test 51/51 PASS.
+- **Chưa kiểm/rủi ro:**
+  - Nguyên nhân lệch được suy luận là khác GPU (cuDNN/TF32), chưa có thí nghiệm tách riêng. Chưa kiểm Python bên Tuấn.
+  - Chưa thử T4.
+  - Chưa kiểm wheel MMCV cache có tái dùng được ở VM mới không.
+- **Tiếp theo:** user gửi tin nhắn cho Tuấn để chọn (a) hay (b). Nếu (a), thêm Ô 7 chạy A2r đầy đủ trên A100 (khoảng 2,1 giờ). Chưa chạy A2r.
+
+
+## 2026-11-20 · Tuấn chọn (a): chính sách cổng cùng GPU, notebook có Ô 7 (A2r) và Ô 8 (reselect)
+- **Làm:**
+  - Ghi quyết định vào kế hoạch §4.3, dẫn lời user: "Tuấn chọn a".
+  - `merge_audit`: thêm `--reference-policy same_gpu_endpoints` và `--same-gpu-probe`; hàm `identity_mismatch`/`same_gpu_reference` kiểm identity trùng probe trước khi dùng GPU; spec ghi chính sách.
+  - `reselect_split`: thêm `REQUIRED_CHECKS` theo chính sách; `gate_same_gpu` so đủ 11 cột chính xác; `cross_gpu_drift` chỉ để báo cáo.
+  - `colab_helpers.summarize_probe`: thêm `ready_for_full_run_same_gpu`.
+  - Notebook có thêm Ô 7 và Ô 8; Ô 6 sửa lời theo (a). Cập nhật runbook §4–5.
+- **Bằng chứng:**
+  - Test 54/54 PASS (thêm 3 test: chính sách cùng GPU, identity mismatch, khối tham chiếu). Chạy từ zip giải nén: 54 test, 2 skip vì không có `results/`.
+  - nbformat validate (cảnh báo coi là lỗi) OK; 8 code cell compile.
+  - Thử đầu-cuối với file probe A100 thật: `same_gpu_checks` 5760/5760 khớp, `verification = VERIFIED`, `cross_gpu_drift` 3a/3b FAIL như kỳ vọng.
+  - Zip code SHA `e4d54077…`.
+- **Chưa kiểm/rủi ro:**
+  - Ô 7–8 chưa chạy trên Colab.
+  - Identity của phiên Colab mới có thể khác probe (cuDNN/torch, tên GPU 40GB/80GB). Khi đó Ô 7 dừng sớm, hoặc Ô 5 chạy probe mới cho GPU đó.
+  - Identity không hash code `mixab`; cổng `gate_same_gpu` chính xác bù cho điều này.
+  - Mốc tiny 42% vẫn chờ Tuấn.
+- **Tiếp theo:** user upload zip mới, chạy Ô 1 → 4, 5, 7, 8 trên A100, rồi gửi `export/cs431_A2r_*.zip`.
+
+## 2026-11-20 · Codex đồng bộ dashboard sau quyết định A100
+- **Làm:** cập nhật dashboard: E1/probe đã xong; A2r chờ user chạy Ô 7–8 trên A100; sửa mô tả A1 cũ, phụ thuộc E1 trước probe, A4 theo baseline cùng A100. Làm rõ R/Mix B là đề xuất chưa phân công, không coi là Tuấn đã nhận làm. Đồng bộ ghi chú HANDOFF.
+- **Bằng chứng:** user yêu cầu cập nhật; HANDOFF hiện hành, notebook `notebooks/colab_E1_A2_probe.ipynb` có Ô 7–8; kết quả probe ở `results/probe_A100_v1/`.
+- **Chưa kiểm/rủi ro:** không chạy GPU, không xác nhận Ô 7–8 đã chạy. Tick cục bộ trong trình duyệt có thể đè trạng thái file; giữ nguyên dữ liệu trình duyệt.
+- **Tiếp theo:** user upload code mới và chạy notebook trên A100; gửi gói export để đánh giá.
+
+
+## 2026-11-20 · A2r xong trên A100; Tuấn chốt tiêu chí; Mix A-core v1 chưa thắng theo quy tắc đã khóa
+- **Làm:**
+  - Ghi ý kiến Tuấn vào kế hoạch §4.2 trước khi mở `decision.json`: R1, +0,5 pp so với cả hai baseline, tiny ≥ B1 − 3 pp, CI paired, B không phải holdout.
+  - Sửa `reselect_split` theo mốc tiny tương đối và thêm test biên (−3 pp đạt, −3,2 pp trượt).
+  - Kiểm gates, identity và log của A2r.
+  - Chạy lại reselect ở local trên NPZ Drive → `results/mix_a_v1/`.
+  - Đo độ lệch so với H200 trên toàn cohort.
+  - Viết `NOTES.md` và nháp `docs/msg_tuan_20261120_mixA_result.md`.
+- **Bằng chứng:**
+  - `gates.json`: P-map 0,0 ở cả hai endpoint; 3a so với H200: 72/4.524 và 66/4.524 ô lệch (chỉ báo cáo).
+  - `decision.json`: `VERIFIED` (`same_gpu_endpoints`), `gate_same_gpu` 0/5.760 ô lệch; α\* = 0; `passes_margin` và `passes_tiny` đều false.
+  - Tiny B1 trên B 37,63%; α\* 16,08%.
+  - `selection.json`: tổng trên A B-Clean 157,016, α 3/4 156,600.
+  - `compare_vs_H200_full.json`: |ΔHmean| ≤ 0,023 pp.
+  - `merge_manifest.json`: endpoint bằng nhau; BN nội suy, không ước lượng lại.
+  - Identity A2r chỉ khác probe ở tập nguồn.
+  - Test 55/55 PASS.
+- **Chưa kiểm/rủi ro:**
+  - Ô 8 Colab chạy trước khi đổi mốc tiny. α\* không phụ thuộc mốc này, và bản chính thức đã chạy lại với mốc mới.
+  - Quan sát α 3/4 là sau khi khóa: không dùng để đổi kết luận.
+  - Một seed; B không phải holdout.
+- **Tiếp theo:** user gửi Tuấn; vẽ đường α và hoàn thiện báo cáo R1; chờ Tuấn về Model Stock và thân R của Mix B.
+
+
+## 2026-11-20 · E-sel (khám phá chọn có ràng buộc tiny) + thiết kế pilot BN
+- **User yêu cầu:** giữ kết luận âm v1; phân tích trên CPU việc chọn có ràng buộc tiny rồi tối ưu mean Hmean, ghi rõ là khám phá; kiểm khả thi pilot tính lại BN bằng TRAIN có đối chứng; chưa chạy GPU.
+- **Làm:**
+  - Ghi luật E-sel và E-BN vào kế hoạch §4.4 trước khi chạy.
+  - Viết `mixab/explore_selection.py` và 5 test; chạy trên counts A2r → `results/explore_sel_v1/`.
+  - Khảo sát BN: key checkpoint, mã MMOCR v1.0.1 (`db_head.py`, `single_stage_text_detector.py` qua raw GitHub), `update_bn` trong torch local, tài liệu PyTorch `AveragedModel` 2.15.
+  - Viết `docs/design_bn_recalibration_pilot.md`.
+- **Bằng chứng:**
+  - `explore_selection.json`: t_ref 48,82%; B-Clean và α 1/4 có 0 setting khả thi; α\* = 3/4; trên B mean 78,34 so với 77,87 và 78,11, tiny 34,56 so với 37,63.
+  - FP ở cùng recall: α 3/4 7.163 / 5.781 so với B1 6.685 / 5.456 (A / B).
+  - Checkpoint có 4 lớp BN, đều ở DBHead; MMOCR `DBHead.forward` mode `predict` chỉ chạy `binarize`.
+  - ‖ΔW‖/‖W‖ = 1,9%.
+  - `rev4/ssim_calibration.py:16–17`: tên và SHA manifest TRAIN; file không có trong repo.
+  - Test 60/60 PASS.
+- **Chưa kiểm/rủi ro:**
+  - Kỳ vọng hiệu ứng BN nhỏ: đây là suy luận.
+  - Thời gian GPU cho E-BN chưa đo.
+  - Chưa biết nhóm có tập validation chưa dùng hay không.
+- **Tiếp theo:** user gửi Tuấn (kết quả v1, E-sel, xin manifest TRAIN, xin duyệt thiết kế); Claude vẽ đường α và viết báo cáo R1.
+
+## 2026-11-20 · Chuẩn bị đồng bộ kết quả Mix A-core v1 lên repo riêng
+- **Làm:** rà soát các thay đổi từ commit đầu tiên; bổ sung liên kết kết quả và trạng thái mới vào README; cập nhật mốc tham chiếu MONKEY_V2 sau khi fetch và fast-forward.
+- **Bằng chứng:** `results/mix_a_v1/NOTES.md` ghi α\* = B-Clean, `VERIFIED` theo chính sách cùng GPU, chưa thắng; `results/explore_sel_v1/NOTES.md` ghi rõ kết quả khám phá. `python -m unittest discover -s tests -t . -q`: 60/60 PASS. MONKEY_V2 `aa1e17f` thêm chẩn đoán residual và hai pilot độc lập, không đổi mã `rev4/stage_a.py` được dùng bởi run Mix A v1 tại `dc19b85`.
+- **Chưa kiểm/rủi ro:** NPZ đếm đầy đủ, checkpoint và output lớn ở Drive/`runtime/`, không nằm trong Git; Git chỉ chứa tóm tắt, identity và các JSON/CSV nhỏ. B đã được xem trước, không phải holdout mới.
+- **Tiếp theo:** đồng bộ repo riêng lên GitHub; gửi đường dẫn commit cho user; báo cáo R1 vẫn cần hình đường α.

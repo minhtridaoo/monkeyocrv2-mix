@@ -296,6 +296,18 @@ Ba file nằm trong package `mixab/` ở repo riêng của mình: `weight_merge.
 5. Đi tiếp nếu α* ở giữa và mean Hmean trên B hơn **cả hai endpoint** ít nhất 0,5 pp, đồng thời recall LR2 <4 px ≥42%. Baseline cũng dùng setting chọn trên A. Nếu α* là endpoint, ghi “merge không thắng trên A”; vẫn bàn giao đường cong và báo cáo.
 6. Bootstrap ghép cặp theo source trên B, 2.000 lượt, seed 20261107, tính lại micro-metrics mỗi lượt. Remaining-validation đã ảnh hưởng đến nghiên cứu trước: A/B không phải holdout mới; CI mô tả không thay thế kiểm chứng cuối và biến thiên giữa seed.
 
+**Tuấn xác nhận (20/11, user chuyển lời; ghi lại trước khi mở `decision.json` của A2r):**
+- **(1) R1 đồng ý.** Chọn setting riêng cho từng model và α trên A, khóa rồi đánh giá B. Chia theo source, Clean/LR2 cùng split, giữ nguyên tie-break đã ghi. Hai endpoint vẫn tham gia lựa chọn trên A. Nếu endpoint thắng thì kết luận "Mix A chưa thắng theo quy tắc đã khóa".
+- **(2) +0,5 pp đồng ý** làm tiêu chí đi tiếp: α\* ở giữa và mean Hmean trên B vượt **cả hai** baseline ít nhất 0,5 pp. Mọi model chạy cùng A100, preprocessing và precision.
+- **(3) Mốc tiny đổi sang tương đối.** Thay mốc tuyệt đối 42% ở bước 5 bằng: recall LR2 <4 px của α\* trên B ≥ recall của B1 trên B − 3 pp. B1 dùng setting đã khóa trên A; cùng split B, cùng A100. Ví dụ của Tuấn: B1 đạt 46% thì model trộn cần ≥43%. Không lấy 45,79% toàn cohort làm chuẩn. **Giữ 3 pp, không chỉnh sau khi xem kết quả.** Mốc 42% chỉ còn được báo để đối chiếu.
+- **Báo cáo phải ghi:**
+  - A/B thuộc development đã dùng trước đây, nên B không phải holdout mới.
+  - +0,5 pp là ngưỡng thực dụng. Báo paired CI của chênh lệch mean Hmean với từng baseline, mỗi lượt bootstrap lấy cùng source cho cả Clean/LR2. CI chứa 0 nghĩa là bằng chứng chưa chắc chắn.
+  - Đạt tiêu chí chỉ có nghĩa là đáng thử tiếp.
+  - Phải kiểm endpoint và chính sách BN khi merge.
+- **Mix B và thân R** bàn riêng, không chặn Mix A.
+- **Lưu ý thứ tự:** Ô 8 trên Colab đã chạy với code cũ (mốc 42%) trước khi quyết định này được đưa vào code. Kết quả chính thức là bản chạy lại `reselect_split` với mốc tương đối. Bản Colab chỉ giữ để đối chiếu.
+
 **Phân biệt hai operating point:** native `.30/.30` được ưu tiên khi hòa điểm; common `.30/.40` vẫn được giữ để đối chiếu EDA và báo cáo. Việc sửa tie-break trong tài liệu không thay số liệu lịch sử.
 
 ### 4.3. Kiểm chứng và đầu ra
@@ -318,7 +330,42 @@ Bảng bàn giao gồm Clean/LR2 P/R/Hmean/FP và recall bốn bin, cho mọi α
 2. Nếu lệch bằng 0: giữ cổng chính xác như đã viết.
 3. Nếu có lệch: **không tự nới cổng**. Báo Tuấn, đề xuất hai hướng: (a) chọn endpoint tham chiếu chạy trên cùng GPU với các α, để so cùng phần cứng; hoặc (b) xin Tuấn chạy merge_audit trên H200. Ghi rõ lựa chọn vào đây trước khi đọc kết quả.
 
+**Kết quả probe ngày 20/11, A100-SXM4-40GB, 40 nguồn** (`results/probe_A100_v1/NOTES.md`):
+- P-map PASS, sai khác 0,0.
+- Cổng 3a: B1 PASS 0/80; B-Clean **FAIL 1/80** (một ô LR2, tp lệch 1).
+- So với NPZ H200 trên 72 setting: 1,6–1,8% ô lệch ±1–3 polygon, `gt` không lệch ô nào, |ΔHmean| lớn nhất 0,15–0,26 pp.
+- Đây là trường hợp 3.
+
+**Quyết định (20/11, user chuyển lời: "Tuấn chọn a"):** chọn **(a), endpoint tham chiếu chạy trên cùng GPU**. Quyết định được ghi lại ở đây trước khi chạy A2r. Cách triển khai là đề xuất của mình, Tuấn chưa duyệt từng chi tiết:
+- A2r chạy đủ 5 model, gồm cả hai endpoint, trong cùng một job trên cùng loại GPU với probe. Mọi so sánh α đều so với endpoint của job đó.
+- `reference_policy = same_gpu_endpoints`. Trạng thái kiểm chứng tính từ hai cổng chính xác, **không nới ngưỡng**:
+  - **P-map endpoint** (≤1e-6, như cũ).
+  - **Cổng tái lập cùng GPU:** counts 11 cột của hai endpoint trong A2r phải trùng **chính xác** counts của probe 40 nguồn chạy ở phiên trước, cùng GPU, cùng code, config và manifest.
+  - Hai cổng đều PASS → `VERIFIED` (theo chính sách same-GPU). Có FAIL → `INVALIDATED`. Thiếu → `PENDING_REFERENCE_CHECK`.
+- Cổng 3a và 3b so với H200 vẫn được tính, nhưng ghi riêng thành `cross_gpu_drift` để báo cáo độ lệch giữa các GPU. Chúng không quyết định trạng thái. Báo cáo phải ghi rõ số A100 không so trực tiếp được với số H200.
+- Mốc tiny 42%, ngưỡng +0,5 pp và R1 vẫn như cũ cho tới khi Tuấn trả lời các điểm còn lại.
+
 Thời gian GPU phải profile trên T4/A100; không suy từ elapsed của job H200 (54308: 01:06:37 cho 3 model).
+
+### 4.4. Sau v1: khám phá, không thay kết luận v1 (user chuyển hướng ngày 20/11)
+
+**Kết luận v1 giữ nguyên:** α\* = B-Clean, Mix A-core v1 chưa thắng theo quy tắc đã khóa (`results/mix_a_v1/`). Lộ trình: (E-sel) phân tích cách chọn trên CPU → nếu còn ứng viên đáng thử thì (E-BN) pilot nhỏ tính lại thống kê BN → sau đó mới cân nhắc thêm module hoặc huấn luyện.
+
+Mục tiêu là tìm thay đổi giúp model tốt hơn **và kiểm chứng được**, không phải làm `continue_mix_a` thành `true`. B đã bị xem, và chia lại chính dữ liệu đó không tạo ra tập kiểm chứng mới. Nếu có hướng triển vọng, **nhóm phải thống nhất vòng xác nhận tiếp theo** trước khi kết luận.
+
+**E-sel: chọn có ràng buộc tiny trên A.** Luật được ghi trước khi chạy:
+1. Mốc tham chiếu `t_ref` = recall LR2 <4 px trên A của B1, tại setting B1 chọn theo R1 trên A.
+2. Một cặp (model, setting) là **khả thi** nếu recall LR2 <4 px trên A ≥ `t_ref` − 3 pp (exact `Fraction`).
+3. Mỗi model: trong các setting khả thi, chọn setting có tổng Hmean Clean+LR2 trên A lớn nhất. Tie-break như R1. Model không có setting khả thi thì bị loại.
+4. α\*: chọn trong các model còn lại, tie-break như R1 (endpoint trước, rồi α lớn hơn).
+5. Báo trên B, nhãn **khám phá**:
+   - Mean Hmean, tiny so với B1 − 3 pp, CI paired so với từng baseline.
+   - Hai baseline: B-Clean ở setting R1 và B1 ở setting có ràng buộc.
+6. Báo thêm **FP ở recall tương đương**, chỉ mô tả: mỗi model, trong các setting có recall LR2 trên A ≥ recall LR2 trên A của B1 (setting R1), lấy setting có ít FP LR2 nhất trên A, rồi báo FP và recall trên B. Lý do: FP giảm có thể chỉ vì model phát hiện ít hơn.
+
+**E-BN: pilot tính lại thống kê BN.** Chỉ thiết kế; **chưa chạy GPU** cho tới khi nhóm duyệt. Thiết kế ở `docs/design_bn_recalibration_pilot.md`.
+- Dữ liệu cập nhật BN phải là ảnh **TRAIN**, không dùng A/B hay TEST.
+- Có đối chứng trước/sau, và endpoint cũng được tính lại BN.
 
 ## 5. Mix B: phần chuẩn bị song song, train có điều kiện
 

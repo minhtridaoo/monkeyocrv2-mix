@@ -10,6 +10,12 @@ FP32 as the original pipeline; progress is checkpointed in chunks so an interrup
 Cross-GPU numerics may change counts: run `--probe` on the target GPU first and read gates.json.
 Never loosen a gate in code; report mismatches (plan section 4.3, hardware note).
 
+Reference policy (plan section 4.3, decision of 20/11 = option a): with
+`--reference-policy same_gpu_endpoints --same-gpu-probe <probe run dir>` the full run must have the
+same identity as that probe (code, config, manifests, GPU model, torch/CUDA/cuDNN; only the source
+subset differs). reselect_split then requires the endpoint counts to equal the probe counts exactly;
+gate 3a/3b against H200 are kept as cross-GPU drift reports.
+
 Outputs (new directory, never overwritten):
   <name>_source_counts.npz   counts [source, cond, setting, 11] = tp, gt, pred, (gt_bi, tp_bi) x 4 bins
   gates.json                 gate 3a (EDA .30/.40, endpoints), P-map endpoint check, status per model
@@ -41,6 +47,29 @@ PMAP_TOLERANCE = 1e-6
 FIELDS = 11
 CONDITIONS = ('clean', 'lr2')
 ROOT_KEYS = ('TextVQA_clean_root', 'prepared_root')
+POLICIES = ('h200_reference', 'same_gpu_endpoints')
+SUBSET_KEYS = ('probe_sources', 'sources_sha256', 'identity_sha256')   # may differ between probe and full run
+
+
+def identity_mismatch(full, probe):
+    """Keys (other than the source subset) whose values differ between a full run and its probe."""
+    keys = (set(full) | set(probe)) - set(SUBSET_KEYS)
+    return sorted(k for k in keys if full.get(k) != probe.get(k))
+
+
+def same_gpu_reference(probe_dir, identity):
+    """Validate a finished probe run as the same-GPU reference; return the reselect_spec block."""
+    probe_dir = Path(probe_dir)
+    require((probe_dir/'gates.json').is_file(), f'{probe_dir}: probe run is not finished (no gates.json)')
+    probe_identity = read_json(probe_dir/'audit_identity.json')
+    require(probe_identity.get('probe_sources'), f'{probe_dir}: not a probe run')
+    diff = identity_mismatch(identity, probe_identity)
+    require(not diff, f'{probe_dir}: probe identity differs from this run in {diff}')
+    npz = {name: str(probe_dir/f'{name}_source_counts.npz') for name in ('B-Clean', 'B1')}
+    for path in npz.values():
+        require(Path(path).is_file(), f'Missing probe counts {path}')
+    return dict(run_gpu=identity['gpu'], reference_gpu=probe_identity['gpu'], probe_dir=str(probe_dir),
+                probe_identity_sha256=probe_identity['identity_sha256'], npz=npz)
 
 
 # ---------------------------------------------------------------- pure helpers (CPU-testable)
@@ -255,6 +284,14 @@ def run(a):
                     gpu=torch.cuda.get_device_name(0), torch=torch.__version__, cuda=torch.version.cuda,
                     cudnn=torch.backends.cudnn.version(), no_test=True, training=False)
     identity_sha = hashlib.sha256(json.dumps(identity, sort_keys=True).encode('utf-8')).hexdigest()
+    require(a.reference_policy in POLICIES, f'Unknown reference policy {a.reference_policy!r}')
+    same_gpu = None
+    if a.reference_policy == 'same_gpu_endpoints':
+        require(not a.probe and a.same_gpu_probe, 'same_gpu_endpoints is for the full run and needs --same-gpu-probe')
+        same_gpu = same_gpu_reference(a.same_gpu_probe, identity)      # fail before any GPU work
+        print(f'Same-GPU reference: {same_gpu["probe_dir"]} ({same_gpu["reference_gpu"]})', flush=True)
+    else:
+        require(not a.same_gpu_probe, '--same-gpu-probe only applies to --reference-policy same_gpu_endpoints')
     save_json(output/'audit_identity.json', dict(identity, identity_sha256=identity_sha))
     source_index = {s: i for i, s in enumerate(sources)}
     eda = load_eda_counts(bundle)
@@ -329,8 +366,12 @@ def run(a):
     counts_dir = bundle/'counts'
     references = {} if a.probe else {'B-Clean': str(counts_dir/'B-Clean_source_counts.npz'),
                                      'B1': str(counts_dir/'B1_source_counts.npz')}
-    save_json(output/'reselect_spec.json', dict(models=spec_models, references=references, checks=checks,
-                                                _note='probe runs carry no gate 3b reference: subset only'))
+    spec = dict(models=spec_models, references=references, checks=checks, reference_policy=a.reference_policy,
+                _note='probe runs carry no gate 3b reference: subset only')
+    if same_gpu:
+        spec['same_gpu'] = same_gpu
+        spec['_note'] = 'same_gpu_endpoints: H200 gate 3a/3b are reported as cross-GPU drift only (plan 4.3)'
+    save_json(output/'reselect_spec.json', spec)
     print(json.dumps(dict(gates=endpoint_status, checks=checks), indent=1))
 
 
@@ -375,6 +416,9 @@ def main():
     run_p.add_argument('--output', required=True, type=Path)
     run_p.add_argument('--probe', type=int, default=0, help='Fixed subset of N sources (0 = all 2,262)')
     run_p.add_argument('--chunk', type=int, default=64, help='Save progress every N tasks')
+    run_p.add_argument('--reference-policy', choices=POLICIES, default='h200_reference',
+                       help='same_gpu_endpoints = plan 4.3 option (a), needs --same-gpu-probe')
+    run_p.add_argument('--same-gpu-probe', type=Path, help='Finished probe run on the same GPU model')
     a = parser.parse_args()
     prepare_lr2(a) if a.command == 'prepare-lr2' else run(a)
 

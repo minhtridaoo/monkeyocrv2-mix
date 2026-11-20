@@ -72,7 +72,7 @@ Quyết định:
 
 ## 4. Chạy đầy đủ (resume được)
 
-Dùng lệnh như bước 3 nhưng bỏ `--probe` và đổi `--output runtime/merge_audit_v1`. Nếu phiên bị ngắt, chạy lại **đúng lệnh cũ**: tiến độ lưu mỗi 64 task (`--chunk`) trong file `.<model>.partial.*`; model nào xong rồi thì được dùng lại. Đổi bất kỳ input nào thì identity đổi, và chương trình từ chối dùng file partial cũ.
+Dùng lệnh như bước 3 nhưng bỏ `--probe`, đổi `--output runtime/merge_audit_v1`, và thêm `--reference-policy same_gpu_endpoints --same-gpu-probe <thư mục probe cùng GPU>`. Đây là phương án (a) ở kế hoạch §4.3, Tuấn chọn ngày 20/11. Identity của job phải trùng probe (chỉ khác tập nguồn), nếu không chương trình dừng trước khi dùng GPU. Trên Colab, dùng Ô 7 của notebook. Nếu phiên bị ngắt, chạy lại **đúng lệnh cũ**: tiến độ lưu mỗi 64 task (`--chunk`) trong file `.<model>.partial.*`; model nào xong rồi thì được dùng lại. Đổi bất kỳ input nào thì identity đổi, và chương trình từ chối dùng file partial cũ.
 
 ## 5. Chọn A→B (CPU)
 
@@ -80,7 +80,7 @@ Dùng lệnh như bước 3 nhưng bỏ `--probe` và đổi `--output runtime/m
 python -m mixab.reselect_split --spec runtime/merge_audit_v1/reselect_spec.json --output results/mix_a_v1
 ```
 
-Spec đã có NPZ của Tuấn làm tham chiếu cho cổng 3b, cùng kết quả 3a/P-map. Trạng thái chỉ thành `VERIFIED` khi cả 3 cổng PASS. Ghi `decision.json` và `NOTES.md` vào `results/`, kèm GPU đã dùng.
+Với `same_gpu_endpoints`, trạng thái tính từ P-map và `gate_same_gpu`: counts 11 cột của hai endpoint phải trùng tuyệt đối với probe cùng GPU. Cổng 3a/3b so với NPZ H200 của Tuấn vẫn được tính nhưng chỉ ghi vào `cross_gpu_drift`. Với `h200_reference` (mặc định cũ), trạng thái chỉ thành `VERIFIED` khi cả 3 cổng PASS. Trên Colab, dùng Ô 8. Ghi `decision.json` và `NOTES.md` vào `results/`, kèm GPU đã dùng.
 
 ## Lưu ý về mốc tiny 42%
 

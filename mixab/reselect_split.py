@@ -14,14 +14,20 @@ R1:
 3. alpha* on A among all alphas at their own A-selected settings. Ties: endpoint before interior
    alpha, then larger alpha.
 4. Lock, then report every model on B. Only the locked alpha* is judged by the continuation rule:
-   interior alpha*, mean Hmean on B >= max(both endpoints) + 0.5 pp, LR2 recall <4 px >= 42 %.
-   These two thresholds are pragmatic pilot thresholds, not proof of improvement.
+   interior alpha*, mean Hmean on B >= max(both endpoints) + 0.5 pp, and LR2 recall <4 px of alpha*
+   on B >= LR2 recall <4 px of B1 on B (at B1's A-locked setting) - 3 pp. Tuan confirmed both on
+   20/11 (plan 4.2); the relative tiny rule replaces the absolute 42 % (still reported, legacy only).
+   These are pragmatic pilot thresholds, not proof of improvement.
 5. Paired source bootstrap on B: 2,000 replicates, seed 20261107, micro metrics recomputed per
    replicate; indices drawn once as in rev4/decision_audit.py.
 
-Verification status (section 4.3): VERIFIED only if gate 3a, the endpoint P-map check and gate 3b
-all PASS; any FAIL -> INVALIDATED; otherwise PENDING_REFERENCE_CHECK. Missing checks are reported
-as not run, never as PASS.
+Verification status (section 4.3): VERIFIED only if every required check PASSes; any FAIL ->
+INVALIDATED; otherwise PENDING_REFERENCE_CHECK. Missing checks are reported as not run, never as PASS.
+Required checks depend on `reference_policy` (decision of 20/11 recorded in section 4.3):
+  h200_reference      gate 3a, endpoint P-map, gate 3b (exact match with Tuan's H200 NPZ)
+  same_gpu_endpoints  endpoint P-map and gate_same_gpu: the 11-column endpoint counts must equal,
+                      exactly, a probe run on the same GPU model in an earlier session. Gate 3a/3b
+                      against H200 are still computed and reported as `cross_gpu_drift` only.
 """
 import argparse
 import csv
@@ -35,10 +41,14 @@ from mixab import read_json, require, save_json, sha256
 STAGE = 'Mix A-core A->B reselection v1'
 BOOTSTRAP_SEED = 20261107
 REPETITIONS = 2000
+FIELDS_MERGE = 11
 MARGIN = Fraction(1, 200)          # 0.5 percentage point
-TINY_MIN = Fraction(42, 100)       # LR2 recall of GT < 4 px
+TINY_MAX_DROP = Fraction(3, 100)   # alpha* LR2 recall <4 px may trail B1 (same split B) by at most 3 pp
+TINY_MIN_LEGACY = Fraction(42, 100)  # former absolute rule; reported only
 BINS = ('lt4', '4to8', '8to16', 'ge16')
 CONDITIONS = ('clean', 'lr2')
+REQUIRED_CHECKS = {'h200_reference': ('gate_3a', 'pmap_endpoint', 'gate_3b'),
+                   'same_gpu_endpoints': ('pmap_endpoint', 'gate_same_gpu')}
 
 
 def split_of(source_id):
@@ -124,11 +134,14 @@ def common_index(settings):
     return hits[0]
 
 
-def compare_reference(model, reference):
-    """Gate 3b: join by (source_id, condition, setting_key); compare the 5 shared columns."""
+def compare_reference(model, reference, columns=5):
+    """Join by (source_id, condition, setting_key) over the reference's sources and compare the first
+    `columns` fields exactly. Gate 3b uses the 5 columns shared with Tuan's audit; gate_same_gpu all 11."""
     model_settings = {setting_key(s): k for k, s in enumerate(model['settings'])}
     model_sources = {s: i for i, s in enumerate(model['source_ids'])}
-    shared = [0, 1, 2, 3, 4]        # tp, gt, pred, gt_b0/tiny_gt, tp_b0/tiny_tp
+    require(model['counts'].shape[-1] >= columns and reference['counts'].shape[-1] >= columns,
+            f'Both count matrices need at least {columns} fields')
+    shared = list(range(columns))   # 5: tp, gt, pred, gt_b0/tiny_gt, tp_b0/tiny_tp
     checked = mismatched = missing = 0
     examples = []
     for ri, source in enumerate(reference['source_ids']):
@@ -141,7 +154,7 @@ def compare_reference(model, reference):
                     missing += 1
                     continue
                 left = model['counts'][mi, c, mk, shared].tolist()
-                right = reference['counts'][ri, c, rk, :5].tolist()
+                right = reference['counts'][ri, c, rk, :columns].tolist()
                 if left != right:
                     mismatched += 1
                     if len(examples) < 5:
@@ -151,8 +164,9 @@ def compare_reference(model, reference):
     return dict(status=status, checked=checked, mismatched=mismatched, missing=missing, examples=examples)
 
 
-def verification_status(checks):
-    values = [checks.get(k, 'NOT_RUN') for k in ('gate_3a', 'pmap_endpoint', 'gate_3b')]
+def verification_status(checks, policy='h200_reference'):
+    require(policy in REQUIRED_CHECKS, f'Unknown reference_policy {policy!r}')
+    values = [checks.get(k, 'NOT_RUN') for k in REQUIRED_CHECKS[policy]]
     if 'FAIL' in values:
         return 'INVALIDATED'
     if all(v == 'PASS' for v in values):
@@ -186,14 +200,23 @@ def bootstrap(candidate, base, b_index, indices):
     return out
 
 
-def run(models, references, checks, output):
-    """models: list of dict(name, alpha (str|None), npz). Endpoints alpha 0 = B-Clean, 1 = B1 required."""
+def run(models, references, checks, output, policy='h200_reference', same_gpu=None):
+    """models: list of dict(name, alpha (str|None), npz). Endpoints alpha 0 = B-Clean, 1 = B1 required.
+
+    policy 'same_gpu_endpoints' needs same_gpu = dict(run_gpu, reference_gpu, npz={'B-Clean': path, 'B1': path}).
+    """
     import numpy as np
 
     output = Path(output)
     names = ['split_manifest.csv', 'selection.json', 'evaluation_B.csv', 'bootstrap_B.json', 'decision.json']
     clash = [n for n in names if (output/n).exists()]
     require(not clash, f'Refusing to overwrite existing outputs in {output}: {clash}')
+    require(policy in REQUIRED_CHECKS, f'Unknown reference_policy {policy!r}')
+    if policy == 'same_gpu_endpoints':
+        require(same_gpu and set(same_gpu.get('npz', {})) == {'B-Clean', 'B1'},
+                'same_gpu_endpoints needs same-GPU probe counts for B-Clean and B1')
+        require(same_gpu.get('run_gpu') and same_gpu.get('run_gpu') == same_gpu.get('reference_gpu'),
+                f'Same-GPU reference ran on {same_gpu.get("reference_gpu")!r}, this run on {same_gpu.get("run_gpu")!r}')
     loaded = []
     for spec in models:
         data = load_counts(spec['npz'])
@@ -254,15 +277,24 @@ def run(models, references, checks, output):
         return selection_value(locked[name][b_index].sum(axis=0))/2
     star_exact = exact_mean_b(star['name'])
     best_exact = max(exact_mean_b(endpoints[e]) for e in (0, 1))
-    tiny_total = locked[star['name']][b_index].sum(axis=0)[1]          # LR2 row, bin 0 = <4 px
-    tiny_exact = Fraction(int(tiny_total[4]), int(tiny_total[3])) if int(tiny_total[3]) else None
+    def tiny_recall_b(name):   # LR2 row, bin 0 (<4 px): columns gt_b0 = 3, tp_b0 = 4
+        total = locked[name][b_index].sum(axis=0)[1]
+        return Fraction(int(total[4]), int(total[3])) if int(total[3]) else None
+    tiny_exact = tiny_recall_b(star['name'])
+    tiny_b1 = tiny_recall_b(endpoints[1])
+    tiny_floor = None if tiny_b1 is None else tiny_b1 - TINY_MAX_DROP
     decision = dict(
         alpha_star=str(alpha_star), alpha_star_model=star['name'], alpha_star_is_endpoint=alpha_star in (0, 1),
         mean_hmean_B_alpha_star=float(star_exact), best_endpoint_mean_hmean_B=float(best_exact),
-        margin_pp=float(MARGIN*100), tiny_threshold=float(TINY_MIN),
+        margin_pp=float(MARGIN*100), tiny_rule='alpha* >= B1 - 3 pp (LR2 recall <4 px, split B, locked settings)',
+        tiny_max_drop_pp=float(TINY_MAX_DROP*100),
         lr2_recall_lt4_alpha_star=None if tiny_exact is None else float(tiny_exact),
+        lr2_recall_lt4_B1=None if tiny_b1 is None else float(tiny_b1),
+        tiny_floor=None if tiny_floor is None else float(tiny_floor),
+        legacy_tiny_42=dict(threshold=float(TINY_MIN_LEGACY), note='superseded on 20/11; reported only',
+                            passes=bool(tiny_exact is not None and tiny_exact >= TINY_MIN_LEGACY)),
         passes_margin=bool(alpha_star not in (0, 1) and star_exact >= best_exact + MARGIN),
-        passes_tiny=bool(tiny_exact is not None and tiny_exact >= TINY_MIN))
+        passes_tiny=bool(tiny_exact is not None and tiny_floor is not None and tiny_exact >= tiny_floor))
     interior = [a for a in by_alpha if a not in (0, 1)]
     decision['mode'] = 'mix_a' if interior else 'baseline_only'
     if interior:
@@ -278,9 +310,20 @@ def run(models, references, checks, output):
     checks = dict(checks)
     if ref_checks:
         checks['gate_3b'] = 'PASS' if all(r['status'] == 'PASS' for r in ref_checks.values()) else 'FAIL'
-    decision['verification'] = verification_status(checks)
-    decision['checks'] = dict(gate_3a=checks.get('gate_3a', 'NOT_RUN'), pmap_endpoint=checks.get('pmap_endpoint', 'NOT_RUN'),
-                              gate_3b=checks.get('gate_3b', 'NOT_RUN'))
+    same_checks = {}
+    if policy == 'same_gpu_endpoints':
+        same_checks = {name: compare_reference(next(m for m in loaded if m['name'] == name), load_counts(path),
+                                               columns=FIELDS_MERGE)
+                       for name, path in same_gpu['npz'].items()}
+        checks['gate_same_gpu'] = 'PASS' if all(r['status'] == 'PASS' for r in same_checks.values()) else 'FAIL'
+    decision['reference_policy'] = policy
+    decision['verification'] = verification_status(checks, policy)
+    decision['checks'] = {k: checks.get(k, 'NOT_RUN') for k in REQUIRED_CHECKS[policy]}
+    if policy == 'same_gpu_endpoints':
+        decision['same_gpu'] = dict(run_gpu=same_gpu['run_gpu'], reference_gpu=same_gpu['reference_gpu'])
+        decision['cross_gpu_drift'] = dict(
+            note='H200 reference comparison; reported only, does not set the verification status',
+            gate_3a=checks.get('gate_3a', 'NOT_RUN'), gate_3b=checks.get('gate_3b', 'NOT_RUN'))
 
     output.mkdir(parents=True, exist_ok=True)
     with (output/'split_manifest.csv').open('w', newline='', encoding='utf-8') as f:
@@ -300,7 +343,7 @@ def run(models, references, checks, output):
                                               comparisons=boot,
                                               caveat='descriptive post-selection CI; single training seed; '
                                                      'remaining-validation already influenced earlier choices'))
-    save_json(output/'decision.json', dict(decision, reference_checks=ref_checks))
+    save_json(output/'decision.json', dict(decision, reference_checks=ref_checks, same_gpu_checks=same_checks))
     return dict(selection=selection, results=results, bootstrap=boot, decision=decision)
 
 
@@ -308,11 +351,14 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--spec', required=True, type=Path,
                         help='JSON: {"models": [{"name", "alpha", "npz"}], "references": {name: npz}, '
-                             '"checks": {"gate_3a": "PASS|FAIL", "pmap_endpoint": "PASS|FAIL"}}')
+                             '"checks": {"gate_3a": "PASS|FAIL", "pmap_endpoint": "PASS|FAIL"}, '
+                             '"reference_policy": "h200_reference|same_gpu_endpoints", '
+                             '"same_gpu": {"run_gpu", "reference_gpu", "npz": {name: npz}}}')
     parser.add_argument('--output', required=True, type=Path)
     a = parser.parse_args()
     spec = read_json(a.spec)
-    out = run(spec['models'], spec.get('references', {}), spec.get('checks', {}), a.output)
+    out = run(spec['models'], spec.get('references', {}), spec.get('checks', {}), a.output,
+              policy=spec.get('reference_policy', 'h200_reference'), same_gpu=spec.get('same_gpu'))
     print(json.dumps(out['decision'], ensure_ascii=True, indent=1))
 
 

@@ -1,0 +1,52 @@
+{
+ "B-Clean": {
+  "sources": 40,
+  "cells": 5760,
+  "mismatched_cells": 104,
+  "mismatched_by_condition": {
+   "clean": 55,
+   "lr2": 49
+  },
+  "sources_with_diff": 13,
+  "max_abs_diff": {
+   "tp": 1,
+   "gt": 0,
+   "pred": 2,
+   "tiny_gt": 0,
+   "tiny_tp": 1
+  },
+  "net_diff": {
+   "tp": -1,
+   "gt": 0,
+   "pred": 2,
+   "tiny_gt": 0,
+   "tiny_tp": 7
+  },
+  "max_abs_delta_hmean_pp": 0.15304010631113085
+ },
+ "B1": {
+  "sources": 40,
+  "cells": 5760,
+  "mismatched_cells": 92,
+  "mismatched_by_condition": {
+   "clean": 61,
+   "lr2": 31
+  },
+  "sources_with_diff": 15,
+  "max_abs_diff": {
+   "tp": 1,
+   "gt": 0,
+   "pred": 3,
+   "tiny_gt": 0,
+   "tiny_tp": 0
+  },
+  "net_diff": {
+   "tp": -20,
+   "gt": 0,
+   "pred": -28,
+   "tiny_gt": 0,
+   "tiny_tp": 0
+  },
+  "max_abs_delta_hmean_pp": 0.26206095394286644
+ }
+}

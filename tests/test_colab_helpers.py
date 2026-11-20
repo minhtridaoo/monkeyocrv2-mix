@@ -4,6 +4,7 @@ from tempfile import TemporaryDirectory
 import hashlib
 import sys
 import unittest
+from unittest.mock import patch
 import zipfile
 
 from mixab import colab_helpers as ch
@@ -15,6 +16,21 @@ CONFIG = (ROOT or Path('.'))/'docs/handoff/inference_config.py'
 
 
 class HelpersTest(unittest.TestCase):
+    def test_cuda_selection_ignores_path_13_and_checks_actual_compiler(self):
+        with TemporaryDirectory() as tmp:
+            roots = [Path(tmp)/name for name in ('default13', 'cuda-12.8', 'actual12')]
+            for root in roots:
+                (root/'bin').mkdir(parents=True)
+                (root/'bin/nvcc').touch()
+                (root/'include').mkdir()
+                (root/'include/cuda.h').touch()
+            versions = dict(zip([str(r/'bin/nvcc') for r in roots], ['13.0', '12.9', '12.8']))
+            with patch.object(ch, 'output_of', side_effect=lambda cmd: 'release ' + versions[str(cmd[0])] + ', V'):
+                self.assertEqual(ch.find_cuda_toolkit([None, *roots]), str(roots[2].resolve()))
+                self.assertIsNone(ch.find_cuda_toolkit(roots[:2]))
+                (roots[2]/'include/cuda.h').unlink()
+                self.assertIsNone(ch.find_cuda_toolkit(roots))
+
     def test_gpu_labels(self):
         self.assertEqual(ch.gpu_label('Tesla T4'), 'T4')
         self.assertEqual(ch.gpu_label('NVIDIA A100-SXM4-40GB'), 'A100-SXM4-40GB')
@@ -99,6 +115,9 @@ class HelpersTest(unittest.TestCase):
                    'B1': dict(tasks=80, mean_seconds_per_task=4.0, peak_gpu_mib=3500)}
         s = ch.summarize_probe(gates, profile)
         self.assertFalse(s['ready_for_full_run'])
+        self.assertTrue(s['ready_for_full_run_same_gpu'])        # 3a vs H200 does not gate option (a)
+        gates['models']['B1']['pmap_endpoint']['status'] = 'FAIL'
+        self.assertFalse(ch.summarize_probe(gates, profile)['ready_for_full_run_same_gpu'])
         self.assertAlmostEqual(s['full_run_estimate_hours'], 3.0*2*2262*5/3600)
         self.assertEqual(s['peak_gpu_mib'], 3500)
         self.assertEqual(s['endpoints'][1]['mismatched_3a'], 2)

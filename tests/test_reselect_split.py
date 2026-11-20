@@ -134,6 +134,26 @@ class EndToEndTest(unittest.TestCase):
             self.assertFalse(d['passes_tiny'])
             self.assertFalse(d['continue_mix_a'])
 
+    def test_tiny_rule_is_relative_to_B1_on_split_B(self):
+        """Tuan 20/11: alpha* tiny recall on B >= B1 tiny recall on B - 3 pp (exact Fractions)."""
+        tp = {'0': lambda s, c, k: 5, '1/2': lambda s, c, k: 8, '1': lambda s, c, k: 5}
+        b_rows = [i for i, s in enumerate(SPLIT) if s == 'B']
+        gt_total = 2*len(b_rows)                      # every source has 2 tiny GT, B1 finds 1 -> 50 %
+        for dropped, expected in ((0, True), (int(gt_total*3/100), True), (int(gt_total*3/100) + 1, False)):
+            with TemporaryDirectory() as tmp:
+                models = self.build(tmp, tp)
+                star = next(m for m in models if m['alpha'] == '1/2')
+                data = rs.load_counts(star['npz'])
+                counts = data['counts'].copy()
+                counts[b_rows[:dropped], 1, :, 4] = 0     # alpha* misses some tiny GT on B (LR2)
+                star['npz'] = save_npz(Path(tmp)/'star.npz', counts)
+                d = rs.run(models, {}, {}, Path(tmp)/'out')['decision']
+                self.assertAlmostEqual(d['lr2_recall_lt4_B1'], .5)
+                self.assertAlmostEqual(d['tiny_floor'], .47)
+                self.assertEqual(d['passes_tiny'], expected, dropped)
+                self.assertEqual(d['continue_mix_a'], expected)
+                self.assertTrue(d['legacy_tiny_42']['passes'])     # reported only
+
     def test_gate_3b_joins_by_key_and_sets_status(self):
         tp = {'0': lambda s, c, k: 5 + k % 2, '1/2': lambda s, c, k: 5, '1': lambda s, c, k: 6 - k % 2}
         with TemporaryDirectory() as tmp:
@@ -159,6 +179,48 @@ class EndToEndTest(unittest.TestCase):
             self.assertEqual(d['checks']['gate_3b'], 'FAIL')
             self.assertEqual(d['verification'], 'INVALIDATED')
             self.assertEqual(read_json(Path(tmp)/'o3/decision.json')['reference_checks']['B1']['mismatched'], 1)
+
+    def test_same_gpu_policy_uses_exact_probe_match_and_reports_h200_as_drift(self):
+        tp = {'0': lambda s, c, k: 5 + k % 2, '1/2': lambda s, c, k: 5, '1': lambda s, c, k: 6 - k % 2}
+        with TemporaryDirectory() as tmp:
+            models = self.build(tmp, tp)
+            probe, h200 = {}, {}
+            for m in models:
+                if m['alpha'] in ('0', '1'):
+                    data = rs.load_counts(m['npz'])
+                    keep = [2, 0]                                  # probe = subset of sources, all 11 fields
+                    probe[m['name']] = save_npz(Path(tmp)/f'probe_{m["name"]}.npz', data['counts'][keep],
+                                                [SOURCES[i] for i in keep], SETTINGS)
+                    drift = data['counts'][..., :5].copy()
+                    drift[0, 0, 0, 2] += 1                          # H200 differs by one prediction
+                    h200[m['name']] = save_npz(Path(tmp)/f'h200_{m["name"]}.npz', drift)
+            same = dict(run_gpu='NVIDIA A100-SXM4-40GB', reference_gpu='NVIDIA A100-SXM4-40GB', npz=probe)
+            checks = dict(gate_3a='FAIL', pmap_endpoint='PASS')
+            d = rs.run(models, h200, checks, Path(tmp)/'s1', policy='same_gpu_endpoints', same_gpu=same)['decision']
+            self.assertEqual(d['verification'], 'VERIFIED')
+            self.assertEqual(d['checks'], dict(pmap_endpoint='PASS', gate_same_gpu='PASS'))
+            self.assertEqual(d['cross_gpu_drift']['gate_3a'], 'FAIL')
+            self.assertEqual(d['cross_gpu_drift']['gate_3b'], 'FAIL')
+            # A difference in a bin column (index 5+) breaks the same-GPU gate: all 11 fields are compared.
+            good = dict(probe)
+            bad = rs.load_counts(probe['B1'])['counts'].copy()
+            bad[1, 1, 3, 7] += 1
+            probe['B1'] = save_npz(Path(tmp)/'probe_bad.npz', bad, [SOURCES[2], SOURCES[0]], SETTINGS)
+            d = rs.run(models, h200, checks, Path(tmp)/'s2', policy='same_gpu_endpoints', same_gpu=same)['decision']
+            self.assertEqual(d['verification'], 'INVALIDATED')
+            self.assertEqual(read_json(Path(tmp)/'s2/decision.json')['same_gpu_checks']['B1']['mismatched'], 1)
+            # P-map not run -> pending; another GPU model -> refused; H200 policy still invalidates on 3a FAIL.
+            d = rs.run(models, h200, {}, Path(tmp)/'s3', policy='same_gpu_endpoints',
+                       same_gpu=dict(same, npz=good))['decision']
+            self.assertEqual(d['verification'], 'PENDING_REFERENCE_CHECK')
+            with self.assertRaises(ValueError):
+                rs.run(models, h200, checks, Path(tmp)/'s4', policy='same_gpu_endpoints',
+                       same_gpu=dict(same, reference_gpu='NVIDIA A100-SXM4-80GB'))
+            with self.assertRaises(ValueError):
+                rs.run(models, h200, checks, Path(tmp)/'s5', policy='same_gpu_endpoints', same_gpu=None)
+            self.assertEqual(rs.verification_status(dict(pmap_endpoint='PASS'), 'same_gpu_endpoints'),
+                             'PENDING_REFERENCE_CHECK')
+            self.assertEqual(rs.run(models, h200, checks, Path(tmp)/'s6')['decision']['verification'], 'INVALIDATED')
 
     def test_endpoints_only_is_baseline_mode_and_not_judged(self):
         tp = {'0': lambda s, c, k: 7, '1': lambda s, c, k: 5}

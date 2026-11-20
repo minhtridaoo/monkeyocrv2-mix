@@ -1,0 +1,52 @@
+{
+ "B-Clean": {
+  "sources": 2262,
+  "cells": 325728,
+  "mismatched_cells": 10260,
+  "mismatched_by_condition": {
+   "clean": 5463,
+   "lr2": 4797
+  },
+  "sources_with_diff": 1135,
+  "max_abs_diff": {
+   "tp": 3,
+   "gt": 0,
+   "pred": 7,
+   "tiny_gt": 0,
+   "tiny_tp": 2
+  },
+  "net_diff": {
+   "tp": -13,
+   "gt": 0,
+   "pred": -121,
+   "tiny_gt": 0,
+   "tiny_tp": 120
+  },
+  "max_abs_delta_hmean_pp": 0.014402609005825795
+ },
+ "B1": {
+  "sources": 2262,
+  "cells": 325728,
+  "mismatched_cells": 11098,
+  "mismatched_by_condition": {
+   "clean": 5561,
+   "lr2": 5537
+  },
+  "sources_with_diff": 1192,
+  "max_abs_diff": {
+   "tp": 4,
+   "gt": 0,
+   "pred": 7,
+   "tiny_gt": 0,
+   "tiny_tp": 3
+  },
+  "net_diff": {
+   "tp": 75,
+   "gt": 0,
+   "pred": 23,
+   "tiny_gt": 0,
+   "tiny_tp": 7
+  },
+  "max_abs_delta_hmean_pp": 0.022549947016015093
+ }
+}

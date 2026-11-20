@@ -110,6 +110,22 @@ def package_version(name, python=sys.executable):
     return output_of([python, '-c', f'import importlib.metadata as m; print(m.version({name!r}))'])
 
 
+def find_cuda_toolkit(candidates, version='12.8'):
+    """Check each actual compiler, rather than trusting PATH or a folder name."""
+    for home in candidates:
+        if not home:
+            continue
+        home = Path(home)
+        compiler = home/'bin/nvcc'
+        if not compiler.is_file():
+            continue
+        output = output_of([compiler, '--version']) or ''
+        match = re.search(r'release (\d+\.\d+)(?:,|\s)', output)
+        if match and match.group(1) == version and (home/'include/cuda.h').is_file():
+            return str(home.resolve())
+    return None
+
+
 def patch_inference_config(text, encoder_dir):
     """Point the two relative encoder paths at an absolute encoder directory. Nothing else changes."""
     encoder_dir = str(encoder_dir).replace('\\', '/')
@@ -195,5 +211,8 @@ def summarize_probe(gates, profile, full_sources=2262, models=5):
     estimate_h = None if per_task is None else per_task*2*full_sources*models/3600
     peak = max((p.get('peak_gpu_mib', 0) for p in profile.values()), default=None)
     ready = all(r['gate_3a'] == 'PASS' and r['pmap'] == 'PASS' for r in rows)
+    # Plan 4.3 option (a): endpoints are re-run on the same GPU, so only the P-map check gates the full run.
+    ready_same_gpu = all(r['pmap'] == 'PASS' for r in rows)
     return dict(endpoints=rows, mean_seconds_per_task=per_task, full_run_estimate_hours=estimate_h,
-                peak_gpu_mib=peak, ready_for_full_run=ready, gpu=gates.get('gpu'))
+                peak_gpu_mib=peak, ready_for_full_run=ready, ready_for_full_run_same_gpu=ready_same_gpu,
+                gpu=gates.get('gpu'))

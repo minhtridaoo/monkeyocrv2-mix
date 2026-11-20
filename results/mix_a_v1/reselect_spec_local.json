@@ -1,0 +1,49 @@
+{
+ "_note": "same_gpu_endpoints: H200 gate 3a/3b are reported as cross-GPU drift only (plan 4.3)",
+ "checks": {
+  "gate_3a": "FAIL",
+  "pmap_endpoint": "PASS"
+ },
+ "models": [
+  {
+   "alpha": "0",
+   "name": "B-Clean",
+   "npz": "H:/My Drive/CS431_MixA/runs/merge_audit_v1_A100-SXM4-40GB/B-Clean_source_counts.npz"
+  },
+  {
+   "alpha": "1/4",
+   "name": "merge_a1_4",
+   "npz": "H:/My Drive/CS431_MixA/runs/merge_audit_v1_A100-SXM4-40GB/merge_a1_4_source_counts.npz"
+  },
+  {
+   "alpha": "1/2",
+   "name": "merge_a1_2",
+   "npz": "H:/My Drive/CS431_MixA/runs/merge_audit_v1_A100-SXM4-40GB/merge_a1_2_source_counts.npz"
+  },
+  {
+   "alpha": "3/4",
+   "name": "merge_a3_4",
+   "npz": "H:/My Drive/CS431_MixA/runs/merge_audit_v1_A100-SXM4-40GB/merge_a3_4_source_counts.npz"
+  },
+  {
+   "alpha": "1",
+   "name": "B1",
+   "npz": "H:/My Drive/CS431_MixA/runs/merge_audit_v1_A100-SXM4-40GB/B1_source_counts.npz"
+  }
+ ],
+ "reference_policy": "same_gpu_endpoints",
+ "references": {
+  "B-Clean": "D:/MINHTRIHOCCODE/HOCKI5/CS431/Đồ án/Monkey v2/MONKEY_V2/docs/handoff/artifacts/pr_quad_audit_v1/counts/B-Clean_source_counts.npz",
+  "B1": "D:/MINHTRIHOCCODE/HOCKI5/CS431/Đồ án/Monkey v2/MONKEY_V2/docs/handoff/artifacts/pr_quad_audit_v1/counts/B1_source_counts.npz"
+ },
+ "same_gpu": {
+  "npz": {
+   "B-Clean": "H:/My Drive/CS431_MixA/runs/merge_audit_probe_v1_A100-SXM4-40GB/B-Clean_source_counts.npz",
+   "B1": "H:/My Drive/CS431_MixA/runs/merge_audit_probe_v1_A100-SXM4-40GB/B1_source_counts.npz"
+  },
+  "probe_dir": "H:/My Drive/CS431_MixA/runs/merge_audit_probe_v1_A100-SXM4-40GB",
+  "probe_identity_sha256": "54079e6e700a43675fc69910a3b0b72354f19879590e2774b8047d6a6c1145a4",
+  "reference_gpu": "NVIDIA A100-SXM4-40GB",
+  "run_gpu": "NVIDIA A100-SXM4-40GB"
+ }
+}

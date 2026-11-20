@@ -1,0 +1,25 @@
+{
+ "endpoints": [
+  {
+   "model": "B-Clean",
+   "gate_3a": "FAIL",
+   "mismatched_3a": 1,
+   "checked_3a": 80,
+   "pmap": "PASS",
+   "pmap_max_abs_diff": 0.0
+  },
+  {
+   "model": "B1",
+   "gate_3a": "PASS",
+   "mismatched_3a": 0,
+   "checked_3a": 80,
+   "pmap": "PASS",
+   "pmap_max_abs_diff": 0.0
+  }
+ ],
+ "mean_seconds_per_task": 0.33490853479999944,
+ "full_run_estimate_hours": 2.1043419603266633,
+ "peak_gpu_mib": 1152.59130859375,
+ "ready_for_full_run": false,
+ "gpu": "NVIDIA A100-SXM4-40GB"
+}

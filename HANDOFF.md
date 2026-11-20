@@ -4,35 +4,41 @@
 
 ## TRẠNG THÁI HIỆN TẠI
 
-- **Cập nhật:** 20/11/2026 (Claude). **Notebook Colab** `notebooks/colab_E1_A2_probe.ipynb` cho E1 (cài môi trường + doctor) và probe A2 đã sẵn sàng. Kèm `mixab/colab_helpers.py`, `scripts/build_colab_notebook.py` (sinh notebook) và `scripts/make_colab_upload.py` (tạo `runtime/colab_upload/mixab_code.zip`, file duy nhất user cần upload lên Drive). **Notebook chưa chạy trên Colab**, nên E1 và A2 vẫn chưa xong. Tin nhắn Tuấn vẫn **chưa gửi**.
-- **Ràng buộc GPU:** user chỉ có **T4 hoặc A100**, không có H200 như Tuấn.
-  - Mọi job phải chạy được với batch 1 FP32, resume được.
-  - Thời gian phải profile trên chính GPU đó.
-  - Cổng 3a/3b so với NPZ chạy trên H200 có thể FAIL chỉ vì khác GPU: chạy probe trước, không tự nới cổng (kế hoạch §4.3).
-- **Nơi đặt code:** `mixab/`, `tests/`, `configs/`, `results/`, `docs/` trong thư mục này. Trọng số và output nặng nằm ở `runtime/` (đã `.gitignore`). MONKEY_V2 chỉ để tham chiếu. Không tự init, push hay submit.
-- **Repo Tuấn:** `main = origin/main = dc19b85` (fetch lúc rạng sáng 20/11, không có commit mới). Mình đã tự chạy `verify_bundle.py --counts --weights`: **PASS**. Hai file export khớp SHA-256.
-- **Test local:** `python -m unittest discover -s tests -t . -v`: **50/50 PASS** (gồm 7 test `colab_helpers`). Chạy lại được từ code giải nén khỏi `mixab_code.zip` (mô phỏng Ô 3.2 của notebook), test chạy trên bundle thật có chạy (không skip).
+- **Mới nhất (20/11, Claude):** user chuyển hướng: giữ kết luận âm v1; khám phá cách chọn trên CPU, rồi mới xét pilot BN. Luật được ghi ở kế hoạch §4.4 trước khi chạy.
+  - **E-sel xong** (`results/explore_sel_v1/NOTES.md`; code `mixab/explore_selection.py`, 5 test). Nhãn **khám phá**.
+    - Chọn có ràng buộc tiny trên A loại B-Clean và α 1/4 (0 setting khả thi); α\* = α 3/4.
+    - Trên B, α 3/4 vẫn **trượt**: +0,23 pp so với B1 (+0,46 so với B-Clean), tiny −3,07 pp.
+    - Ở cùng recall LR2, α 3/4 có **nhiều FP hơn** B1: +7,2% trên A, +6,0% trên B.
+    - Kết luận: đổi cách chọn không tạo ra ứng viên đạt mục tiêu.
+  - **E-BN mới là thiết kế** (`docs/design_bn_recalibration_pilot.md`), chưa có code GPU, chưa chạy.
+    - Sự thật đã kiểm: chỉ 4 lớp BN, đều trong DBHead; inference chỉ dùng 2 lớp `binarize` (MMOCR v1.0.1 mode `predict`); hai endpoint cách nhau 1,9% về trọng số.
+    - **Bị chặn:** manifest TRAIN không có trong repo Tuấn.
+    - Kỳ vọng thấp, nên có Giai đoạn 0 chẩn đoán rẻ để dừng sớm.
+- **Kết luận Mix A-core v1 giữ nguyên:** α\* = B-Clean, chưa thắng theo quy tắc đã khóa. `results/mix_a_v1/` có trạng thái `VERIFIED` (same-GPU A100).
+- **Tuấn đã chốt** (kế hoạch §4.2 và §4.3): phương án (a) cùng A100; R1 và tie-break; +0,5 pp so với cả hai baseline; tiny ≥ B1 − 3 pp trên cùng split B; báo CI paired; B không phải holdout.
+- **Test:** 60/60 PASS.
+- **Nháp tin nhắn Tuấn** `docs/msg_tuan_20261120_mixA_result.md` (kết quả v1) **chưa gửi**. Cần thêm: E-sel, xin manifest TRAIN, xin duyệt thiết kế E-BN.
+- **Ràng buộc:** chỉ T4/A100; MONKEY_V2 chỉ để tham chiếu (bản hiện tại `aa1e17f`, run Mix A v1 ghim `dc19b85`); không submit GPU nếu user chưa bảo.
 
 | Phần mình | Hiện trạng | Còn thiếu |
 |---|---|---|
-| A1 `mixab/weight_merge.py` | **Đã chạy thật** trên B-Clean×B1 export: 5 α vào `runtime/merge_weights_v1/` (423 MB), endpoint giống hệt bản gốc, đọc lại giống hệt, `num_batches_tracked` của hai endpoint bằng nhau | Trên máy GPU phải tạo lại (10 giây) hoặc copy kèm `merge_manifest.json` |
-| A3 `mixab/reselect_split.py` | **Đã chạy trên NPZ thật** (chỉ baseline) → `results/baseline_ab_v1/` + `NOTES.md`; khớp từng số với bảng §0 khi chọn toàn cohort | Chạy lại với 5 α khi có counts từ A2 |
-| A2 `mixab/merge_audit.py` | **Đã viết**: `prepare-lr2`, `run --probe N`, resume theo chunk, cổng 3a/P-map, profile, tự sinh `reselect_spec.json`; phần CPU có test, gồm test trên bundle thật | **Phần GPU chưa chạy lần nào** (local không có MMOCR). Cần user dựng môi trường và chạy probe theo `docs/RUNBOOK_mix_a_T4_A100.md` |
-| A4 | Chưa có | Sau A2 + A3 |
-| Mix B `mixab/fsr.py` | Torch thuần, có test CPU | Thân R, padding, scheduler, tiêu chí chưa chốt; chưa tích hợp MMOCR |
-
-**Phát hiện mới từ baseline A→B (chi tiết ở `results/baseline_ab_v1/NOTES.md`):**
-- Trên A, B1 chọn setting **45** (`epsilon_005`, score .50), không phải 70. Top-4 setting cách nhau ≤ 0,23 pp, tức điểm tối ưu phẳng.
-- **Chính B1 trượt mốc tiny 42% trên B** (37,55% ở setting 45, 39,38% ở setting 70), trong khi trên A là 52,19%. Nguyên nhân: GT <4 px tập trung vào ít ảnh, **5 nguồn chiếm 53% tiny GT của A**.
-- Vì vậy mốc tuyệt đối 42% không ổn định. **Cần Tuấn quyết** có đổi sang mốc tương đối so với B1 trên cùng split hay không. Code chưa đổi.
+| Mix A-core v1 (A1–A4) | Xong, `VERIFIED`; kết quả âm | Hình đường α cho báo cáo R1 |
+| E-sel (khám phá) | Xong; không có ứng viên đạt | — |
+| E-BN (pilot BN) | Thiết kế xong | Manifest TRAIN; nhóm duyệt cổng/ngưỡng/vòng xác nhận; rồi mới code + Colab |
+| A5 Model Stock | Gated | Đề xuất bỏ; chờ Tuấn |
+| Mix B `mixab/fsr.py` | Torch thuần, có test CPU | Thân R/padding chờ Tuấn; train theo §5.1 |
 
 ## BƯỚC TIẾP THEO (theo thứ tự)
 
-1. **User:** chạy `python scripts/make_colab_upload.py`, upload `runtime/colab_upload/mixab_code.zip` lên `MyDrive/CS431_MixA/upload/`, mở `notebooks/colab_E1_A2_probe.ipynb` trên Colab (GPU T4 hoặc A100), rồi chạy Ô 1 → Ô 6. Gửi lại file zip trong `MyDrive/CS431_MixA/export/`.
-2. **User gửi Tuấn** `docs/msg_tuan_20261120.md` (đọc lại và sửa trước). Bốn điểm cần quyết: mốc tiny 42%, xử lý cổng khi khác GPU, xác nhận điểm tối ưu phẳng/R1, thân R và padding cho Mix B. Ghi câu trả lời vào kế hoạch chính.
-3. Nếu probe PASS: chạy đầy đủ (runbook §4) → `reselect_split` (runbook §5) → viết báo cáo Mix A (R1 trong dashboard).
-4. **Song song khi chờ GPU** (Mix B): chỉ sau khi Tuấn chốt thân R/padding mới tích hợp `mixab/fsr.py` vào FPNC/DBHead và viết probe Mix B. Train vẫn theo §5.1.
-5. Model Stock hoãn cho tới khi có báo cáo Mix A-core.
+1. **User gửi Tuấn**, có thể ghép một tin, gồm 4 ý:
+   - (a) kết quả v1 (`docs/msg_tuan_20261120_mixA_result.md`);
+   - (b) tóm tắt E-sel;
+   - (c) xin manifest TRAIN (`manifest__train__textvqa_clean_degraded_same_textocr_word_gt.jsonl`, SHA `ca1b9163…`) hoặc danh sách ID/SHA;
+   - (d) xin duyệt §6–§8 của `docs/design_bn_recalibration_pilot.md`: cổng Giai đoạn 0, ngưỡng "đáng xác nhận", và cách xác nhận (Bước 8 hay tập mới).
+2. **Claude, không cần GPU:** vẽ đường α và hoàn thiện báo cáo Mix A (R1), gồm v1 và phụ lục E-sel.
+3. **Khi có manifest TRAIN và được duyệt:** viết `mixab/bn_recal.py` và test CPU, thêm ô Colab, probe 40 nguồn. Sau đó chạy Giai đoạn 0 (khoảng 15 phút). Chỉ chạy Giai đoạn 1 nếu qua cổng.
+4. **Nếu E-BN dừng ở Giai đoạn 0 hoặc không đạt:** đóng Mix A bằng báo cáo âm; chuyển sang Mix B khi Tuấn chốt thân R.
+5. **R2 bàn giao** trước 24/11; chỉ push khi user báo.
 
 ## ĐIỂM CHỜ XÁC NHẬN
 
@@ -40,8 +46,8 @@
 |---|---|
 | Hướng Mix A trước, Mix B có điều kiện | Tuấn ủng hộ theo tin nhắn user chuyển lại; không suy ra là đã duyệt toàn bộ config |
 | Output version, ngưỡng +0,5 pp, protocol R1 A→B | Cần khóa. README của bundle ghi gói này chưa chạy R1 A→B |
-| **Mốc tiny ≥ 42%** | **Có bằng chứng là không ổn định** (`results/baseline_ab_v1/NOTES.md`); cần quyết lại |
-| **Cổng 3a/3b khi chạy trên T4/A100 thay vì H200** | Chưa có dữ liệu; chờ probe; cách xử lý đề xuất ở §4.3, chưa thống nhất |
+| **Mốc tiny** | **Đã chốt 20/11:** α\* ≥ B1 − 3 pp trên cùng split B (thay 42%) |
+| **Cổng 3a/3b khi chạy trên A100 thay vì H200** | **Đã chốt (a)** ngày 20/11 (user chuyển lời Tuấn). Cách triển khai (P-map + `gate_same_gpu`; H200 → `cross_gpu_drift`) là đề xuất của mình, ghi ở §4.3; Tuấn chưa duyệt chi tiết |
 | Human review Bước 4 | PENDING, 0/160 thẻ có nhãn; review hiện ở `.30/.40` |
 | Mix B: thân R, padding, scheduler, tiêu chí, phân công controls | Chưa thống nhất; giữ init B1 |
 

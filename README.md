@@ -2,7 +2,7 @@
 
 **Sắp xếp tài liệu ngày 19/11/2026.** Thư mục này dùng một kế hoạch chính; các bản khảo sát/review đã thay thế được giữ trong `_archive/` để tra lịch sử.
 
-**Tiến độ mới nhất đã kiểm:** repo Tuấn `dc19b85`, recovery 63985 xong; gói NPZ/GT/EDA và weights B-Clean/B1 đã tải, `verify_bundle.py --counts --weights` PASS. 29/29 test local của mình PASS; review tay 0/160. Claude đọc [HANDOFF.md](HANDOFF.md) rồi §0 kế hoạch để tiếp tục A3 trên NPZ thật và viết A2; không còn chờ B-Clean/NPZ. Chưa có kết quả inference/train Mix A/B.
+**Tiến độ mới nhất đã kiểm (20/11/2026):** [Mix A-core v1](results/mix_a_v1/NOTES.md) đã chạy trên A100 và đạt trạng thái tái lập `VERIFIED` theo chính sách cùng GPU. Quy tắc đã khóa chọn α = 0 (B-Clean), nên Mix A chưa thắng. [Phân tích chọn có ràng buộc tiny](results/explore_sel_v1/NOTES.md) chỉ là khám phá và cũng không tìm được ứng viên đạt mục tiêu. [Pilot BN](docs/design_bn_recalibration_pilot.md) mới ở mức thiết kế, chưa chạy. 60/60 test local PASS. Repo Tuấn hiện ở `aa1e17f`; kết quả Mix A v1 vẫn ghim vào `dc19b85`. Xem [HANDOFF.md](HANDOFF.md) để biết việc tiếp theo.
 
 ## Mở file nào?
 
@@ -12,7 +12,7 @@
 | Tra kết quả B0/B-Clean/B1, EDA và các pilot trước | [Báo cáo kết quả ngày 18/11](MonkeyOCRv2_TextDetection_Progress_Results_Research_Roadmap.md) | Bối cảnh/kết quả lịch sử; phần roadmap trong đó không phải kế hoạch triển khai mới nhất |
 | Tick tiến độ trong trình duyệt | [Dashboard](dashboard/index.html) · [Hướng dẫn](dashboard/PIPELINE.md) | Công cụ theo dõi; không thay tài liệu chính hay artifact kiểm chứng |
 
-**Gửi Tuấn:** chỉ gửi `Ke_hoach_phoi_hop_MixA_MixB_20261119.md`. Gửi thêm báo cáo kết quả nếu cần đối chiếu số liệu; không cần gửi các bản cũ.
+**Gửi Tuấn:** [nháp báo kết quả Mix A v1](docs/msg_tuan_20261120_mixA_result.md) cần user đọc lại trước khi gửi; gửi kèm [kế hoạch chính](Ke_hoach_phoi_hop_MixA_MixB_20261119.md) khi cần đối chiếu quy tắc. Nháp chưa được gửi.
 
 ## Cách cập nhật để không bị lệch phiên bản
 
@@ -31,7 +31,7 @@
 
 Ba bản lưu trữ được di chuyển nguyên nội dung và kiểm tra SHA-256 trước/sau. Không có nội dung nghiên cứu bị xóa vĩnh viễn. Các đường dẫn/trạng thái bên trong chúng là thông tin lịch sử, không phải xác nhận hiện tại.
 
-**Code:** package [mixab/](mixab/) (A1 `weight_merge`, A3 `reselect_split`, Mix B `fsr`) cùng [tests/](tests/). Chạy test: `python -m unittest discover -s tests -t . -v`. Thư mục này sẽ thành repo riêng; MONKEY_V2 của Tuấn chỉ dùng để tham chiếu pipeline.
+**Code:** package [mixab/](mixab/) (A1 `weight_merge`, A2 `merge_audit`, A3 `reselect_split`, E-sel `explore_selection`, Mix B `fsr`) cùng [tests/](tests/). Chạy test: `python -m unittest discover -s tests -t . -v`. Đây là repo riêng; MONKEY_V2 của Tuấn chỉ dùng để tham chiếu pipeline. File trọng số và output lớn ở `runtime/` hoặc Drive, không có trong Git.
 
 **Phiên làm việc:** đọc [HANDOFF.md](HANDOFF.md) (trạng thái hiện tại), ghi nhật ký vào [WORKLOG.md](WORKLOG.md). Quy tắc chung nằm ở `Đồ án/CLAUDE.md`.
 
