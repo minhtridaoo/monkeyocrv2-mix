@@ -2,6 +2,27 @@
 
 Thuộc kế hoạch §4.4. Đây là **thiết kế**: chưa viết code GPU, chưa sửa notebook, chưa chạy gì trên GPU.
 
+## 0. Trạng thái triển khai (cập nhật 20/11)
+
+- **Giai đoạn 0 đã có code và notebook, chưa chạy GPU:**
+  - `mixab/bn_recal.py` có 3 lệnh: `check-train`, `prepare-images`, `stage0`.
+  - `tests/test_bn_recal.py` có 10 test CPU, gồm mô phỏng Colab bị ngắt rồi chạy tiếp ra đúng kết quả.
+  - Notebook riêng `notebooks/colab_bn_pilot_stage0.ipynb`, sinh bằng `scripts/build_bn_notebook.py`. Ô 1–4 chép nguyên từ notebook v1; notebook và kết quả v1 không đổi.
+- **Khác so với bản thiết kế ban đầu:** Giai đoạn 0 **chỉ đo**. Model ở `eval()`, hook đọc đầu vào BN, không đặt `train()`, không ghi buffer, và kiểm SHA `state_dict` trước/sau. Cách tính lại BN ở §4 chỉ dùng cho Giai đoạn 1.
+- **Giai đoạn 1 chưa có code** và chỉ được thêm khi đủ điều kiện ở §6–§8.
+- **Đầu vào TRAIN.** Tuấn xác nhận ngày 20/11: SHA manifest `ca1b9163…c983d`, 15.222 nguồn FULL_R1, nhãn TextOCR, LR2 dùng `native_lr2`. Manifest đầy đủ chưa có bản tải. Dựng lại bằng `rev4/training_data.recover_train` hoặc `rev4/train_recovery.py` cần các file **không có** trong repo:
+  1. metadata job 8323 `/datastore/dungmt/textvqa/Danh/results/nckh_restart_v1/phase_a_full_textvqa_seed42/phase_a_unified_manifest.csv` (SHA `a2f03bb1…`);
+  2. repo cũ chứa `src/monkey_textdet` ở commit `816c6d6aa0cd15de50a13c3ddfa621aed872b623`;
+  3. manifest validation đóng băng 3.262 nguồn (repo chỉ có 2.262 nguồn remaining).
+
+  Annotation TextVQA train (SHA `95f5c407…`) và TextOCR train (SHA `5bac8303…`) là file công khai, nhưng không đủ nếu thiếu 1–3. **Vì vậy không tự dựng lại TRAIN.** Notebook nhận manifest đầy đủ (kiểm đúng SHA), hoặc danh sách ID/đường dẫn/SHA ảnh (ghi `NOT_VERIFIABLE_ID_LIST`).
+- **Giới hạn kiểm trùng:** chỉ kiểm được không trùng với 2.262 nguồn remaining-validation. 1.000 nguồn S1/S2 chưa công bố.
+
+- **Kết quả Giai đoạn 0 (20/11, T4):**
+  - Không có tín hiệu: phi tuyến ≤ 0,005 SD trung bình; α ở giữa có z 0,157–0,159, trong khi mức endpoint là 0,161.
+  - Phát hiện thêm: phương sai đo được bằng khoảng 0,45 lần phương sai đã lưu ở mọi model. Cập nhật BN theo §4 như đang viết (batch 1, `momentum=None`) có thể làm thay đổi đáng kể cả endpoint; chưa biết tốt hay xấu vì chưa chạy. Muốn làm thì phải thiết kế lại §4 (phương sai gộp hoặc batch giống lúc train) như một câu hỏi riêng.
+  - **Chốt 21/11 (user): không mở Giai đoạn 1.** Chi tiết: `results/bn_stage0_v1/NOTES.md`.
+
 ## 1. Giả thuyết và căn cứ
 
 - **Giả thuyết:** bản merge v1 nội suy thống kê BN theo đường thẳng (`merge_manifest.json`: `bn_statistics: interpolated, not re-estimated`). Sau khi trọng số thay đổi, phân bố activation thật có thể lệch khỏi thống kê nội suy. Tính lại thống kê có thể làm P-map của model trộn tốt hơn.

@@ -1,0 +1,39 @@
+{
+ "clean_setting_bclean": "mask_040/score_0.60",
+ "B1 .40/.60 mean ALL": 78.16745171380516,
+ "B1 best-single-setting mean ALL": [
+  78.16745171380516,
+  "mask_040/score_0.60"
+ ],
+ "B1 .40/.60 mean A": 77.95668996085816,
+ "B1 best-single-setting mean A": [
+  78.16621353735145,
+  "epsilon_005/score_0.50"
+ ],
+ "B1 .40/.60 mean B": 78.36826921529388,
+ "B1 best-single-setting mean B": [
+  78.36826921529388,
+  "mask_040/score_0.60"
+ ],
+ "B-Clean .40/.60 mean ALL": 78.1804699527702,
+ "B-Clean best-single-setting mean ALL": [
+  78.1804699527702,
+  "mask_040/score_0.60"
+ ],
+ "Clean B-Clean@mask_040/score_0.60 ALL": 80.85226378469126,
+ "B-Clean .40/.60 mean A": 78.50798765919971,
+ "B-Clean best-single-setting mean A": [
+  78.50798765919971,
+  "mask_040/score_0.60"
+ ],
+ "Clean B-Clean@mask_040/score_0.60 A": 80.5326518259466,
+ "B-Clean .40/.60 mean B": 77.87388924781015,
+ "B-Clean best-single-setting mean B": [
+  77.87388924781015,
+  "mask_040/score_0.60"
+ ],
+ "Clean B-Clean@mask_040/score_0.60 B": 81.15634157890022,
+ "SYSTEM (Clean B-Clean + LR2 CS-B1) mean ALL": 78.96958867912795,
+ "SYSTEM (Clean B-Clean + LR2 CS-B1) mean A": 78.87093198700839,
+ "SYSTEM (Clean B-Clean + LR2 CS-B1) mean B": 79.06321570101599
+}

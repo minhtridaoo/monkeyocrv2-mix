@@ -1,0 +1,20 @@
+{
+ "kernel": "ojanek/cs431-fliptta-pilot-1",
+ "output_zip": "cs431_fliptta_T4_20261123-130454.zip",
+ "output_zip_sha256": "d24f11e3a7d3895bbe21c7512b29e393a0f0b65294cfb48b8439d61e3462264f",
+ "code_manifest_sha256": "bc0835c6d59ea4fc38d395cb68d6dbc07f210d87906ddc6d872c21fb25f35fdf",
+ "code_manifest_match": true,
+ "env": {
+  "pillow": "11.3.0",
+  "db_postprocessor": "9bfff8aa...",
+  "gpu": "Tesla T4, 1 visible",
+  "torch": "2.9.0+cu128",
+  "monkey_v2": "dc19b85 clean"
+ },
+ "sample_equals_locked_manifest": true,
+ "tasks": 600,
+ "hard_check_failures": 0,
+ "local_recompute": "python -m mixab.fliptta evaluate on the downloaded records -> fliptta_result.json and per_source.csv IDENTICAL (23/11)",
+ "note": "Downloads/cs431-fliptta-pilot-1.log is a separate Save-Version run that stopped at cell 1 (dataset not attached); it produced no results and does not affect this output.",
+ "status": "PENDING_REFERENCE_CHECK (T4)"
+}

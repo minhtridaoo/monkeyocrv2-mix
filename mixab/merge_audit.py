@@ -35,7 +35,7 @@ import io
 import json
 import sys
 import time
-from pathlib import Path
+from pathlib import Path, PureWindowsPath
 
 from mixab import read_json, require, save_json, sha256
 
@@ -298,7 +298,7 @@ def run(a):
     gates, profile, spec_models = {}, {}, []
     for model in manifest['models']:
         alpha, name = model['alpha'], model_name(model['alpha'])
-        checkpoint = Path(a.weights_dir)/Path(model['checkpoint']).name
+        checkpoint = Path(a.weights_dir)/PureWindowsPath(model['checkpoint']).name
         require(sha256(checkpoint) == model['checkpoint_sha256'], f'{checkpoint} differs from merge manifest')
         final = output/f'{name}_source_counts.npz'
         record_path = output/f'{name}.model.json'     # written only after counts AND gates are done

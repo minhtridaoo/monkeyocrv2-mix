@@ -10,7 +10,8 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-INCLUDE = ['mixab', 'tests', 'configs', 'scripts', 'docs/RUNBOOK_mix_a_T4_A100.md']
+INCLUDE = ['mixab', 'tests', 'configs', 'scripts', 'docs/RUNBOOK_mix_a_T4_A100.md',
+           'results/diag_v2_cpu/p0_fixed.json']
 OUT = ROOT/'runtime/colab_upload/mixab_code.zip'
 
 

@@ -1,0 +1,301 @@
+{
+ "label": "EXPLORATORY; computed from results/mix_a_v1/evaluation_B.csv (split B, each model at its own R1 setting chosen on A); B already seen",
+ "note": "settings differ between models, so curves mix model and setting effects",
+ "linearity_B": {
+  "clean_hmean": {
+   "0.0": {
+    "value": 0.81156,
+    "above_line_pp": 0.0
+   },
+   "0.25": {
+    "value": 0.80873,
+    "above_line_pp": 0.127
+   },
+   "0.5": {
+    "value": 0.8027,
+    "above_line_pp": -0.067
+   },
+   "0.75": {
+    "value": 0.79989,
+    "above_line_pp": 0.062
+   },
+   "1.0": {
+    "value": 0.79518,
+    "above_line_pp": 0.0
+   }
+  },
+  "clean_recall": {
+   "0.0": {
+    "value": 0.77722,
+    "above_line_pp": 0.0
+   },
+   "0.25": {
+    "value": 0.77943,
+    "above_line_pp": 0.43
+   },
+   "0.5": {
+    "value": 0.77347,
+    "above_line_pp": 0.044
+   },
+   "0.75": {
+    "value": 0.77256,
+    "above_line_pp": 0.163
+   },
+   "1.0": {
+    "value": 0.76884,
+    "above_line_pp": 0.0
+   }
+  },
+  "clean_recall_lt4": {
+   "0.0": {
+    "value": 0.58835,
+    "above_line_pp": 0.0
+   },
+   "0.25": {
+    "value": 0.58951,
+    "above_line_pp": 0.738
+   },
+   "0.5": {
+    "value": 0.55961,
+    "above_line_pp": -1.631
+   },
+   "0.75": {
+    "value": 0.56078,
+    "above_line_pp": -0.893
+   },
+   "1.0": {
+    "value": 0.5635,
+    "above_line_pp": 0.0
+   }
+  },
+  "clean_recall_4to8": {
+   "0.0": {
+    "value": 0.80716,
+    "above_line_pp": 0.0
+   },
+   "0.25": {
+    "value": 0.80949,
+    "above_line_pp": 0.557
+   },
+   "0.5": {
+    "value": 0.79523,
+    "above_line_pp": -0.546
+   },
+   "0.75": {
+    "value": 0.79561,
+    "above_line_pp": -0.185
+   },
+   "1.0": {
+    "value": 0.79422,
+    "above_line_pp": 0.0
+   }
+  },
+  "clean_recall_8to16": {
+   "0.0": {
+    "value": 0.80986,
+    "above_line_pp": 0.0
+   },
+   "0.25": {
+    "value": 0.8113,
+    "above_line_pp": 0.337
+   },
+   "0.5": {
+    "value": 0.80833,
+    "above_line_pp": 0.232
+   },
+   "0.75": {
+    "value": 0.80783,
+    "above_line_pp": 0.373
+   },
+   "1.0": {
+    "value": 0.80217,
+    "above_line_pp": 0.0
+   }
+  },
+  "clean_recall_ge16": {
+   "0.0": {
+    "value": 0.72614,
+    "above_line_pp": 0.0
+   },
+   "0.25": {
+    "value": 0.72964,
+    "above_line_pp": 0.253
+   },
+   "0.5": {
+    "value": 0.74141,
+    "above_line_pp": 1.334
+   },
+   "0.75": {
+    "value": 0.73686,
+    "above_line_pp": 0.784
+   },
+   "1.0": {
+    "value": 0.72998,
+    "above_line_pp": 0.0
+   }
+  },
+  "clean_fp": {
+   "0.0": 5636,
+   "0.25": 6042,
+   "0.5": 6271,
+   "0.75": 6491,
+   "1.0": 6728
+  },
+  "lr2_hmean": {
+   "0.0": {
+    "value": 0.74591,
+    "above_line_pp": 0.0
+   },
+   "0.25": {
+    "value": 0.75807,
+    "above_line_pp": 0.69
+   },
+   "0.5": {
+    "value": 0.76281,
+    "above_line_pp": 0.638
+   },
+   "0.75": {
+    "value": 0.76686,
+    "above_line_pp": 0.517
+   },
+   "1.0": {
+    "value": 0.76694,
+    "above_line_pp": 0.0
+   }
+  },
+  "lr2_recall": {
+   "0.0": {
+    "value": 0.6416,
+    "above_line_pp": 0.0
+   },
+   "0.25": {
+    "value": 0.66567,
+    "above_line_pp": 0.818
+   },
+   "0.5": {
+    "value": 0.68383,
+    "above_line_pp": 1.045
+   },
+   "0.75": {
+    "value": 0.69597,
+    "above_line_pp": 0.67
+   },
+   "1.0": {
+    "value": 0.70516,
+    "above_line_pp": 0.0
+   }
+  },
+  "lr2_recall_lt4": {
+   "0.0": {
+    "value": 0.16078,
+    "above_line_pp": 0.0
+   },
+   "0.25": {
+    "value": 0.21553,
+    "above_line_pp": 0.087
+   },
+   "0.5": {
+    "value": 0.32505,
+    "above_line_pp": 5.65
+   },
+   "0.75": {
+    "value": 0.34563,
+    "above_line_pp": 2.32
+   },
+   "1.0": {
+    "value": 0.37631,
+    "above_line_pp": 0.0
+   }
+  },
+  "lr2_recall_4to8": {
+   "0.0": {
+    "value": 0.61425,
+    "above_line_pp": 0.0
+   },
+   "0.25": {
+    "value": 0.6549,
+    "above_line_pp": 1.744
+   },
+   "0.5": {
+    "value": 0.67119,
+    "above_line_pp": 1.051
+   },
+   "0.75": {
+    "value": 0.69265,
+    "above_line_pp": 0.876
+   },
+   "1.0": {
+    "value": 0.70711,
+    "above_line_pp": 0.0
+   }
+  },
+  "lr2_recall_8to16": {
+   "0.0": {
+    "value": 0.73486,
+    "above_line_pp": 0.0
+   },
+   "0.25": {
+    "value": 0.74551,
+    "above_line_pp": 0.384
+   },
+   "0.5": {
+    "value": 0.75087,
+    "above_line_pp": 0.239
+   },
+   "0.75": {
+    "value": 0.75819,
+    "above_line_pp": 0.29
+   },
+   "1.0": {
+    "value": 0.7621,
+    "above_line_pp": 0.0
+   }
+  },
+  "lr2_recall_ge16": {
+   "0.0": {
+    "value": 0.6864,
+    "above_line_pp": 0.0
+   },
+   "0.25": {
+    "value": 0.69223,
+    "above_line_pp": 0.026
+   },
+   "0.5": {
+    "value": 0.70703,
+    "above_line_pp": 0.95
+   },
+   "0.75": {
+    "value": 0.70714,
+    "above_line_pp": 0.405
+   },
+   "1.0": {
+    "value": 0.70866,
+    "above_line_pp": 0.0
+   }
+  },
+  "lr2_fp": {
+   "0.0": 3211,
+   "0.25": 3694,
+   "0.5": 4451,
+   "0.75": 4861,
+   "1.0": 5456
+  }
+ },
+ "single_mean_hmean_B": {
+  "B-Clean": 0.7787388924781016,
+  "merge_a1_4": 0.7834037753605616,
+  "merge_a1_2": 0.7827529947994888,
+  "merge_a3_4": 0.7833747912084459,
+  "B1": 0.7810582092062456
+ },
+ "condition_oracle_B": {
+  "rule": "B-Clean on Clean tasks, B1 on LR2 tasks, each at its R1 setting (lower bound of per-condition-tuned oracle)",
+  "clean_hmean": 0.8115634157890023,
+  "lr2_hmean": 0.7669381389707156,
+  "mean_hmean": 0.7892507773798589,
+  "clean_fp": 5636,
+  "lr2_fp": 5456,
+  "lr2_recall_lt4": 0.3763106796116505,
+  "gain_vs_best_single_pp": 0.5847002019297332
+ }
+}

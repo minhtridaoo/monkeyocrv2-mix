@@ -1,5 +1,27 @@
 # Kế hoạch phối hợp với Tuấn: pipeline chung và phần mình phụ trách
 
+> Cập nhật 24/11 Codex: hướng mới DỰ KIẾN ở `docs/KE_HOACH_BOX_QUALITY_20261124.md` (với file trong docs, xem cùng thư mục). Chỉ audit và chuẩn bị membership TRAIN; chưa implementation/GPU/kết quả. Không đổi protocol hoặc kết quả cũ. Đọc trạng thái mới nhất trong HANDOFF.
+
+> **CẬP NHẬT PIPELINE 22/11 — ưu tiên hơn các đoạn trạng thái lịch sử 19/11 bên dưới.** Repo Tuấn đã đồng bộ `96612b4`. Mix A của Trí đã chạy xong và chưa thắng; báo cáo ở `docs/report_mix_a_v1.md`. Latent adapter của Tuấn cả 1k/10k chưa hơn B1/control theo tài liệu repo mới. Hướng Tuấn hiện tại là fusion/upsampling trong FPNC: nearest, ASF, bilinear, DySample; mọi arm train FPNC+DBHead, freeze backbone. Code đã commit, chưa xác nhận kết quả job fusion. CRAFT đã screen độc lập (LR2 47,00%; 0 TP bin <4 px), chưa tạo cải tiến Monkey. Trí đang chẩn đoán v2, hướng DualAgree chưa chạy; FSR/Mix B vẫn có điều kiện. Không diễn giải các đoạn “chưa code/chưa chạy” lịch sử phía dưới thành trạng thái hiện tại.
+
+```mermaid
+flowchart TD
+ B["TUẤN: dữ liệu + B0 → B-Clean/B1"] --> A["TUẤN: EDA + PR/quad 72 setting · XONG"]
+ A --> M["TRÍ: Mix A → E-sel/BN · XONG, chưa thắng"]
+ M --> V["TRÍ: CPU P0/P0b · XONG; QRoute thiếu dư địa"]
+ V --> D["TRÍ: DualAgree / SRVerify · ĐỀ XUẤT, chưa chạy"]
+ A --> L["TUẤN: residual/gated 1k + 10k · chưa hơn B1/control"]
+ L --> F["TUẤN: FPNC nearest / ASF / bilinear / DySample · ĐÃ CODE"]
+ F --> S["Kế hoạch: 10k + stress LR4/LR8/Blur/JPEG · chưa có kết quả xác nhận"]
+ A --> C["TUẤN: CRAFT screen · ĐÃ CHẠY; teacher chưa review"]
+ L -.-> R["TRÍ: FSR/Mix B · code CPU, chưa train; cần bàn lại"]
+ D --> E["NHÓM: đối chứng + khóa phương pháp → đánh giá cuối → báo cáo"]
+ S --> E
+ R -.-> E
+```
+
+Nguồn mới: `../../MONKEY_V2/docs/fusion_research_and_generalization.md`; số 10k/CRAFT là kết luận công bố trong repo, chưa được tính lại từ raw artifact local. Review tay vẫn pending. Không đổi protocol hoặc kết quả thí nghiệm cũ.
+
 > **TÀI LIỆU CHÍNH VỀ WORKFLOW:** cập nhật phạm vi, phương pháp và quyết định phối hợp tại file này. Các bản kế hoạch cá nhân/khảo sát cũ đã chuyển vào `_archive/`; dashboard chỉ theo dõi tiến độ. [Danh mục tài liệu](README.md).
 
 **Ngày:** 19/11/2026 · **Phạm vi:** MonkeyOCRv2-based Text Detection, Clean/native LR2.  
@@ -366,6 +388,13 @@ Mục tiêu là tìm thay đổi giúp model tốt hơn **và kiểm chứng đ�
 **E-BN: pilot tính lại thống kê BN.** Chỉ thiết kế; **chưa chạy GPU** cho tới khi nhóm duyệt. Thiết kế ở `docs/design_bn_recalibration_pilot.md`.
 - Dữ liệu cập nhật BN phải là ảnh **TRAIN**, không dùng A/B hay TEST.
 - Có đối chứng trước/sau, và endpoint cũng được tính lại BN.
+
+**Kết quả E-BN Giai đoạn 0 (20/11, Colab T4; `results/bn_stage0_v1/NOTES.md`):**
+- Thống kê BN đo được của α ở giữa gần như bằng nội suy tuyến tính của endpoint (≤ 0,005 SD trung bình).
+- Lệch giữa thống kê đã lưu và đo được của α ở giữa không lớn hơn endpoint, nên cổng đề xuất cho **không có tín hiệu**. Trong cách đo này, chưa thấy sai lệch đáng kể do phép trộn; điều đó không chứng minh BN hiện tại là tối ưu.
+- Có một lệch nền chung (phương sai đo khoảng 0,45 lần phương sai lưu) ở **mọi** model, kể cả endpoint gốc. Nhiều khả năng đây là khác biệt cách đo (trong từng ảnh so với micro-batch lúc train), không tự chứng minh pipeline có lỗi.
+- **Chốt (21/11, user):** không mở Giai đoạn 1, vì bằng chứng chưa đủ để ưu tiên hướng này.
+- **Đóng Mix A-core v1:** hoàn tất một thí nghiệm có kết quả âm, gồm 3 hướng đã kiểm (trộn nguyên bản, đổi cách chọn, chẩn đoán BN), không hướng nào tạo căn cứ đủ mạnh để đi tiếp. Việc đóng v1 **không** có nghĩa bỏ mục tiêu cải tiến. Bước tiếp: hoàn thiện báo cáo, rồi xem hướng latent mới của Tuấn.
 
 ## 5. Mix B: phần chuẩn bị song song, train có điều kiện
 

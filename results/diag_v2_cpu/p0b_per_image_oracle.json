@@ -1,0 +1,45 @@
+{
+ "label": "UPPER BOUND using GT; settings locked on A",
+ "settings": {
+  "bclean": "mask_040/score_0.60",
+  "b1": "epsilon_005/score_0.50"
+ },
+ "A": {
+  "clean": {
+   "hmean": 0.81718257496161,
+   "frac_to_b1": 0.2849557522123894,
+   "frac_identical_counts": 0.3495575221238938,
+   "frac_to_b1_among_nonidentical": 0.4380952380952381,
+   "cond_oracle_hmean": 0.805326518259466
+  },
+  "lr2": {
+   "hmean": 0.8072972067201911,
+   "frac_to_b1": 0.4061946902654867,
+   "frac_identical_counts": 0.33185840707964603,
+   "frac_to_b1_among_nonidentical": 0.6079470198675496,
+   "cond_oracle_hmean": 0.7703201884609487
+  },
+  "mean": 0.8122398908409005,
+  "gain_over_cond_oracle_pp": 2.441653748069317,
+  "gain_over_best_single_pp": 2.7160014248903463
+ },
+ "B": {
+  "clean": {
+   "hmean": 0.8259989235461466,
+   "frac_to_b1": 0.31095406360424027,
+   "frac_identical_counts": 0.3339222614840989,
+   "frac_to_b1_among_nonidentical": 0.46684350132625996,
+   "cond_oracle_hmean": 0.8115634157890023
+  },
+  "lr2": {
+   "hmean": 0.7895110044454141,
+   "frac_to_b1": 0.4558303886925795,
+   "frac_identical_counts": 0.29858657243816256,
+   "frac_to_b1_among_nonidentical": 0.6498740554156172,
+   "cond_oracle_hmean": 0.7669381389707156
+  },
+  "mean": 0.8077549639957804,
+  "gain_over_cond_oracle_pp": 1.8504186615921459,
+  "gain_over_best_single_pp": 2.435118863521879
+ }
+}

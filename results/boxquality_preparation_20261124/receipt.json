@@ -1,0 +1,15 @@
+{
+  "status": "PREPARATION_ONLY_NOT_A_LOCKED_EXPERIMENT",
+  "train_membership_count": 15222,
+  "development_count": 2262,
+  "source_overlap": 0,
+  "proposed_fit_sources": 1600,
+  "proposed_calibration_sources": 400,
+  "train_ids_sha256": "8ac5cbd98db0ffcb67536c6629ed4839ecf8c8e82b927796d0f9208102805f60",
+  "proposal_sha256": "18866ee644ac4f9a0cdc031025d5b848033c09ddaa524f7c412b79ecd5f94910",
+  "images_verified": false,
+  "annotations_verified": false,
+  "model_fitted": false,
+  "gpu_run": false,
+  "note": "Both proposed folds are historical detector TRAIN; calibration is not independent of B1 training. No development pixels or TEST read."
+}

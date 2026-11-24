@@ -3,7 +3,7 @@
 
 **Ngày:** 19/11/2026 · **Vai trò:** Senior reviewer CV · **Đối tượng:** Thành viên mới triển khai phần cải tiến
 **Căn cứ đã đọc:** `MonkeyOCRv2_TextDetection_Progress_Results_Research_Roadmap.md`; repo `Monkey v2/MONKEY_V2` (`handoff.md`, `docs/bclean-and-paired-eda.md`, `docs/handoff/inference_config.py`, `rev4/calibration.py`, `rev4/training_data.py`, `rev4/stage_a.py`, `lowres/inference.py`); `academic-pipeline/references/ai_research_failure_modes.md`.
-**Chưa đọc được:** `D:\MINHTRIHOCCODE\LABB\workspace\h_ng_d_n_th_c_chi_n_quy_tr_nh_nghi_n_c_u_ai_ocr.md` không tồn tại tại đường dẫn đó (và không tìm thấy trong `LABB/`). Tài liệu này không dựa vào file đó.
+**Chưa đọc được:** `D:\MINHTRIHOCCODE\LABB\workspace\h_ng_d_n_th_c_chi_n_quy_tr_nh_nghi_n_c_u_ai_ocr.md` không tồn tại tại đường dẫn đó (và không tìm thấy trong `LABB/` theo tên đó; đính chính 22/11: có file nội dung phù hợp là `LABB/workspace/Step by step research.md`, chưa xác nhận là file thay thế). Tài liệu này không dựa vào file đó.
 
 > **Quy ước:** Mọi số liệu trong tài liệu này lấy từ báo cáo của Tuấn hoặc được tính trực tiếp từ những số đó (ghi rõ công thức). Chưa có thí nghiệm nào trong tài liệu này được chạy. Mọi tác dụng của phương pháp chỉ là **giả thuyết**.
 

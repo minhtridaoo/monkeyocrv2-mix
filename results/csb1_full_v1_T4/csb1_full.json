@@ -1,0 +1,174 @@
+{
+ "label": "CS-B1@0.7 on the full 2,262 remaining-validation sources (LR2 only), development data already seen many times; T4 dump -> PENDING_REFERENCE_CHECK. Hmean from summed counts.",
+ "checks": {
+  "cohort_sources": 2262,
+  "cohort_equals_gt_manifest": true,
+  "records_sources": 2262,
+  "records_unique": true,
+  "records_equal_cohort": true,
+  "a2r_equal_cohort": true,
+  "split_A": 1130,
+  "split_B": 1132,
+  "dump": {
+   "gpu": "Tesla T4",
+   "monkey_v2": "dc19b85c8f73d56dd0510165069597363fe25380",
+   "gt_manifest_sha256": "052857fba8b6cd7c78e48a3dcb53475730d03f2ca9d885b66a4a562eea38872c",
+   "bundle_manifest_sha256": "e06ef54e720b43bcb658fd734291fb1b6e4a08db13a8bd4048f16cfd3a2dc573",
+   "postprocessor_sha256": "9bfff8aaaca103dd08d7565f2b7a5410ab20a6427fe1f0baad5a5d04d207c8b8",
+   "merge_manifest_sha256": "8582c9f37686df42055827fecee81ce716dd96b75d43e3697b671ff5ccbe2468",
+   "model_config_sha256": "3787e60675521cf8dbb91d212daf1a3b094a0d75476e1e5dccbf7d5ff1b52547",
+   "torch": "2.9.0+cu128",
+   "condition": "lr2"
+  },
+  "b1_eps005_rows_equal_72grid_recompute": true,
+  "b1_040_060_a100_full_hmean_pct": 76.90082616437329,
+  "b1_040_060_a100_full_fp": 11999,
+  "note_tuan_published": "Tuan handoff.md:56 B1 .40/.60 LR2 = 76,90%, FP 11.997 (2,262 sources)"
+ },
+ "rows": {
+  "ALL": {
+   "sources": 2262,
+   "csb1": {
+    "tp": 56968,
+    "fp": 12613,
+    "fn": 21253,
+    "gt": 78221,
+    "pred": 69581,
+    "hmean": 0.7708691357356463,
+    "tiny_recall": 0.4377665761923226
+   },
+   "b1_eps005_050": {
+    "tp": 56392,
+    "fp": 12135,
+    "fn": 21829,
+    "gt": 78221,
+    "pred": 68527,
+    "hmean": 0.7685556191566495,
+    "tiny_recall": 0.43175649476541295
+   },
+   "b1_040_060_t4": {
+    "tp": 56361,
+    "fp": 11988,
+    "fn": 21860,
+    "gt": 78221,
+    "pred": 68349,
+    "hmean": 0.7690659753019036,
+    "tiny_recall": 0.4573478092283831
+   },
+   "csb1_minus_b1_eps005": {
+    "delta_pp": 0.23135165789968104,
+    "sources": 2262,
+    "ci95_pp": [
+     0.1509873229269626,
+     0.321811107400273
+    ]
+   },
+   "csb1_minus_b1_040_060": {
+    "delta_pp": 0.18031604337427343,
+    "sources": 2262,
+    "ci95_pp": [
+     -0.21096170415469712,
+     0.5818760964747195
+    ]
+   },
+   "tiny_pp_vs_eps005": 0.6010081426909675,
+   "tiny_pp_vs_040_060": -1.9581233036060464
+  },
+  "A": {
+   "sources": 1130,
+   "csb1": {
+    "tp": 27876,
+    "fp": 6910,
+    "fn": 9547,
+    "gt": 37423,
+    "pred": 34786,
+    "hmean": 0.7720921214807018,
+    "tiny_recall": 0.49477351916376305
+   },
+   "b1_eps005_050": {
+    "tp": 27628,
+    "fp": 6680,
+    "fn": 9795,
+    "gt": 37423,
+    "pred": 34308,
+    "hmean": 0.7703224547266873,
+    "tiny_recall": 0.4878048780487805
+   },
+   "b1_040_060_t4": {
+    "tp": 27577,
+    "fp": 6815,
+    "fn": 9846,
+    "gt": 37423,
+    "pred": 34392,
+    "hmean": 0.7680011139734039,
+    "tiny_recall": 0.5210994967092528
+   },
+   "csb1_minus_b1_eps005": {
+    "delta_pp": 0.1769666754014576,
+    "sources": 1130,
+    "ci95_pp": [
+     0.06499340694116951,
+     0.30384273619044666
+    ]
+   },
+   "csb1_minus_b1_040_060": {
+    "delta_pp": 0.4091007507297961,
+    "sources": 1130,
+    "ci95_pp": [
+     -0.1624262509146701,
+     1.0551277789171123
+    ]
+   },
+   "tiny_pp_vs_eps005": 0.6968641114982577,
+   "tiny_pp_vs_040_060": -2.6325977545489767
+  },
+  "B": {
+   "sources": 1132,
+   "csb1": {
+    "tp": 29092,
+    "fp": 5703,
+    "fn": 11706,
+    "gt": 40798,
+    "pred": 34795,
+    "hmean": 0.7697008982313177,
+    "tiny_recall": 0.38058252427184464
+   },
+   "b1_eps005_050": {
+    "tp": 28764,
+    "fp": 5455,
+    "fn": 12034,
+    "gt": 40798,
+    "pred": 34219,
+    "hmean": 0.76686617699988,
+    "tiny_recall": 0.3755339805825243
+   },
+   "b1_040_060_t4": {
+    "tp": 28784,
+    "fp": 5173,
+    "fn": 12014,
+    "gt": 40798,
+    "pred": 33957,
+    "hmean": 0.770088957260384,
+    "tiny_recall": 0.3933980582524272
+   },
+   "csb1_minus_b1_eps005": {
+    "delta_pp": 0.2834721231437687,
+    "sources": 1132,
+    "ci95_pp": [
+     0.1675375953541286,
+     0.40812096647352575
+    ]
+   },
+   "csb1_minus_b1_040_060": {
+    "delta_pp": -0.038805902906624556,
+    "sources": 1132,
+    "ci95_pp": [
+     -0.5129458991185526,
+     0.4679563739509618
+    ]
+   },
+   "tiny_pp_vs_eps005": 0.504854368932034,
+   "tiny_pp_vs_040_060": -1.281553398058255
+  }
+ }
+}

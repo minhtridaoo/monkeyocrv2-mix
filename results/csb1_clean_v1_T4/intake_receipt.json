@@ -1,0 +1,20 @@
+{
+ "output_zip": "cs431_csb1_clean_T4_20261123-110923.zip",
+ "output_zip_sha256": "c529f1e50e158d29e04ecae74641be88ecbe4ed7bcba5f67c3eccb81484f83c3",
+ "code_manifest_sha256": "f7f5f6996b288c9501e7837c36b52b8a421282cb3a4a24a6fed67ca1749164a9",
+ "code_manifest_match": true,
+ "local_recompute": "python -m mixab.csb1_clean on the downloaded clean dump + local LR2 T4 dump -> JSON IDENTICAL to Kaggle csb1_clean_result.json (23/11)",
+ "clean_dump_sources_sha256_equals_lr2_dump": true,
+ "shards_per_model": 36,
+ "condition": "clean",
+ "images_per_model": 2262,
+ "env": {
+  "pillow": "11.3.0",
+  "db_postprocessor_sha256": "9bfff8aa...",
+  "gpu": "Tesla T4 (GPU 0 only)",
+  "torch": "2.9.0+cu128"
+ },
+ "code_patch_note": "Notebook Ô 3 patched only Path(...).name -> PureWindowsPath(...).name in dualagree.py/merge_audit.py of the working copy (checkpoint_path_compatibility.json).",
+ "test_log": "108 tests OK (skipped=4); the single \"check\": \"FAIL\" in data_T4.log is the expected output of the E-BN leak unit test.",
+ "status": "PENDING_REFERENCE_CHECK (T4)"
+}

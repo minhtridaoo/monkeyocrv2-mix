@@ -1,0 +1,47 @@
+%% Sơ đồ vị trí DualAgree trong pipeline Tuấn + mình (22/11/2026). Đề xuất, chưa triển khai.
+flowchart TB
+  classDef tuan fill:#dbeafe,stroke:#1d4ed8,color:#0b1b3a
+  classDef done fill:#e5e7eb,stroke:#6b7280,color:#111
+  classDef new fill:#fef3c7,stroke:#d97706,color:#3b2200,stroke-width:2px
+  classDef wait fill:#f3e8ff,stroke:#7e22ce,color:#2e1065,stroke-dasharray:5 3
+
+  subgraph T["① HUẤN LUYỆN — phần của Tuấn (giữ nguyên)"]
+    D["Dữ liệu TRAIN<br/>Clean + native LR2"]:::tuan --> B0["B0"]:::tuan
+    B0 --> BC["B-Clean<br/>(chuyên gia Clean)"]:::tuan
+    B0 --> B1["B1<br/>(chuyên gia LR2)"]:::tuan
+    B1 --> LAT["Latent 10k<br/>(đang chờ kết quả)"]:::wait
+  end
+
+  subgraph M["Phần của mình đã làm (đóng)"]
+    MA["Mix A: trộn trọng số B-Clean↔B1<br/>kết quả âm"]:::done
+    QR["QRoute: chọn model theo điều kiện<br/>trên A chỉ +0,27 pp → đối chứng âm"]:::done
+  end
+  BC -.-> MA
+  B1 -.-> MA
+
+  subgraph I["② SUY LUẬN — chỗ DualAgree cắm vào"]
+    X["Ảnh đầu vào"] --> R{"Clean hay LR2?<br/>(trong protocol này: kích thước ảnh)"}
+    R -- "Clean" --> PC["B-Clean → P-map → DBPostprocessor<br/>(như cũ)"]:::tuan
+    R -- "LR2" --> P1["B1 → box + score"]:::tuan
+    R -- "LR2" --> P2["B-Clean → box + score<br/>(forward thứ 2, MỚI)"]:::new
+    P1 --> F["DualAgree gộp box (MỚI)<br/>• cả hai thấy → giữ (WBF)<br/>• chỉ B1 → giữ nếu score ≥ τ_l<br/>• chỉ B-Clean → giữ nếu score ≥ τ_c"]:::new
+    P2 --> F
+  end
+  BC --> PC
+  BC --> P2
+  B1 --> P1
+
+  subgraph E["③ ĐÁNH GIÁ — protocol của Tuấn (giữ nguyên)"]
+    EV["Evaluator + R1: chọn trên A, báo cáo trên B<br/>Cổng: mean ≥ model đơn tốt nhất + 0,5 pp;<br/>tiny ≥ B1 − 3 pp; Clean ≥ B-Clean − 0,3 pp"]:::tuan
+  end
+  PC --> EV
+  F --> EV
+
+  subgraph S["Các bước triển khai DualAgree (chưa bắt đầu)"]
+    S0["0. Tuấn duyệt hệ thống 2 checkpoint"]:::wait --> S1["1. Notebook lưu box + score<br/>(mình viết, test CPU)"]:::new
+    S1 --> S2["2. Chạy GPU một lần trên ảnh LR2 A/B<br/>(user chạy, T4 ~1 h / A100 ~30 ph, ước lượng)"]:::new
+    S2 --> S3["3. Quét τ_l, τ_c, IoU trên A (CPU)"]:::new
+    S3 --> S4{"Trên A: LR2 ≥ B1 + 0,3 pp<br/>và FP cùng recall giảm?"}
+    S4 -- "có" --> S5["Báo cáo trên B + cổng nhóm<br/>(cần LR2 ≈ +0,45 pp để đạt +0,5 mean)"]:::new
+    S4 -- "không" --> S6["Dừng, ghi kết quả âm"]:::done
+  end

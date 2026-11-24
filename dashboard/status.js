@@ -1,11 +1,11 @@
 // Nguồn trạng thái duy nhất của dashboard. Sửa file này (hoặc bấm "Tải status.js" trên dashboard) để cập nhật.
 // status: done | doing | todo | waiting (chờ phụ thuộc) | gated (chỉ mở khi đạt điều kiện) | nogo | skipped
 window.PIPELINE_STATUS = {
-  updated: "2026-11-20 12:00",
+  updated: "2026-11-24",
   deadline: "2026-11-24",
   start: "2026-11-19",
   hoursBudget: 12,
-  youAreHere: "AY",
+  youAreHere: "BQPLAN",
   phases: [
     { id: "P0", title: "Nền tảng (đã có)" },
     { id: "P1", title: "Chẩn đoán · Bước 3–4" },
@@ -14,6 +14,12 @@ window.PIPELINE_STATUS = {
     { id: "P4", title: "Quyết định & báo cáo" }
   ],
   steps: [
+    { id: "BQPLAN", phase: "P4", owner: "me", track: "shared", status: "todo", title: "Đề xuất learned box-quality scoring: kiểm TRAIN/GT", detail: "Kế hoạch 24/11; một forward B1. Đã kiểm source membership 15.222 TRAIN disjoint dev; chưa xác minh ảnh/GT, chưa code/GPU/kết quả. Xem docs/KE_HOACH_BOX_QUALITY_20261124.md.", deps: [] },
+    { id: "T10K", phase: "P4", owner: "tuan", track: "tuan", status: "done", title: "Latent 1k + 10k: chưa hơn B1/control", detail: "Theo docs/fusion_research_and_generalization.md @96612b4 và ảnh Tuấn gửi. Chưa có raw report 10k local để tính lại.", deps: ["T3"] },
+    { id: "TFUS", phase: "P4", owner: "tuan", track: "tuan", status: "done", title: "Fusion FPNC (nearest/ASF/bilinear/DySample): âm",
+      detail: "Recovery 111683 COMPLETED 23/11 [HPC]. LR2 76,94/76,95/76,69/76,94; ASF − nearest +0,014 pp CI [−0,08; 0,11]. Repo b9eaf37 chỉ có biên nhận, chưa có báo cáo số.", deps: ["T10K"] },
+    { id: "TCRAFT", phase: "P1", owner: "tuan", track: "tuan", status: "done", title: "CRAFT standalone screen", detail: "Repo mới báo LR2 Hmean 47,00%; 0 TP bin native LR2 <4px. Chưa là cải tiến Monkey. Teacher 32 thẻ/200 nguồn chưa review ký tự.", deps: ["T3"] },
+
     // Task ID theo kế hoạch chính §2.3 (A1–A4): là mã việc, KHÔNG phải tên checkpoint hay hàng ablation.
     // ---- P0
     { id: "T0", phase: "P0", owner: "tuan", track: "tuan", status: "done", title: "B0 · B-Clean · B1 checkpoints",
@@ -51,8 +57,32 @@ window.PIPELINE_STATUS = {
       detail: "Hoãn tới khi Mix A-core có báo cáo. Sau đó mới xét stats CPU, B0/hash và budget.", deps: ["R1"], est: 0.5, gate: "báo cáo Mix A xong · stats c>0" },
     { id: "AX", phase: "P2", owner: "me", track: "A", status: "done", title: "E-sel · chọn có ràng buộc tiny (khám phá)",
       detail: "Khám phá, không thay kết luận v1. α* = 3/4 nhưng vẫn trượt +0,5 pp và tiny (−3,07 pp); ở cùng recall, α 3/4 nhiều FP hơn B1 (+6–7%). results/explore_sel_v1/NOTES.md.", deps: ["A4"], est: 1, day: "2026-11-20" },
-    { id: "AY", phase: "P2", owner: "me", track: "A", status: "waiting", title: "E-BN · pilot tính lại BN (thiết kế xong)",
-      detail: "docs/design_bn_recalibration_pilot.md. Chỉ 2 lớp BN binarize ảnh hưởng inference. Chờ: manifest TRAIN từ Tuấn + nhóm duyệt cổng/ngưỡng/vòng xác nhận. Chưa code GPU, chưa chạy.", deps: ["AX"], est: 1.5, gpu: true },
+    { id: "AY", phase: "P2", owner: "me", track: "A", status: "done", title: "E-BN · Giai đoạn 0 xong; chốt không mở Giai đoạn 1",
+      detail: "Không thấy sai lệch BN đáng kể riêng do trộn trong cách đo này (α ở giữa ≈ nội suy endpoint; z không lớn hơn endpoint). Chốt 21/11: không mở Giai đoạn 1. Lệch nền 0,45 lần ở mọi model không tự chứng minh pipeline có lỗi. results/bn_stage0_v1/NOTES.md.", deps: ["AX"], est: 1.5, gpu: true },
+    { id: "V2", phase: "P4", owner: "me", track: "A", status: "waiting", title: "Thiết kế v2: chẩn đoán + 3 thiết kế (chờ duyệt)",
+      detail: "docs/research_v2_design_20261121.md (đã vá 22/11 theo review 6 điểm). Chẩn đoán (suy luận, chưa loại trừ BN/hậu xử lý): hai chuyên gia theo điều kiện, trộn xấp xỉ đi dọc đường nối theo Hmean (frontier LR2 mở rộng nhẹ, biên độ chưa đo). Định tuyến theo điều kiện (cận tham chiếu): mean B 78,93, +0,58 pp so với α tốt nhất (khám phá). Chọn QRoute (router size-free) để pilot CPU. P0 sửa lỗi 22/11: oracle điều kiện trên A chỉ +0,27 pp (< +0,5) → QRoute mức điều kiện không đạt cổng. Chờ user quyết định hướng.", deps: ["R1"], est: 2 },
+
+    { id: "CSB1", phase: "P4", owner: "me", track: "A", status: "doing", title: "CS-B1@0.7: dương nhỏ, chưa đạt cổng (đủ 2.262 nguồn LR2)",
+      detail: "So với B1 eps005/.50: +0,23 pp [0,15; 0,32]; so với B1 .40/.60 (đã calibration): +0,18 [−0,21; 0,58]. Luật dừng A trượt (+0,177). Latency 1,99×. Clean chưa đo (notebook kaggle_csb1_clean, tùy chọn). K01–K10 chưa chấm. Không đủ điều kiện TEST. results/csb1_full_v1_T4/", deps: ["V2"], gpu: true },
+    { id: "CSB1L", phase: "P4", owner: "me", track: "A", status: "done", title: "Latency B1 vs CS-B1 trên Kaggle T4: 1,99×",
+      detail: "B1 447 ms, CS-B1 889 ms (median), tỉ số 1,99× [1,98; 2,02]; bộ nhớ 894/991 MiB; box 200/200 khớp dump Colab. results/csb1_latency_v1_T4/latency.json", deps: ["CSB1"], gpu: true },
+    { id: "CSB1R", phase: "P4", owner: "me", track: "A", status: "waiting", title: "Chấm 80 thẻ (10 hiệu chuẩn trước)",
+      detail: "results/phase0/review: K01–K10 (B, hiệu chuẩn) đã gửi kèm HUONG_DAN_CHAM.md; C01–C70 (A) đã tạo và khóa, gửi sau khi thống nhất cách chấm.", deps: ["CSB1"] },
+
+    { id: "MSB1", phase: "P4", owner: "me", track: "A", status: "nogo", title: "MSB1 (Mask-Split B1) · pilot CPU: âm",
+      detail: "Spec khóa trước. Oracle +1,67 pp; luật khóa A +0,224 pp CI [−0,40; 0,81] → trượt cổng +0,3. Tiny +5,3 pp; +641 TP/+810 FP. Một ảnh chữ dày thiếu nhãn (10 GT, 1.796 box B1) chi phối. B mô tả +0,69. Không chạy GPU Clean. docs/msb1_result_20261122.md", deps: ["CSB1"] },
+
+    { id: "ZB1", phase: "P4", owner: "me", track: "A", status: "nogo", title: "ZB1 zoom cục bộ · pilot Kaggle: âm, dừng",
+      detail: "G2 LR2 −3,01 pp [−6,39; 0,66], Clean −3,65; tiny +10,8 pp nhưng FP +1.566 so với TP +323. Mọi arm âm. Bỏ ảnh trang báo (mô tả) vẫn −0,40/−1,59. Ảnh trang báo: 10 GT, 0 ignore, 26,8% FP của B1 trên A. docs/zoom_pilot_result_20261123.md", deps: ["MSB1"], gpu: true },
+
+    { id: "CSB1C", phase: "P4", owner: "me", track: "A", status: "done", title: "Bổ sung Clean cho CS-B1: đã chạy (Kaggle T4), Clean thấp hơn B-Clean ~1 pp",
+      detail: "ALL 2.262: Clean CS-B1 79,82 so với B1 .40/.60 79,44 (+0,39 [0,01; 0,81]) và B-Clean 80,84 (−1,02 [−1,76; −0,49]). Mean không định tuyến +0,28 so với model đơn tốt nhất; trên A −0,18. Cổng nhóm A (mô tả): mean và Clean không đạt, tiny đạt. Muốn giữ Clean cần router. Tính lại local trùng tuyệt đối. docs/csb1_clean_result_20261123.md", deps: ["CSB1"], gpu: true },
+    { id: "XVB1", phase: "P4", owner: "me", track: "A", status: "nogo", title: "XV-B1 · ablation cùng họ DualAgree v1 · pilot CPU trên A: POSITIVE_BELOW_GATE (luật tự nó âm)",
+      detail: "Không phải phương pháp độc lập (nhánh B1+agree của DualAgree v1, thêm miễn trừ box < 8 px). A: +0,153 pp [−0,46; +0,80] so với B1 .40/.60 nhưng −0,079 [−0,14; −0,02] so với cha eps005/.50; xóa 356 box, TP bị xóa 128 / FP bị xóa 131; tiny −3,33 (kế thừa từ cha) → trượt c1, c2. Clean chưa đánh giá. Không ghép CS-B1, không mở B. docs/xvb1_result_20261123.md", deps: ["CSB1"] },
+    { id: "FLIP", phase: "P4", owner: "me", track: "A", status: "done", title: "Flip-TTA trên P-map (B1) · pilot Kaggle 300 nguồn A: INCONCLUSIVE",
+      detail: "Căn chỉnh đạt 600/600 (IoU 0,85 so với đối chứng 0,03). LR2 +0,27 pp [−0,16; 0,66], Clean +0,21 [−0,22; 0,68]; FP −8%, TP −22/−36, tiny LR2 −1,18. Latency 1,95× (476 → 903 ms). Trượt c1 (dưới +0,3, CI chứa 0). Tính lại local trùng tuyệt đối. Không tự mở rộng mẫu. docs/fliptta_result_20261123.md", deps: ["CSB1C"], gpu: true },
+    { id: "FLIPD", phase: "P4", owner: "me", track: "A", status: "waiting", title: "Chẩn đoán Flip-TTA (CPU): phần lớn = nâng ngưỡng → khuyến nghị dừng, chờ user",
+      detail: "So với F nâng ngưỡng: Clean +0,004 pp, LR2 +0,19 [−0,23; 0,58]. GT mất/thêm LR2 171/149 (churn IoU sát 0,5); lệch do score 57/29. Cận trên +0,40/+0,31 so với T0. B (đồng thuận vùng bất định) cần chẩn đoán P-map trước; chưa chuẩn bị notebook. docs/fliptta_diagnosis_plan_20261123.md", deps: ["FLIP"] },
 
     // ---- P3: Mix B (chuẩn bị song song, train có điều kiện, có thể dời sau 24/11)
     { id: "B1", phase: "P3", owner: "me", track: "B", status: "doing", title: "Chuẩn bị FSR + gate-only (code)",
@@ -67,8 +97,8 @@ window.PIPELINE_STATUS = {
     // ---- P4
     { id: "T6", phase: "P4", owner: "me", track: "shared", status: "waiting", title: "Thống nhất có làm residual R và phân công",
       detail: "Điểm phối hợp của nhóm, không phải việc đã giao Tuấn. R và các nhánh Head-control/Residual/Residual+KD mới là đề xuất có điều kiện trong workflow. Cần xác nhận có chọn hướng feature, kiến trúc và người code/chạy trước khi tích hợp Mix B.", deps: ["T4"] },
-    { id: "R1", phase: "P4", owner: "me", track: "shared", status: "doing", title: "Báo cáo Mix A (kể cả kết quả âm)",
-      detail: "NOTES.md đã có bảng, CI, kiểm chứng và giới hạn. Còn: hình đường α, bản báo cáo gửi Tuấn (docs/msg_tuan_20261120_mixA_result.md, nháp, chưa gửi).", deps: ["A4"], est: 1, day: "2026-11-23" },
+    { id: "R1", phase: "P4", owner: "me", track: "shared", status: "done", title: "Báo cáo Mix A v1 (kết quả âm) · xong",
+      detail: "docs/report_mix_a_v1.md: v1 (α* = B-Clean, chưa vượt baseline theo tiêu chí đã khóa) + E-sel + E-BN-0, hình alpha_curve_B.png. Nháp tin nhắn Tuấn chưa gửi.", deps: ["A4"], est: 1, day: "2026-11-23" },
     { id: "R2", phase: "P4", owner: "me", track: "shared", status: "todo", title: "Bàn giao cho Tuấn (24/11)",
       detail: "Code/config/test trên branch, lệnh HPC, manifest/hash, bảng/đồ thị/CI, đề xuất bước tiếp.", deps: ["R1"], est: 1, day: "2026-11-24" },
     { id: "T8", phase: "P4", owner: "tuan", track: "tuan", status: "todo", title: "Bước 8 · seed + đánh giá cuối",
@@ -90,6 +120,38 @@ window.PIPELINE_STATUS = {
     { day: "2026-11-21", lane: "tuan", track: "tuan", label: "T4 taxonomy + review", span: 3 }
   ],
   log: [
+    { at: "2026-11-24", text: "Codex audit code và đề xuất learned box-quality scoring; source TRAIN kiểm disjoint dev, chưa GPU hoặc mức tăng. Ưu tiên data/label feasibility." },
+    { at: "2026-11-23", text: "Chẩn đoán Flip-TTA trên artifact có sẵn (CPU): evaluator chính thức khớp 1.200/1.200; T gần như tương đương F nâng ngưỡng (Clean +0,004, LR2 +0,19 CI chứa 0); churn lớn quanh IoU 0,5; khuyến nghị dừng, chỉ làm tiếp nếu user duyệt chẩn đoán P-map." },
+    { at: "2026-11-23", text: "Tiếp nhận Flip-TTA (kernel cs431-fliptta-pilot-1): manifest/env/mẫu đạt, căn chỉnh đạt 600/600, F LR2 khớp dump 300/300, tính lại local trùng. LR2 +0,27 [−0,16; 0,66], Clean +0,21 [−0,22; 0,68], FP −8%, latency 1,95× → nhãn INCONCLUSIVE. Không mở rộng mẫu khi chưa có quyết định." },
+    { at: "2026-11-23", text: "Tiếp nhận Clean CS-B1 (Kaggle T4, zip 23/11 19:09): kiểm manifest/env/36 shard/2.262 nguồn đạt; tính lại local trùng tuyệt đối. Clean: CS-B1 79,82 so với B1 .40/.60 79,44 (+0,39 [0,01; 0,81]), B-Clean 80,84 (−1,02). Mean không định tuyến +0,28 (ALL), −0,18 (A). Cổng nhóm A không đạt. Không chỉnh cấu hình." },
+    { at: "2026-11-23", text: "XV-B1 (ablation cùng họ DualAgree v1): spec khóa, code, 6 test; pilot CPU trên A: +0,153 pp [−0,46; 0,80] so với .40/.60 nhưng −0,079 pp so với cha eps005/.50 (xóa 128 TP / 131 FP); tiny −3,33 → POSITIVE_BELOW_GATE, dừng. Chuẩn bị Flip-TTA: spec, mixab/fliptta.py, notebook + dataset 337 MiB, test 124/124 PASS; chưa chạy GPU." },
+    { at: "2026-11-23", text: "Bàn giao session mới (docs/SESSION_START_20261123.md). CS-B1: đủ 2.262 LR2, chưa đạt cổng; Clean chờ user chạy. Đề xuất hướng thứ hai XV-B1 (chưa làm). Không còn tập chưa dùng để chọn phương án." },
+    { at: "2026-11-23", text: "Drive H: mount lại → dựng lại dataset cs431-csb1-clean (939 MiB, có sẵn 2.262 ảnh Clean; tải ảnh chính thức chỉ là dự phòng). Notebook kaggle_csb1_clean chưa chạy. 108/108 test PASS." },
+    { at: "2026-11-23", text: "Rà soát CS-B1 trên đủ 2.262 nguồn: +0,23 pp so với nền eps005 (CI > 0), +0,18 [−0,21; 0,58] so với B1 .40/.60 → chưa đạt cổng. Sửa roadmap (4 mức kết quả, calibration có vượt B1 ngưỡng cũ, bỏ TEST cho CS-B1). Notebook bổ sung Clean (tùy chọn). Tin dự thảo cho Tuấn." },
+    { at: "2026-11-23", text: "Fetch MONKEY_V2 → b9eaf37 (recovery fusion 111683, chỉ biên nhận). Roadmap toàn bộ: docs/ROADMAP_toan_bo_20261123.md. Chưa có phương án nào của Trí đạt cổng; CS-B1 dương nhỏ. Đề xuất: EDSR ×2 ở .60 + Clean, khóa CS-B1 cho TEST, hỏi thầy tiêu chí cải tiến." },
+    { at: "2026-11-23", text: "Đọc kết quả Kaggle. Zoom ZB1: G2 LR2 −3,01 pp, Clean −3,65 → trượt cổng, dừng nhánh (tiny +10,8 pp nhưng FP tăng mạnh trên chữ thiếu nhãn). Latency CS-B1 = 1,99× B1. Ảnh trang báo: 10 GT, 0 ignore, 26,8% FP của B1 trên A." },
+    { at: "2026-11-22", text: "Chuẩn bị pilot ZB1 (zoom cục bộ bằng B1, không train): spec khóa trước, mixab/zoom.py, notebook và dataset Kaggle 336 MiB, gom bước kiểm trang báo. Chưa chạy. 107/107 test PASS. Từ nay phần nặng chạy trên Kaggle." },
+    { at: "2026-11-22", text: "Pilot CPU MSB1 (tách box gộp bằng B1 mask .4, 1 model): oracle +1,67 pp nhưng luật khóa trên A chỉ +0,224 pp [−0,40; 0,81] → âm theo cổng. Tiny +5,3 pp; một ảnh chữ dày thiếu nhãn chi phối FP. Không chạy GPU." },
+    { at: "2026-11-22", text: "Tư vấn (không đổi kế hoạch): Hướng 2A unclip/min_width không nên ưu tiên. 85% GT được CS-B1 cứu là chữ bị gộp ở mask .3 (mask .4 tách được); min_width 3/7 không thêm GT nào có thể đạt; unclip chỉ ≈1,3% FN. Đính chính: dump đủ để chọn unclip/width theo box quanh base." },
+    { at: "2026-11-22", text: "Phase 0 CS-B1: CPU xong (kiểm T4/A100: Δ bỏ nguồn lệch +0,127 pp; top 10 nguồn = 66,6% lợi ích; θ .7 âm → A không đạt, D đạt 2 điều kiện, chưa chốt). Tạo 80 thẻ (gửi trước 10 thẻ hiệu chuẩn), notebook + dataset Kaggle đo latency (chưa chạy). 96/96 test PASS." },
+    { at: "2026-11-22", text: "Cập nhật tiến độ đầu phiên mới: MONKEY_V2 không có commit mới (677b811); Ô 8 latency và Phase 0 CS-B1 vẫn chưa chạy; thêm bước CSB1 vào dashboard. Chờ user duyệt Phase 0, còn 2 ngày tới hạn 24/11." },
+    { at: "2026-11-22", text: "Đặt tên ứng viên CS-B1 (Clean-Supplemented B1, cấu hình CS-B1@0.7). Viết kế hoạch Phase 0 (docs/phase0_csb1_plan_20261122.md), chưa chạy. Tuấn 677b811: latent 10k âm, fusion đang chạy. Ô 8 latency chưa chạy." },
+    { at: "2026-11-22", text: "Tuấn OK 2 checkpoint (user chuyển lời). T4 tái lập tuyệt đối 720/720 mục. Thêm lệnh latency + Ô 8 notebook (chưa chạy), 84/84 test PASS. Chờ user chạy Ô 1–4, Ô 8 trên T4." },
+    { at: "2026-11-22", text: "Kết quả T4: DualAgree v1 và ngưỡng kích thước đều không đạt luật khóa trước (tiny tụt). Khám phá: B1 + box chỉ B-Clean (≥.7) LR2 +0,18 pp A [0,07;0,30], +0,28 pp B [0,17;0,41], tiny giữ. PENDING_REFERENCE_CHECK (T4)." },
+    { at: "2026-11-22", text: "User chạy dump trên T4 (probe lệch GPU 1,9% ô → PENDING_REFERENCE_CHECK). Dump đủ cho ngưỡng theo kích thước B1 trên LR2 (thiếu Clean). Viết mixab/sizethr.py + 4 test, 82/82 PASS; chạy thử trên probe thật OK." },
+    { at: "2026-11-22", text: "Đọc đề xuất S-ACV/SA-DB/ROI-Focus của user: số liệu chính khớp repo Tuấn; Hướng 1 ≈ DualAgree + phân tầng kích thước, Pha 2A làm được từ cùng dump. Chờ user chạy notebook." },
+    { at: "2026-11-22", text: "DualAgree v1: code (dump GPU + phân tích CPU dùng CandidateMatcher của Tuấn) + 8 test, 78/78 PASS; notebook colab_dualagree_v1 sẵn sàng, chưa chạy GPU. Chờ user chạy trên A100 (~32 phút ước lượng)." },
+    { at: "2026-11-22", text: "Codex fetch + ff 96612b4: sửa trạng thái latent 10k đã có kết luận âm theo repo; bổ sung CRAFT đã screen và hướng FPNC fusion mới (đã code, chưa xác nhận kết quả). Lịch sử bên dưới giữ nguyên." },
+    { at: "2026-11-22", text: "P0b (CPU): trần router từng ảnh trên A +2,72 pp; so đối chứng may mắn (≤1,05 pp) thì bổ sung thật chỉ ở LR2 (+3,70), không ở Clean (+1,19). Hướng nghiêng về kết hợp trong ảnh LR2 (Thiết kế 2); cần 1 lần GPU lưu box+score. Chờ user chọn." },
+    { at: "2026-11-22", text: "Sửa tài liệu v2 theo review 6 điểm + P0 sửa lỗi (17 chỗ, đánh dấu [22/11]): thêm E13–E16, mềm hóa câu quá mạnh, sửa logic kích thước, balanced accuracy thành chẩn đoán, ghi biên trên A (+0,27 pp). Ngưỡng +0,5/−3/−0,3 pp không đổi; Tuấn chưa duyệt. Chưa làm Bước 5.5, tách gap." },
+    { at: "2026-11-22", text: "Kiểm review 6 điểm: đúng cả 6. Sửa rò nhãn P0 (một setting mỗi expert): số gần như không đổi. Mới: trên A oracle điều kiện chỉ +0,27 pp so với B-Clean (< +0,5) → QRoute mức điều kiện không đạt cổng kể cả router hoàn hảo. Chờ user quyết định; chưa sửa tài liệu v2." },
+    { at: "2026-11-22", text: "Sửa đính chính lần 2: Step by step research.md có nội dung phù hợp nhưng CHƯA xác nhận là khung master prompt trỏ tới. Đối chiếu v2: thiếu Bước 5.5, Bước 4 chỉ dựa counts. Đã đọc đủ và áp dụng brainstorming-research-ideas; skill khác mới xác nhận có cài. Chi tiết docs/audit_v2_vs_framework_20261122.md. Không đổi số liệu." },
+    { at: "2026-11-22", text: "Đính chính: khung thực chiến có tồn tại (LABB/workspace/Step by step research.md); research-ideation/model-architecture/mechanistic-interpretability là tên nhóm, skill con có sẵn. Đã sửa HANDOFF, WORKLOG, tài liệu v2, _archive. Chưa đối chiếu thiết kế v2 với khung." },
+    { at: "2026-11-22", text: "Fetch MONKEY_V2: không có commit mới (ae947e9). Drive mount lại → chạy P0 (CPU): router kích thước = oracle điều kiện (mean B 78,93), xác nhận shortcut kích thước; Q1: α mở rộng nhẹ frontier LR2 (13–17/72 setting không bị áp đảo). 70/70 test PASS. Chờ trả lời 4 câu hỏi §3." },
+    { at: "2026-11-21", text: "Chẩn đoán Mix A v1 + research gap + 3 thiết kế v2 (QRoute, DualAgree, SRVerify); chọn QRoute pilot CPU; chờ duyệt. Chưa code, chưa GPU." },
+    { at: "2026-11-21", text: "Chốt không mở Giai đoạn 1 của pilot BN; sửa câu chữ theo mức bằng chứng; báo cáo Mix A v1 (kết quả âm) + hình đường α. Chờ kết quả latent 10k của Tuấn." },
+    { at: "2026-11-20", text: "E-BN Giai đoạn 0 (T4): không có tín hiệu lệch BN do trộn; đề xuất dừng E-BN và đóng Mix A bằng báo cáo âm." },
+    { at: "2026-11-20", text: "Pilot BN Giai đoạn 0: code, 10 test CPU và notebook riêng xong; chưa chạy GPU; chờ file TRAIN từ Tuấn. 70/70 test PASS." },
     { at: "2026-11-20", text: "Rà soát để đồng bộ Git: Mix A-core v1 đã VERIFIED theo cùng GPU nhưng không thắng; E-sel chỉ là khám phá. 60/60 test PASS. Repo tham chiếu Tuấn đã fast-forward tới aa1e17f; run v1 vẫn ghim dc19b85. Output lớn không nằm trong Git." },
     { at: "2026-11-20", text: "E-sel (khám phá): chọn có ràng buộc tiny không cho ứng viên đạt; FP ở cùng recall không tốt hơn B1. Thiết kế pilot BN xong, chờ manifest TRAIN + duyệt. 60/60 test PASS." },
     { at: "2026-11-20", text: "A2r xong trên A100 (VERIFIED, same-GPU). Tuấn chốt R1, +0,5 pp, tiny ≥ B1 − 3 pp. α* = B-Clean: Mix A chưa thắng theo quy tắc đã khóa. 55/55 test PASS." },

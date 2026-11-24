@@ -1,0 +1,14 @@
+{
+ "B-Clean": {
+  "shared_images": 40,
+  "entries": 360,
+  "identical_entries": 360,
+  "examples": []
+ },
+ "B1": {
+  "shared_images": 40,
+  "entries": 360,
+  "identical_entries": 360,
+  "examples": []
+ }
+}

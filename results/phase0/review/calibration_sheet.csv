@@ -1,0 +1,11 @@
+﻿card_id,group,label_set,human_label,confidence,reviewer,notes
+K01,F,F,,,,
+K02,F,F,,,,
+K03,F,F,,,,
+K04,S,S_TP,,,,
+K05,S,S_FP,,,,
+K06,S,S_FP,,,,
+K07,T,T,,,,
+K08,T,T,,,,
+K09,T,T,,,,
+K10,T,T,,,,
