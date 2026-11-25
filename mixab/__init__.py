@@ -2,7 +2,7 @@
 
 This package lives in the member's own workspace/repo. Tuấn's MONKEY_V2 repository is only a
 pipeline reference: CPU tools here are self-contained, and anything that must reuse MONKEY_V2 code
-(inference, evaluator, quad grid) imports it through `mixab.monkey` with its commit recorded.
+(inference, evaluator, quad grid) imports it through `mixab.monkey_janek` with its commit recorded.
 """
 import hashlib
 import json

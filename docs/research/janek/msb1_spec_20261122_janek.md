@@ -1,0 +1,72 @@
+# Spec khóa trước · MSB1 (Mask-Split B1) · pilot CPU (22/11/2026)
+
+> Viết và khóa **trước khi** chạy bất kỳ con số nào của luật này. Sau khi chạy, mọi chỗ sửa spec phải ghi riêng ở cuối file, kèm lý do và thời điểm.
+> **Nguồn gốc ý tưởng:** hình thành **sau khi xem Phase 0 trên A**. Phase 0 cho thấy 212/248 GT được CS-B1 cứu nằm trong một box B1 phủ từ 2 GT trở lên, và B1 ở `mask_040` tìm được 167/248 GT đó (`runtime/scratch/advice_reach.json`). Vì vậy kết quả trên A là **khám phá có điều kiện**. Dù đạt cổng, vẫn phải xác nhận trên dữ liệu mới.
+
+## 1. Tên và phạm vi
+- **Tên:** MSB1 (Mask-Split B1). Cấu hình tham chiếu: `MSB1@m0.4/c0.8`.
+- **Khác CS-B1:** chỉ dùng **một model là B1**, một forward, hai lần hậu xử lý trên cùng P-map. Không dùng B-Clean, không train.
+- **Dữ liệu:** dump T4 có sẵn (`dump_identity` `beefe28e…`), chỉ ảnh LR2. Không chạy GPU mới. Mọi số đều là PENDING_REFERENCE_CHECK.
+
+## 2. Đầu vào (chỉ dự đoán, không GT)
+- **Box cha P:** box B1 geometry `epsilon_005` (mask 0,30, unclip 1,5, min_width 5, epsilon 0,005) có raw score ≥ 0,50. Đây đúng là đầu ra của baseline.
+- **Box con C:** box B1 geometry `mask_040` (mask 0,40, unclip 1,5, min_width 5, epsilon 0,010) có raw score ≥ 0,50. Dùng lại ngưỡng của baseline, không chọn ngưỡng mới.
+- Polygon lấy nguyên từ dump, ở hệ tọa độ Clean, **chưa** cắt theo ROI. ROI và ignore chỉ do evaluator xử lý.
+
+## 3. Luật thay box (khóa)
+1. **Độ chứa:** với mỗi cặp (c, p), `frac(c, p) = area(c ∩ p) / area(c)`, tính bằng shapely trên polygon gốc. Polygon không hợp lệ thì sửa bằng `buffer(0)`; rỗng thì bỏ.
+2. **Gán con:** c được gán cho p nếu `frac ≥ 0,80`. Nếu c đủ điều kiện với nhiều p, gán cho p có `frac` lớn nhất; hòa thì chọn p có chỉ số nhỏ hơn. Mỗi con thuộc tối đa một cha.
+3. **Tách:** cha có **≥ 2 con được gán** thì bị thay bằng đúng các con đó. Cha có 0 hoặc 1 con giữ nguyên.
+4. Con không được gán, hoặc được gán cho cha không bị tách, **không** được thêm vào đầu ra. MSB1 không thêm box ở chỗ không có box cha.
+5. **Con chồng nhau:** giữ nguyên, không NMS. Đó là đầu ra gốc của bộ hậu xử lý mask 0,4, và baseline `mask_040` cũng giữ như vậy.
+6. **Thứ tự đầu ra:** cha giữ nguyên trước, rồi đến các con. Thứ tự không ảnh hưởng counts, vì matching là maximum matching.
+
+Không có tham số nào được quét. 0,80 và 0,50 khóa ở đây.
+
+## 4. Đánh giá
+- **Evaluator:** `CandidateMatcher` + `maximum_matching` của Tuấn trên pool gồm box `epsilon_005` và box `mask_040` của cùng ảnh, rồi tính trên tập box được giữ. Kiểm: tập giữ của baseline phải cho đúng counts của B1 `epsilon_005/0.50` từ cùng dump.
+- **Phát triển:** split **A** (1.130 nguồn). **B chỉ mô tả**, không dùng để chọn hay sửa gì.
+- **Báo cáo:**
+  - LR2 Hmean, TP, FP, FN, tiny recall (GT < 4 px LR2);
+  - số cha bị tách và số con thay vào;
+  - GT được cứu và GT bị mất so với B1;
+  - CI95 bootstrap theo nguồn (2.000 lần, seed 431) cho ΔHmean.
+
+## 5. Cổng (giữ đúng luật đã khóa của `sizethr`/DualAgree, đánh giá trên A)
+1. LR2 Hmean ≥ B1 + **0,30 pp**. B1 là `epsilon_005/0.50` của cùng dump, cũng là setting tốt nhất trong 72 setting trên A.
+2. Tiny recall ≥ B1 − **3 pp**.
+3. **FP ở cùng recall:** FP của MSB1 phải thấp hơn FP nhỏ nhất của các setting B1 (72 setting, tính lại từ cùng dump T4) có recall ≥ recall của MSB1. Không có setting nào đạt mức recall đó thì coi là qua.
+
+Đạt cả 3 thì ghi "đạt cổng LR2 trên A (khám phá)". **Chưa** được gọi là đạt cổng mean của nhóm khi chưa kiểm Clean.
+
+## 6. Kiểm trần trước khi chạy luật (oracle)
+- **Họ quyết định:** giữ nguyên phép gán con ở mục 3, chỉ cho phép **chọn tách hay không tách từng cha ứng viên** (cha có ≥ 2 con). Luật MSB1 là một phần tử của họ này (tách tất cả).
+- **Cận trên chính xác** của Hmean toàn tập trên A trong họ này: tối đa hóa 2·TP / (GT + Pred) bằng Dinkelbach. Với mỗi λ, mỗi nguồn chọn tổ hợp tối đa 2·TP − λ·Pred. Các nguồn độc lập với nhau, nên phép tách theo nguồn là chính xác.
+  - Trong một nguồn, các cha tương tác với nhau qua matching. Vì vậy **liệt kê đủ 2^k tổ hợp**, mỗi tổ hợp chấm bằng maximum matching thật. Không giả định chọn độc lập từng cha.
+  - Nguồn có k > 12 cha ứng viên: không liệt kê. Thay bằng cận an toàn: TP ≤ maximum matching trên hợp mọi box (cha + con), Pred ≥ Pred nhỏ nhất có thể. Cận vẫn hợp lệ nhưng lỏng hơn; báo số nguồn phải dùng cận này.
+- **Diễn giải:**
+  - Nếu cận trên < B1 + 0,30 pp: **không phần tử nào của họ này** đạt được cổng 1, kể cả luật MSB1 → dừng, ghi âm.
+  - Nếu cận trên ≥ mốc: oracle **không** chứng minh luật sẽ đạt → vẫn chạy luật khóa.
+  - Cận này **không** áp dụng cho ngưỡng chứa khác 0,80, ngưỡng score khác 0,50, hay geometry khác.
+
+## 7. Chẩn đoán phụ: cô lập mask threshold (chỉ để hiểu cơ chế, không chọn)
+- `epsilon_005` và `mask_040` khác nhau ở **hai** yếu tố: mask (0,3 / 0,4) và epsilon (0,005 / 0,010). Theo `installed_db_postprocessor.py`, epsilon ảnh hưởng tới:
+  - polygon xấp xỉ, dẫn tới score (trung bình P-map bên trong) và độ nở khi unclip, rồi tới quad đầu ra;
+  - việc bỏ contour có ít hơn 4 đỉnh.
+- Vì vậy luật chính là **thay giữa hai cấu hình hậu xử lý**, chưa phải tác động riêng của mask.
+- **Chẩn đoán:** chạy đúng luật trên với cha là `base` (mask 0,30, epsilon 0,010), con vẫn là `mask_040`. Hai bên chỉ khác mask. So với baseline `base/0.50` của cùng dump. Chỉ báo mô tả, không dùng để chọn cấu hình.
+
+## 8. Điều kiện dừng và những điều không làm
+- Trượt cổng → ghi kết quả âm.
+- Không chỉnh 0,80 hay 0,50, không thêm luật, không đổi geometry sau khi xem số.
+- Không dùng B để chọn.
+- Không chạy GPU.
+- Nếu đạt cổng LR2 trên A: chỉ **đề xuất** một lượt GPU (Kaggle T4) để dump B1 trên ảnh Clean, kèm chi phí. Chưa chạy.
+
+## 9. Ca minh họa
+- Chọn theo hạng SHA-256 (seed 20261123): 4 cha bị tách làm **tăng** TP ("tách đúng") và 4 cha bị tách làm **tăng** FP hoặc mất TP ("tách sai"), trên A.
+- GT chỉ dùng để **phân loại ca minh họa sau khi chạy**, không dùng để quyết định tách.
+
+---
+## Nhật ký sửa spec sau khi chạy
+- Không sửa luật, ngưỡng hay cổng. Oracle và luật được tính trong cùng một lần chạy; quyết định vẫn theo thứ tự mục 6 (cận +1,67 pp ≥ mốc → chạy luật). Tiêu chí chọn ca "tách đúng" trong code là ΔTP > 0 và ΔTP ≥ ΔPred − 1, chỉ ảnh hưởng ca minh họa. Thêm một hình toàn cảnh mô tả ngoài mẫu khóa. Kết quả: `docs/research/janek/msb1_result_20261122_janek.md`.

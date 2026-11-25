@@ -1,0 +1,73 @@
+{
+ "label": "P0 checks for the box-quality scorer (CPU). No GPU, no fitting, no TEST.",
+ "textocr_sha256": "5bac8303c5999a3ddf630efde8ac9743b4461be6022b193a1075df90fbd2ce0c",
+ "textocr_sha_matches_tuan": true,
+ "vendored_shared_manifest_sha256": "6b2ecde7965222013e46669bbf75c240944068ba6cdd80779925e1670cee055b",
+ "textocr": {
+  "canonical_images": 21778,
+  "canonical_annotations": 1052354,
+  "mapping_source": "validated imgToAnns"
+ },
+ "dev_label_code_equivalence": {
+  "rows": 2262,
+  "gt_clean_exact": 2262,
+  "removed_ids_exact": 2262,
+  "examples_differing": []
+ },
+ "dev_full_canvas_deviation": {
+  "sources_with_status_change": 168,
+  "status_changes": {
+   "ignored->valid": 431,
+   "removed->valid": 102,
+   "removed->ignored": 111
+  },
+  "valid_gt_with_clipped_geometry": 424,
+  "dev_valid_gt": 78221,
+  "dev_sources_roi_below_canvas": 881,
+  "note": "Sizes the label noise of the TRAIN rule only; development labels and the evaluator are unchanged."
+ },
+ "train": {
+  "count": 15222,
+  "unique": 15222,
+  "train_ids_sha256": "8ac5cbd98db0ffcb67536c6629ed4839ecf8c8e82b927796d0f9208102805f60",
+  "train_ids_sha_ok": true,
+  "id_overlap_dev": 0,
+  "clean_sha_overlap_dev": 0,
+  "clean_sha_unique": 15222,
+  "in_textocr": 15222,
+  "zero_valid_gt_full_canvas": 0,
+  "relpath_rule_ok": true
+ },
+ "selection": {
+  "rule": "Eligible = TRAIN sources (train_ids.csv) with >= 1 valid GT under the full-canvas rule. Order by sha256(\"20261124:boxquality-v1:\" + id). First 10 = smoke; next 2000 = selected. Among the selected, the 400 with the smallest sha256(\"20261124:boxquality-v1:cal:\" + id) = calibration, the rest = fit. Clean and LR2 of a source are always in the same fold.",
+  "eligible": 15222,
+  "folds": {
+   "smoke": {
+    "sources": 10,
+    "valid_gt": 96,
+    "ignored_gt": 43,
+    "ignored_share": 0.30935251798561153,
+    "max_valid_per_source": 24
+   },
+   "fit": {
+    "sources": 1600,
+    "valid_gt": 52856,
+    "ignored_gt": 25195,
+    "ignored_share": 0.32280175782501186,
+    "max_valid_per_source": 914
+   },
+   "calibration": {
+    "sources": 400,
+    "valid_gt": 11167,
+    "ignored_gt": 6760,
+    "ignored_share": 0.3770848440899202,
+    "max_valid_per_source": 485
+   }
+  },
+  "selection_sha256": "10772b42cd9fcfebeabc614fad617f8651f3781eed16c3b3b93579d450d48234",
+  "overlap_with_codex_proposal": 236,
+  "codex_proposal_reproducible": false,
+  "codex_note": "No script or rule was recorded for proposed_train_sources.csv; common hash rules give only ~250-280/2000 overlap (chance). Replaced by the documented rule above."
+ },
+ "train_rows_sha256": "dbe1668de76008ce1a27f780d85adcc11a5a1ef7d8e5fca79e0bb9df6b7b1d1a"
+}

@@ -1,0 +1,26 @@
+{
+ "label": "Intake of the dev A box-quality run (Kaggle T4).",
+ "source_zip": "cs431_boxquality_devA_T4_20261125-084951.zip",
+ "source_zip_sha256": "15bfc83b335eb03dc70adb6d8ecf6835d3ffecf94923ca34ba9a1eb6ed1dbfef",
+ "code_manifest_sha256_expected": "5693b6210105e943d56956bcb699f559bd422330ec5858ce17190da8974de5ef",
+ "code_manifest_sha256_run": "5693b6210105e943d56956bcb699f559bd422330ec5858ce17190da8974de5ef",
+ "checks": {
+  "env": "Pillow 11.3.0, DBPostprocessor 9bfff8aa, Tesla T4 GPU 0, MONKEY_V2 dc19b85 clean",
+  "prepare": "1130 sources, 2260 tasks, all image SHA ok",
+  "unit_tests": "149 OK (skipped 9)",
+  "extract": "2260/2260 records, consistency 2260/2260",
+  "evaluate": "fast == official on 2260 tasks x 3 arms",
+  "live_vs_t4_dump": "1130/1130 identical candidates per condition",
+  "latency_output_check": "200/200 identical for F and FULL",
+  "local_recompute": "mixab.boxquality_devA_janek evaluate on the downloaded records reproduces devA_result.json exactly (except latency file path)"
+ },
+ "files": {
+  "code_manifest_sha256_janek.txt": "34a449fa736bf6cf507ddee7c44280b87ac33ab01d84329669f9ef2f82abffe2",
+  "concentration_janek.json": "0289db41fe453ef0572e45b5e7d56b4d2d2fb44edaf7a5c8ead295e95d58e3c0",
+  "devA_result_janek.json": "2c9643346139be614d6c1abafce5372d46e7f15d21cf10d6f910d72ed6a46cfa",
+  "env_T4_janek.json": "e2d8ba29fc59c399de3905d716179cdf3566606e7cb275cfec90888d12be689e",
+  "extract_summary_janek.json": "57d1dd452d6eae85135affd54e0e18158303a6b4edf61223c4d297d6507b7e8e",
+  "latency_janek.json": "05cc9b3d7203cd95a9f66f7bd588b9bdfaa1a993f43102d847182f0d35e1127d",
+  "roi_audit_janek.json": "264417b1ea0cb9152481331ced8590eaa68fa74f92e5e4084ae61eef8e8cff7e"
+ }
+}

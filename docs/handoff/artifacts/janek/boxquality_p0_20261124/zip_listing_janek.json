@@ -1,0 +1,12 @@
+{
+ "url": "https://dl.fbaipublicfiles.com/textvqa/images/train_val_images.zip",
+ "bytes": 7072297970,
+ "members": 25120,
+ "bytes_downloaded_for_listing": 2703394,
+ "train_images_members": 25120,
+ "selected": 2010,
+ "selected_missing": 0,
+ "examples_missing": [],
+ "selected_total_uncompressed_mib": 548.7099351882935,
+ "note": "Byte-level SHA-256 of each image is checked in the notebook after extraction (train_ids.csv)."
+}

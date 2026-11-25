@@ -1,0 +1,18 @@
+{
+ "kernel": "ojanek/cs431-csb1-boxquality-fixed",
+ "output_zip": "cs431_boxquality_T4_20261124-224054.zip",
+ "output_zip_sha256": "3bd4a4e053515575862c98ef35e8c73fb86871df123a31c4b38de5358d8e015d",
+ "code_manifest_sha256": "8d3caafeada59e48bd2b4b0361fea584fdb9f74f563b673e5d79c04860a10100",
+ "dataset": "runtime/kaggle_upload/cs431-boxquality-janek-fixed.zip (restructured _janek package, built 25/11 00:01, NOT the 24/11 package a5077b9d)",
+ "code_equivalence": "All modules diffed against the locked package after stripping the _janek suffix: only docstring paths, trailing spaces, import aliases, and monkey_root() gaining one extra candidate (unused on Kaggle where MONKEY_V2_ROOT is set). boxquality logic unchanged.",
+ "notebook_equivalence": "Kernel notebook vs locked notebook: extra SHA diagnostics, inputs copied and train_rows.gzip.bin restored to train_rows.jsonl.gz with SHA check against train_rows_sha256 dbe1668d..., PYTHONPATH adds MONKEY_V2; smoke/extract/fit commands unchanged.",
+ "checks": {
+  "smoke_consistency": "20/20",
+  "extract_consistency": "80/80 checked tasks",
+  "devcheck": "5/5 identical to T4 dump",
+  "official_evaluator": "agrees on 20 smoke tasks",
+  "extract_tasks": 4000
+ },
+ "local_refit": "mixab.boxquality_janek fit on the downloaded extraction: all counts, deltas, CIs and outcome identical; beta_full differs <= 5e-14 and FULL cut by 9e-16 (floating point, different BLAS).",
+ "status": "PENDING_REFERENCE_CHECK (T4); TRAIN-calibration screen only"
+}

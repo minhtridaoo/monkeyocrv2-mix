@@ -1,0 +1,31 @@
+# Nháp tin nhắn gửi Tuấn, 20/11 (user đọc lại và sửa trước khi gửi)
+
+> Mọi số liệu bên dưới đều tính từ bundle `pr_quad_audit_v1` @ `dc19b85`, bằng `mixab.reselect_split_janek`. Chi tiết: `docs/handoff/artifacts/janek/baseline_ab_v1/NOTES_janek.md`.
+
+---
+
+Tuấn ơi, mình đã chạy A→B baseline trên NPZ của Tuấn và có 4 điểm cần Tuấn quyết trước khi mình chạy Mix A thật:
+
+**1. Mốc "LR2 recall <4 px ≥ 42%" có vẻ không ổn định.**
+- B1 ở setting 70 có tiny recall **52,19% trên A nhưng 39,38% trên B**. Hai nửa có số tiny GT gần bằng nhau (2.583 so với 2.575), nhưng GT <4 px dồn vào rất ít ảnh: **5 nguồn chiếm 53% tiny GT của A**.
+- Hệ quả là chính B1 cũng trượt mốc 42% trên B (37,55% ở setting 45 mà nó chọn trên A).
+- Mình đề xuất đổi sang mốc **tương đối** trên cùng split: tiny(α\*) − tiny(B1) ≥ −3 pp trên B, kèm CI bootstrap theo nguồn. Hoặc giữ 42% nếu Tuấn thấy hợp lý.
+
+**2. Mình chỉ có T4/A100, không có H200.**
+- NPZ và EDA tham chiếu chạy trên H200. Mình đã chạy probe 40 nguồn trên **A100**, cùng commit `dc19b85`, FP32, cùng cờ TF32 như `stage_a.py`; doctor 0 FAIL. Kết quả ở `docs/handoff/artifacts/janek/probe_A100_v1/NOTES_janek.md`:
+  - P-map endpoint khớp tuyệt đối (max diff 0,0).
+  - Cổng EDA `.30/.40`: B1 0/80 ô lệch; **B-Clean 1/80 ô lệch** (một ảnh LR2, tp 144 so với 145).
+  - So đủ 72 setting với NPZ của Tuấn: khoảng 1,6–1,8% ô lệch ±1–3 polygon; `gt` không lệch ô nào; |ΔHmean| lớn nhất trên 40 nguồn là 0,15 pp (B-Clean) và 0,26 pp (B1).
+- Mức lệch này cỡ khoảng cách giữa các setting tốt nhất, nên mình **không nới cổng** và không trộn số A100 với endpoint H200.
+- Tuấn chọn giúp: (a) chạy đủ 5 model, gồm cả hai endpoint, trên **cùng A100**, so α với endpoint A100 và báo độ lệch so với H200 như một mục riêng (khoảng 2,1 giờ GPU); hay (b) Tuấn chạy `merge_audit` trên H200?
+
+**3. Điểm tối ưu của B1 khá phẳng.**
+- Trên A, B1 chọn setting 45 (`epsilon_005`, score .50), không phải 70 như khi chọn trên toàn cohort. Top-4 setting chỉ cách nhau 0,23 pp.
+- R1 vẫn đúng như đã chốt; mình chỉ báo để trong báo cáo ghi rõ là chọn trên nửa dữ liệu có thể ra setting khác.
+
+**4. Mix B: cần chốt thân R và padding** trước khi mình tích hợp vào FPNC.
+- Hiện mình dùng tạm Conv3×3 256→64, BN, ReLU, Conv1×1 64→256, lớp cuối zero-init.
+- AvgPool 3×3 với `count_include_pad=False`.
+- Nếu Tuấn đã có thân R cho nhánh Residual thì mình dùng đúng thân đó.
+
+Nhân tiện xác nhận: output Mix A sẽ ghi vào thư mục riêng (`merge_audit_v1`); ngưỡng +0,5 pp vẫn là ngưỡng thực dụng để quyết định đi tiếp, không phải để tuyên bố cải tiến.

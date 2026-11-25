@@ -1,0 +1,12 @@
+n,kind,source,condition,candidate,full_score,file,reviewer_label
+1,neg_no_gt_high,ca15380241983f93,clean,51,0.980507403822802,01_neg_no_gt_high.png,
+2,neg_no_gt_high,ca15380241983f93,clean,33,0.9765810411430255,02_neg_no_gt_high.png,
+3,neg_no_gt_high,ca15380241983f93,clean,49,0.9829855662118181,03_neg_no_gt_high.png,
+4,pos,205633a9e6ddb2a6,clean,378,0.8955838071303186,04_pos.png,
+5,pos,82d635a20b7dbc0e,lr2,135,0.9047005857726728,05_pos.png,
+6,pos,c2a42e4ded72325f,clean,21,0.8286396021700606,06_pos.png,
+7,pos,82d635a20b7dbc0e,clean,82,0.872909627017486,07_pos.png,
+8,pos,d0a1b1bf72f33cdd,clean,153,0.23874231025547976,08_pos.png,
+9,pos,ace2ef8e5ba6ed1c,lr2,245,0.7004195029668722,09_pos.png,
+10,pos,105697036b15ca4f,clean,31,0.9095740642786914,10_pos.png,
+11,pos,23f4b52c7dd9a73f,lr2,146,0.8155375591076865,11_pos.png,

@@ -1,0 +1,10 @@
+{
+ "rule": "5 sources of the Flip-TTA pilot sample (A) with the smallest sha256(\"20261124:boxquality-v1:devcheck:\"+id); LR2 pipeline check vs the T4 dump only (no labels read)",
+ "sources": [
+  "0a83e04c46c233b3",
+  "16505f9e43a2d81b",
+  "97ac1ff9ba6585c5",
+  "a2dcb8b3f96e0fb2",
+  "bddc01790fe55301"
+ ]
+}

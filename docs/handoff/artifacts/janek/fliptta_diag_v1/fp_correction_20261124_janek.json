@@ -1,0 +1,37 @@
+{
+ "note": "Correction 24/11: class \"invalid\" in fliptta_diag.json merged evaluator-DROPPED boxes (ROI/ignore filter, not counted in Pred) with degenerate boxes; counted FP-like boxes below exclude it.",
+ "lr2": {
+  "fp_removed_counted": 166,
+  "by_cause": {
+   "score_crossed_cut": 91,
+   "no_counterpart": 16,
+   "geometry_change": 59
+  },
+  "by_F_score": {
+   "0.60": 97,
+   "0.65": 33,
+   "0.70": 32,
+   "0.80": 4
+  },
+  "fp_added_counted": 86,
+  "dropped_removed": 122,
+  "dropped_added": 55
+ },
+ "clean": {
+  "fp_removed_counted": 215,
+  "by_cause": {
+   "no_counterpart": 24,
+   "score_crossed_cut": 114,
+   "geometry_change": 77
+  },
+  "by_F_score": {
+   "0.60": 124,
+   "0.65": 50,
+   "0.70": 32,
+   "0.80": 9
+  },
+  "fp_added_counted": 96,
+  "dropped_removed": 199,
+  "dropped_added": 98
+ }
+}

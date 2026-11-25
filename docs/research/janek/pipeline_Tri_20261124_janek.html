@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pipeline phần Trí · MonkeyOCRv2 Text Detection · 24/11/2026</title>
+<style>
+:root {
+  color-scheme: light;
+  --surface-0: #f4f4f2;
+  --surface-1: #fcfcfb;
+  --surface-2: #ffffff;
+  --border: #d9d8d3;
+  --border-strong: #a9a8a2;
+  --text-primary: #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted: #77766f;
+  --grid: #e6e5e0;
+  --series-1: #2a78d6;      /* Trí */
+  --series-1-bg: #eaf2fc;
+  --tuan: #6f6e68;          /* Tuấn: neutral */
+  --tuan-bg: #f0efec;
+  --good: #0ca30c;
+  --warning: #fab219;
+  --serious: #ec835a;
+  --critical: #d03b3b;
+  --plan: #6250d6;
+  --chip-bad-bg: #fbeaea;
+  --chip-warn-bg: #fff4dc;
+  --chip-gray-bg: #efeeea;
+  --chip-plan-bg: #eeecfb;
+  --chip-good-bg: #e6f5e6;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --surface-0: #121211;
+    --surface-1: #1a1a19;
+    --surface-2: #222220;
+    --border: #3a3a37;
+    --border-strong: #5c5b56;
+    --text-primary: #f0efec;
+    --text-secondary: #c3c2b7;
+    --text-muted: #96958c;
+    --grid: #2e2e2b;
+    --series-1: #3987e5;
+    --series-1-bg: #1b2a3d;
+    --tuan: #b3b2aa;
+    --tuan-bg: #2a2a27;
+    --plan: #9085e9;
+    --chip-bad-bg: #3a1f1f;
+    --chip-warn-bg: #3a3017;
+    --chip-gray-bg: #2c2c29;
+    --chip-plan-bg: #26223f;
+    --chip-good-bg: #1c321c;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--surface-0); color: var(--text-primary);
+  font: 14px/1.5 "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+}
+header, main { max-width: 1320px; margin: 0 auto; padding: 0 24px; }
+header { padding-top: 28px; }
+h1 { font-size: 24px; margin: 0 0 4px; }
+h2 { font-size: 19px; margin: 40px 0 6px; padding-top: 8px; border-top: 1px solid var(--border); }
+h3 { font-size: 15px; margin: 22px 0 8px; }
+p.lead { color: var(--text-secondary); margin: 4px 0 12px; max-width: 980px; }
+.sub { color: var(--text-secondary); font-size: 13px; }
+code { font-family: Consolas, "Cascadia Mono", monospace; font-size: 12px; background: var(--chip-gray-bg); padding: 1px 4px; border-radius: 4px; }
+nav.toc { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 14px 0 0; font-size: 13px; }
+nav.toc a { color: var(--series-1); text-decoration: none; }
+nav.toc a:hover { text-decoration: underline; }
+
+/* ---------- legend ---------- */
+.legend { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 16px 0 4px; padding: 10px 14px; background: var(--surface-1); border: 1px solid var(--border); border-radius: 10px; font-size: 13px; }
+.legend .item { display: inline-flex; align-items: center; gap: 6px; }
+
+/* ---------- chips (status = icon + label, never color alone) ---------- */
+.chip { display: inline-flex; align-items: center; gap: 4px; font-size: 11.5px; font-weight: 600; padding: 1px 8px; border-radius: 999px; border: 1px solid; white-space: nowrap; color: var(--text-primary); }
+.chip.bad   { background: var(--chip-bad-bg);  border-color: var(--critical); }
+.chip.warn  { background: var(--chip-warn-bg); border-color: var(--warning); }
+.chip.gray  { background: var(--chip-gray-bg); border-color: var(--border-strong); }
+.chip.plan  { background: var(--chip-plan-bg); border-color: var(--plan); }
+.chip.good  { background: var(--chip-good-bg); border-color: var(--good); }
+.chip.tri   { background: var(--series-1-bg); border-color: var(--series-1); }
+.chip.tuan  { background: var(--tuan-bg); border-color: var(--tuan); }
+
+/* ---------- boxes ---------- */
+.flow { display: flex; align-items: stretch; flex-wrap: wrap; row-gap: 12px; gap: 12px 0; padding: 6px 2px 10px; }
+.branch .flow { flex-wrap: nowrap; padding: 0; }
+.box {
+  position: relative; flex: 0 0 auto; min-width: 128px; max-width: 230px;
+  background: var(--surface-2); border: 1.5px solid var(--border-strong); border-radius: 10px;
+  padding: 9px 11px; font-size: 12.5px; line-height: 1.4;
+}
+.box .t { font-weight: 700; font-size: 13px; display: block; margin-bottom: 2px; }
+.box .d { color: var(--text-secondary); display: block; }
+.box.data   { border-style: dashed; background: var(--surface-1); }
+.box.model  { border-color: var(--text-secondary); }
+.box.tri    { border-color: var(--series-1); background: var(--series-1-bg); }
+.box.tuan   { border-color: var(--tuan); background: var(--tuan-bg); }
+.box.bad    { border-left: 6px solid var(--critical); }
+.box.warn   { border-left: 6px solid var(--warning); }
+.box.gray   { border-left: 6px solid var(--border-strong); }
+.box.plan   { border-left: 6px solid var(--plan); border-style: dashed; border-left-style: solid; }
+.box.good   { border-left: 6px solid var(--good); }
+.box .chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+
+.arrow { flex: 0 0 34px; display: flex; align-items: center; justify-content: center; color: var(--text-muted); }
+.arrow svg { width: 30px; height: 14px; }
+.arrow.lbl { flex-basis: 70px; flex-direction: column; font-size: 10.5px; color: var(--text-muted); text-align: center; line-height: 1.2; }
+.arrow.lbl svg { width: 62px; }
+
+.vflow { display: flex; flex-direction: column; align-items: center; gap: 0; }
+.varrow { height: 26px; display: flex; justify-content: center; color: var(--text-muted); }
+.varrow svg { width: 14px; height: 26px; }
+
+/* panel */
+.panel { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px 16px; margin: 12px 0; }
+.panel > .ph { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; margin-bottom: 6px; }
+.panel > .ph .name { font-weight: 700; font-size: 15px; }
+.panel .why { color: var(--text-secondary); font-size: 13px; margin: 2px 0 8px; }
+.panel .res { font-size: 13px; margin-top: 8px; padding: 8px 10px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px; }
+.panel .src { font-size: 11.5px; color: var(--text-muted); margin-top: 6px; }
+
+/* main pipeline with hooks */
+.pipe { display: grid; grid-template-columns: repeat(15, auto); align-items: center; justify-content: start; overflow-x: auto; padding: 6px 2px 4px; }
+.hooks { display: grid; grid-template-columns: repeat(15, auto); justify-content: start; overflow-x: auto; }
+.hookrow-label { font-size: 12px; font-weight: 700; color: var(--text-secondary); margin: 10px 0 4px; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 980px) { .two-col { grid-template-columns: 1fr; } }
+
+/* split boxes */
+.branch { display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+.bracket { flex: 0 0 22px; align-self: stretch; display: flex; align-items: center; }
+.bracket svg { width: 22px; height: 100%; }
+
+/* tables */
+table { border-collapse: collapse; width: 100%; font-size: 12.5px; background: var(--surface-2); }
+th, td { border: 1px solid var(--border); padding: 5px 8px; text-align: left; vertical-align: top; }
+th { background: var(--surface-1); font-weight: 700; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* forest plot */
+#forest-wrap { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; position: relative; }
+#forest text { fill: var(--text-secondary); font-size: 12px; font-family: inherit; }
+#forest .rowlbl { fill: var(--text-primary); }
+#forest .grp { fill: var(--text-primary); font-weight: 700; font-size: 12.5px; }
+#forest .axis line, #forest .gridline { stroke: var(--grid); }
+#forest .zero { stroke: var(--text-muted); stroke-width: 1.5; }
+#forest .gate { stroke: var(--text-muted); stroke-width: 1.5; stroke-dasharray: 5 4; }
+#forest .ci { stroke: var(--series-1); stroke-width: 2; stroke-linecap: round; }
+#forest .pt { fill: var(--series-1); stroke: var(--surface-1); stroke-width: 2; }
+#forest .hit { fill: transparent; cursor: default; }
+#forest .hit:hover { fill: var(--series-1-bg); }
+.tooltip { position: absolute; pointer-events: none; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: 8px; padding: 7px 10px; font-size: 12px; box-shadow: 0 4px 14px rgba(0,0,0,.12); display: none; max-width: 340px; z-index: 5; }
+.tooltip b { display: block; margin-bottom: 2px; }
+
+footer { max-width: 1320px; margin: 36px auto 40px; padding: 0 24px; font-size: 12px; color: var(--text-muted); }
+.note { font-size: 12.5px; color: var(--text-secondary); margin: 6px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Pipeline phần Trí · MonkeyOCRv2 Text Detection dưới native LR2</h1>
+  <div class="sub">Cập nhật 24/11/2026 · DRAFT, cần Tuấn kiểm tra · Đi kèm báo cáo <code>BAO_CAO_KET_QUA_Tri_20261124_janek.md</code> (cùng thư mục). Mọi số là development trên 2.262 nguồn remaining-validation, một seed; số đo trên T4 là <code>PENDING_REFERENCE_CHECK</code>.</div>
+  <nav class="toc">
+    <a href="#s1">1 · Pipeline chung và vị trí can thiệp</a>
+    <a href="#s2">2 · Protocol đánh giá của Trí</a>
+    <a href="#s3">3 · Dòng quyết định 19 → 24/11</a>
+    <a href="#s4">4 · Chi tiết từng phương pháp</a>
+    <a href="#s5">5 · Biểu đồ Δ và CI</a>
+    <a href="#s6">6 · Bảng kết quả</a>
+    <a href="#s7">7 · Đối chiếu với Tuấn</a>
+  </nav>
+  <div class="legend" aria-label="Chú giải">
+    <span class="item"><span class="chip tri">Trí</span> can thiệp của Trí</span>
+    <span class="item"><span class="chip tuan">Tuấn</span> can thiệp của Tuấn</span>
+    <span class="item"><span class="chip bad">✕ Âm / dừng</span></span>
+    <span class="item"><span class="chip warn">▲ Dương nhỏ / chưa đạt cổng</span></span>
+    <span class="item"><span class="chip gray">? Chưa đủ bằng chứng</span></span>
+    <span class="item"><span class="chip plan">◇ Kế hoạch, chưa chạy</span></span>
+    <span class="item"><span class="chip good">✓ Có mức tăng rõ</span></span>
+    <span class="item">Khung nét đứt = dữ liệu</span>
+  </div>
+</header>
+
+<main>
+<!-- ======================================================= 1 -->
+<h2 id="s1">1 · Pipeline chung của nhóm và vị trí từng can thiệp</h2>
+<p class="lead">Hàng giữa là pipeline suy luận của Tuấn (FP32, batch 1, <code>rev4.stage_a</code>). Hàng trên là nơi Tuấn can thiệp (bên trong mô hình, có train). Hàng dưới là nơi Trí can thiệp (bên ngoài mô hình, không train detector). Các can thiệp xếp theo thứ tự vị trí trên pipeline, từ trọng số đến sau hậu xử lý; dòng "Ánh xạ" ở cuối khung ghi rõ mỗi can thiệp đổi khối nào.</p>
+
+<div class="panel">
+  <div class="hookrow-label">Tuấn · bên trong mô hình</div>
+  <div class="flow" id="row-tuan">
+    <div class="box tuan good" style="min-width:160px"><span class="t">Fine-tune B-Clean / B1</span><span class="d">B0 → 10k updates, seed 42. B1 trộn 50% LR2</span><div class="chips"><span class="chip good">✓ +13,1 pp LR2 so B0</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tuan good"><span class="t">EDSR ×2 trước detector</span><span class="d">Ngưỡng cũ <code>.30/.40</code></span><div class="chips"><span class="chip good">✓ +0,60 [0,24; 0,96]</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tuan bad"><span class="t">Adapter sau FPNC · Feature KD</span><span class="d">A1/A2 10k; KD 1k</span><div class="chips"><span class="chip bad">✕ ≈ 0</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tuan bad"><span class="t">ASF · DySample trong FPNC</span><span class="d">Job 111683, đối chứng nearest/bilinear</span><div class="chips"><span class="chip bad">✕ ≈ 0</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tuan gray"><span class="t">PRC (loss trên P-map)</span><span class="d">Chỉ 608/20.000 microbatch có PRC</span><div class="chips"><span class="chip gray">? chưa hợp lệ</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tuan good"><span class="t">Calibration ngưỡng</span><span class="d"><code>.30/.40</code> → <code>.40/.60</code></span><div class="chips"><span class="chip good">✓ +1,61 [1,01; 2,30]</span></div></div>
+  </div>
+
+  <div class="hookrow-label" style="margin-top:6px">Pipeline suy luận chung</div>
+  <div class="flow" id="row-main">
+    <div class="box data"><span class="t">Ảnh TextVQA</span><span class="d">Nhãn TextOCR cấp từ</span></div>
+    <div class="arrow lbl"><svg viewBox="0 0 62 14"><path d="M0 7h56" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M54 2l7 5-7 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Clean / LR2</div>
+    <div class="box data"><span class="t">Native LR2</span><span class="d">Pillow bicubic ⌊W/2⌋×⌊H/2⌋, không phóng lại</span></div>
+    <div class="arrow"></div>
+    <div class="box model"><span class="t">Resize keep-ratio</span><span class="d"><code>scale=(4068,1024)</code>: cạnh ngắn → 1.024</span></div>
+    <div class="arrow"></div>
+    <div class="box model"><span class="t">MonkeyOCRv2-AS</span><span class="d">Backbone ViTAEv2-S</span></div>
+    <div class="arrow"></div>
+    <div class="box model"><span class="t">FPNC</span><span class="d">Trộn đa tỉ lệ, upsample nearest</span></div>
+    <div class="arrow"></div>
+    <div class="box model"><span class="t">DBHead</span><span class="d">P-map (stride 1 sau pad)</span></div>
+    <div class="arrow"></div>
+    <div class="box model"><span class="t">DBPostprocessor</span><span class="d">mask/score/unclip/min_width → quad</span></div>
+    <div class="arrow"></div>
+    <div class="box data"><span class="t">Evaluator</span><span class="d"><code>CandidateMatcher</code>: IoU ≥ 0,5, ROI, ignore → P/R/Hmean</span></div>
+  </div>
+
+  <div class="hookrow-label" style="margin-top:6px">Trí · bên ngoài mô hình, không train detector</div>
+  <div class="flow" id="row-tri">
+    <div class="box tri bad"><span class="t">Trọng số</span><span class="d">Mix A-core (nội suy B-Clean↔B1), E-sel, E-BN</span><div class="chips"><span class="chip bad">✕ âm</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri bad"><span class="t">Chọn chuyên gia theo ảnh</span><span class="d">QRoute: router Clean/LR2</span><div class="chips"><span class="chip bad">✕ trần +0,27 pp</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri bad"><span class="t">Ảnh vào (test-time)</span><span class="d">ZB1 zoom 2×2 cục bộ</span><div class="chips"><span class="chip bad">✕ −3,01 pp</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri gray"><span class="t">P-map (test-time)</span><span class="d">Flip-TTA: trung bình P-map gốc + lật</span><div class="chips"><span class="chip gray">? INCONCLUSIVE</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri warn"><span class="t">Hậu xử lý 1 model</span><span class="d">Ngưỡng theo kích thước (✕), MSB1 tách box gộp (▲)</span><div class="chips"><span class="chip bad">✕ size-thr</span><span class="chip warn">▲ MSB1</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri warn"><span class="t">Gộp đầu ra 2 model</span><span class="d">DualAgree v1 (✕), <b>CS-B1</b> (▲), XV-B1 (✕)</span><div class="chips"><span class="chip warn">▲ CS-B1 +0,23</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri plan"><span class="t">Chấm lại box</span><span class="d">Box-quality scorer (logistic trên đặc trưng P-map)</span><div class="chips"><span class="chip plan">◇ chưa chạy GPU</span></div></div>
+  </div>
+  <p class="note">Ánh xạ: Fine-tune → trọng số của AS/FPNC/DBHead · EDSR → ảnh vào · Adapter/KD → sau FPNC · ASF/DySample → trong FPNC · PRC → loss trên P-map · Calibration → DBPostprocessor. Phía Trí: Mix A → trọng số · QRoute → chọn checkpoint · ZB1 → ảnh vào · Flip-TTA → P-map · size-thr/MSB1/box-quality → DBPostprocessor · DualAgree/CS-B1/XV-B1 → sau DBPostprocessor, trước evaluator.</p>
+</div>
+
+<h3>1b · Hai checkpoint xuất phát (Tuấn, <code>.40/.60</code>, 2.262 nguồn)</h3>
+<div class="flow">
+  <div class="box model"><span class="t">B0</span><span class="d">Detector gốc. Clean 74,09 · LR2 62,38 · tiny 1,01%</span></div>
+  <div class="bracket"><svg viewBox="0 0 22 100" preserveAspectRatio="none"><path d="M0 50 H8 M8 18 V82 M8 18 H20 M8 82 H20" stroke="currentColor" stroke-width="1.6" fill="none" style="color:var(--text-muted)"/></svg></div>
+  <div class="branch">
+    <div class="box model" style="max-width:340px"><span class="t">B-Clean · 100% Clean</span><span class="d">Clean <b>80,86</b> · LR2 75,51 · FP LR2 <b>6.578</b> · tiny 15,96%</span></div>
+    <div class="box model" style="max-width:340px"><span class="t">B1 · 50% Clean / 50% LR2</span><span class="d">Clean 79,43 · LR2 <b>76,90</b> · FP LR2 11.997 · tiny <b>45,79%</b></span></div>
+  </div>
+  <div class="arrow lbl"><svg viewBox="0 0 62 14"><path d="M0 7h56" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M54 2l7 5-7 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>đánh đổi</div>
+  <div class="box tri" style="max-width:300px"><span class="t">Câu hỏi của Trí</span><span class="d">Không train lại: tận dụng đánh đổi để vượt <b>cả hai</b>? Trên LR2, B1 cứu 6.150 GT nhưng mất 1.453 GT B-Clean bắt được (E9, <code>.30/.40</code>).</span></div>
+</div>
+
+<!-- ======================================================= 2 -->
+<h2 id="s2">2 · Protocol đánh giá của Trí (áp cho mọi phương pháp)</h2>
+<p class="lead">Mọi spec được khóa trước khi chạy. Luật chọn và ngưỡng không đổi sau khi xem số. A dùng để chọn; B chỉ để kiểm hoặc mô tả.</p>
+<div class="panel">
+  <div class="flow">
+    <div class="box data"><span class="t">2.262 nguồn remaining-validation</span><span class="d">× Clean, LR2. TEST 3.263 không chạm</span></div>
+    <div class="arrow lbl"><svg viewBox="0 0 62 14"><path d="M0 7h56" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M54 2l7 5-7 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>SHA-256 source ID</div>
+    <div class="branch">
+      <div class="box data"><span class="t">Split A · 1.130</span><span class="d">Chọn, quét, khóa</span></div>
+      <div class="box data"><span class="t">Split B · 1.132</span><span class="d">Kiểm sau khóa / mô tả</span></div>
+    </div>
+    <div class="arrow"></div>
+    <div class="box model"><span class="t">Counts theo nguồn</span><span class="d">tp, gt, pred, tiny_gt, tiny_tp × 72 setting (9 geometry × 8 score)</span></div>
+    <div class="arrow"></div>
+    <div class="box model"><span class="t">Hmean từ tổng counts</span><span class="d">Không lấy trung bình theo ảnh</span></div>
+    <div class="arrow"></div>
+    <div class="box model"><span class="t">Bootstrap ghép cặp</span><span class="d">Theo nguồn, 2.000 lượt, seed 20261107; Clean/LR2 cùng nguồn</span></div>
+    <div class="arrow"></div>
+    <div class="branch">
+      <div class="box tri" style="max-width:260px"><span class="t">Luật dừng của Trí (A)</span><span class="d">LR2 ≥ +0,30 pp so với B1 tốt nhất 72 setting · tiny ≥ B1 − 3 pp · FP không cao hơn ở cùng recall</span></div>
+      <div class="box tri" style="max-width:260px"><span class="t">Cổng nhóm</span><span class="d">Mean ≥ +0,5 pp so với cả hai baseline · Clean ≥ B-Clean − 0,3 · tiny ≥ B1 − 3</span></div>
+    </div>
+  </div>
+  <div class="flow" style="margin-top:4px">
+    <div class="box gray"><span class="t">Cổng GPU (đã chốt (a), 20/11)</span><span class="d">Endpoint tham chiếu chạy trên cùng GPU. A100 Mix A: <code>VERIFIED</code> (P-map lệch 0,0; 0/5.760 ô)</span></div>
+    <div class="arrow"></div>
+    <div class="box gray"><span class="t">T4 so với A2r A100</span><span class="d">Lệch 3–4% ô, ±1–3 count, GT không lệch; Hmean CS-B1 lệch ≤ 0,009 pp</span></div>
+    <div class="arrow"></div>
+    <div class="box gray"><span class="t">T4 tái lập</span><span class="d">720/720 mục giống hệt giữa 2 lần chạy</span></div>
+  </div>
+</div>
+
+<!-- ======================================================= 3 -->
+<h2 id="s3">3 · Dòng quyết định 19 → 24/11: thử gì, vì sao, kết quả dẫn tới bước nào</h2>
+<p class="lead">Đọc từ trái sang phải, từng hàng. Mỗi hộp ghi bằng chứng dẫn tới bước sau.</p>
+<div class="panel">
+  <div class="hookrow-label">Giai đoạn 1 · Trộn trọng số (19–21/11)</div>
+  <div class="flow">
+    <div class="box tri bad"><span class="t">Mix A-core v1 (A100)</span><span class="d">α ∈ {0, ¼, ½, ¾, 1}; luật khóa chọn α* = B-Clean</span><div class="chips"><span class="chip bad">✕ âm</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri bad"><span class="t">E-sel (CPU)</span><span class="d">Ràng buộc tiny → α ¾ vẫn trượt; FP cùng recall nhiều hơn B1 6–7%</span><div class="chips"><span class="chip bad">✕ âm</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri bad"><span class="t">E-BN giai đoạn 0</span><span class="d">Không thấy lệch BN do trộn</span><div class="chips"><span class="chip bad">✕ đóng</span></div></div>
+    <div class="arrow lbl"><svg viewBox="0 0 62 14"><path d="M0 7h56" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M54 2l7 5-7 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>chẩn đoán lại</div>
+    <div class="box tri"><span class="t">Thiết kế v2 (21/11)</span><span class="d">Hai chuyên gia theo điều kiện → 3 thiết kế: QRoute, DualAgree, SRVerify</span></div>
+  </div>
+
+  <div class="hookrow-label">Giai đoạn 2 · Chẩn đoán CPU trên counts (22/11)</div>
+  <div class="flow">
+    <div class="box tri bad"><span class="t">P0: oracle điều kiện</span><span class="d">Trên A chỉ +0,27 pp (&lt; 0,5). Router kích thước = oracle → shortcut</span><div class="chips"><span class="chip bad">✕ dừng QRoute</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri good"><span class="t">P0b: oracle từng ảnh</span><span class="d">Cặp thật LR2 <b>+3,70</b> so với đối chứng ≤ 1,05 → bổ sung ở mức box trong ảnh LR2</span><div class="chips"><span class="chip good">✓ tín hiệu (cận trên)</span></div></div>
+    <div class="arrow lbl"><svg viewBox="0 0 62 14"><path d="M0 7h56" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M54 2l7 5-7 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>Tuấn đồng ý 2 checkpoint</div>
+    <div class="box data"><span class="t">Dump T4 (Colab)</span><span class="d">Polygon + raw score B-Clean & B1, 2.262 ảnh LR2, 9 geometry, raw ≥ 0,20</span></div>
+  </div>
+
+  <div class="hookrow-label">Giai đoạn 3 · Gộp đầu ra hai chuyên gia (22–23/11)</div>
+  <div class="flow">
+    <div class="box tri bad"><span class="t">DualAgree v1</span><span class="d">Chỉ giữ box đồng thuận. A +0,68 nhưng tiny −19,8</span><div class="chips"><span class="chip bad">✕ trượt tiny</span></div></div>
+    <div class="arrow lbl"><svg viewBox="0 0 62 14"><path d="M0 7h56" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M54 2l7 5-7 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>527 GT tiny mất do cắt score 0,5–0,7</div>
+    <div class="box tri warn"><span class="t">CS-B1@0.7</span><span class="d">Giữ hết B1, chỉ thêm box B-Clean ≥ 0,7. LR2 +0,23 [0,15; 0,32] so với nền</span><div class="chips"><span class="chip warn">▲ dương quá nhỏ</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri warn"><span class="t">CS-B1: Phase 0 + latency + Clean</span><span class="d">10 nguồn = 66,6% lợi ích; 1,99×; Clean −1,02 so với B-Clean</span><div class="chips"><span class="chip warn">▲ chưa đạt cổng</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri bad"><span class="t">XV-B1</span><span class="d">Lọc box B1 ≥ 8 px không có B-Clean. −0,079 [−0,14; −0,02] so với cha</span><div class="chips"><span class="chip bad">✕ dừng</span></div></div>
+  </div>
+
+  <div class="hookrow-label">Giai đoạn 4 · Một checkpoint B1 (22–24/11)</div>
+  <div class="flow">
+    <div class="box tri bad"><span class="t">Ngưỡng theo kích thước</span><span class="d">A +0,62, tiny −7,1</span><div class="chips"><span class="chip bad">✕ trượt tiny</span></div></div>
+    <div class="arrow lbl"><svg viewBox="0 0 62 14"><path d="M0 7h56" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M54 2l7 5-7 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>85% GT CS-B1 cứu là chữ bị gộp</div>
+    <div class="box tri warn"><span class="t">MSB1</span><span class="d">Tách box gộp bằng mask 0,4. A +0,224 [−0,40; 0,81]</span><div class="chips"><span class="chip warn">▲ chưa đạt</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri bad"><span class="t">ZB1 zoom (Kaggle)</span><span class="d">G2 LR2 −3,01; tiny +10,8; FP +1.566</span><div class="chips"><span class="chip bad">✕ dừng</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri gray"><span class="t">Flip-TTA (Kaggle)</span><span class="d">LR2 +0,27 [−0,16; 0,66]; tương đương nâng ngưỡng</span><div class="chips"><span class="chip gray">? khuyến nghị dừng</span></div></div>
+    <div class="arrow"></div>
+    <div class="box tri plan"><span class="t">Box-quality (24/11)</span><span class="d">P0 kiểm xong, notebook Kaggle sẵn</span><div class="chips"><span class="chip plan">◇ chưa chạy</span></div></div>
+  </div>
+</div>
+
+<!-- ======================================================= 4 -->
+<h2 id="s4">4 · Chi tiết từng phương pháp (box-to-box)</h2>
+<p class="lead">Mỗi khung: vì sao thử → pipeline cụ thể → kết quả. Nguồn ghi ở cuối khung (đường dẫn tương đối trong workspace <code>cải tiến/mới/</code>).</p>
+
+<div class="panel">
+  <div class="ph"><span class="name">CS-B1@0.7 · Clean-Supplemented B1</span><span class="chip tri">Trí</span><span class="chip warn">▲ dương quá nhỏ · chưa đạt cổng</span><span class="chip gray">2 checkpoint · 1,99×</span></div>
+  <div class="why">Vì sao: DualAgree v1 cắt chữ nhỏ của B1. Đảo chiều: không xóa gì của B1, chỉ <b>thêm</b> box mà B-Clean rất chắc và B1 không có, nhắm vào 1.453 GT B1 làm mất.</div>
+  <div class="flow">
+    <div class="box data"><span class="t">Ảnh (Clean hoặc LR2)</span><span class="d">Không cần biết điều kiện</span></div>
+    <div class="bracket"><svg viewBox="0 0 22 100" preserveAspectRatio="none"><path d="M0 50 H8 M8 18 V82 M8 18 H20 M8 82 H20" stroke="currentColor" stroke-width="1.6" fill="none" style="color:var(--text-muted)"/></svg></div>
+    <div class="branch">
+      <div class="flow" style="padding:0">
+        <div class="box model"><span class="t">B1 forward</span><span class="d">P-map</span></div>
+        <div class="arrow"></div>
+        <div class="box model"><span class="t">Hậu xử lý <code>epsilon_005</code></span><span class="d">mask 0,30 · unclip 1,5 · min_width 5 · score ≥ 0,5</span></div>
+      </div>
+      <div class="flow" style="padding:0">
+        <div class="box model"><span class="t">B-Clean forward</span><span class="d">P-map</span></div>
+        <div class="arrow"></div>
+        <div class="box model"><span class="t">Hậu xử lý <code>mask_040</code></span><span class="d">mask 0,40 · score ≥ <b>0,7</b></span></div>
+      </div>
+    </div>
+    <div class="bracket"><svg viewBox="0 0 22 100" preserveAspectRatio="none"><path d="M2 18 H14 M2 82 H14 M14 18 V82 M14 50 H22" stroke="currentColor" stroke-width="1.6" fill="none" style="color:var(--text-muted)"/></svg></div>
+    <div class="box tri"><span class="t">Ghép một-một</span><span class="d">Box B-Clean trùng box B1 ở IoU ≥ 0,5 → bỏ</span></div>
+    <div class="arrow"></div>
+    <div class="box tri"><span class="t">Đầu ra</span><span class="d">Toàn bộ box B1 + box chỉ B-Clean thấy</span></div>
+    <div class="arrow"></div>
+    <div class="box data"><span class="t">Evaluator</span><span class="d"><code>CandidateMatcher</code></span></div>
+  </div>
+  <div class="res">
+    LR2 (2.262): <b>+0,23 [0,15; 0,32]</b> so với B1 <code>epsilon_005/.50</code> · +0,18 [−0,21; 0,58] so với B1 <code>.40/.60</code> · tiny −1,96 so với <code>.40/.60</code>.<br>
+    Luật dừng trên A: +0,177 &lt; +0,30 → trượt. Clean (2.262, không định tuyến): 79,82 so với B1 79,44 (+0,39 [0,01; 0,81]) nhưng −1,02 [−1,76; −0,49] so với B-Clean.<br>
+    Phase 0: 10 nguồn chiếm 66,6% lợi ích ròng; θ = 0,7 → Δ −0,32. Latency 447 → 889 ms/ảnh (Kaggle T4).
+  </div>
+  <div class="src">Nguồn: docs/handoff/artifacts/janek/csb1_full_v1_T4/csb1_full_janek.json · csb1_clean_v1_T4/ · csb1_latency_v1_T4/latency_janek.json · phase0/auto_stats_janek.json</div>
+</div>
+
+<div class="two-col">
+<div class="panel">
+  <div class="ph"><span class="name">DualAgree v1</span><span class="chip tri">Trí</span><span class="chip bad">✕ trượt tiny</span></div>
+  <div class="why">Vì sao: P0b cho thấy bổ sung ở mức box. Box hai chuyên gia cùng thấy đáng tin hơn.</div>
+  <div class="vflow">
+    <div class="box data" style="max-width:340px"><span class="t">Dump T4: B-Clean + B1 trên 2.262 ảnh LR2</span><span class="d">9 geometry, raw ≥ 0,20, shard 64</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box tri" style="max-width:340px"><span class="t">Ghép cặp IoU ≥ θ</span><span class="d">Cặp đồng thuận → giữ polygon B1 · box đơn lẻ → ngưỡng t_l, t_c, t_a</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box tri" style="max-width:340px"><span class="t">Quét 1.928 tổ hợp trên A → khóa</span></div>
+  </div>
+  <div class="res">A LR2 +0,68; B −0,41. FP trên A 6.680 → 3.920 nhưng <b>tiny −19,8 pp</b>. 527 GT tiny mất đều do box B1 score 0,5–0,7 bị cắt.</div>
+  <div class="src">Nguồn: mixab/dualagree_janek.py · HANDOFF 22/11 · phase0_csb1_auto_results_20261122_janek.md (Q4)</div>
+</div>
+
+<div class="panel">
+  <div class="ph"><span class="name">XV-B1</span><span class="chip tri">Trí</span><span class="chip bad">✕ luật tự nó âm</span></div>
+  <div class="why">Vì sao: ablation cùng họ DualAgree v1. Giữ chữ nhỏ bằng cách miễn trừ box &lt; 8 px, chỉ lọc box lớn mà B-Clean không xác nhận.</div>
+  <div class="vflow">
+    <div class="box model" style="max-width:340px"><span class="t">Box B1 <code>epsilon_005/.50</code></span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box tri" style="max-width:340px"><span class="t">Cạnh ngắn LR2 &lt; 8 px?</span><span class="d">Có → giữ. Không → cần ứng viên B-Clean <code>mask_040</code> IoU ≥ 0,3</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box tri" style="max-width:340px"><span class="t">Không có xác nhận → xóa</span><span class="d">Chỉ split A, luật khóa chạy một lần</span></div>
+  </div>
+  <div class="res">+0,153 [−0,46; 0,80] so với <code>.40/.60</code>, nhưng <b>−0,079 [−0,14; −0,02]</b> so với cha. Xóa 356 box: 128 TP và 131 FP. Tiny −3,33.</div>
+  <div class="src">Nguồn: xvb1_spec/xvb1_result_20261123_janek.md · docs/handoff/artifacts/janek/xvb1_v1_T4/</div>
+</div>
+
+<div class="panel">
+  <div class="ph"><span class="name">MSB1 · Mask-Split B1</span><span class="chip tri">Trí</span><span class="chip warn">▲ chưa đạt cổng</span><span class="chip gray">1 checkpoint</span></div>
+  <div class="why">Vì sao: 85% GT CS-B1 cứu là chữ bị gộp trong một box B1 ở mask 0,3. Nếu mask 0,4 của chính B1 tách được thì bỏ được B-Clean.</div>
+  <div class="vflow">
+    <div class="box model" style="max-width:340px"><span class="t">Box cha B1 <code>epsilon_005</code> (≥ 0,5)</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box tri" style="max-width:340px"><span class="t">Có ≥ 2 box B1 <code>mask_040</code> (≥ 0,5) nằm ≥ 80% bên trong?</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box tri" style="max-width:340px"><span class="t">Có → thay cha bằng các box con</span><span class="d">Oracle chính xác trước khi chạy: +1,67 pp</span></div>
+  </div>
+  <div class="res">A <b>+0,224 [−0,40; 0,81]</b>; tiny +5,3; 757 GT cứu, 116 mất; +641 TP / +810 FP. 60% lần tách không đổi TP, chỉ thêm box. B (mô tả) +0,69 [0,28; 1,13].</div>
+  <div class="src">Nguồn: msb1_spec/msb1_result_20261122_janek.md · docs/handoff/artifacts/janek/msb1_v1_T4/</div>
+</div>
+
+<div class="panel">
+  <div class="ph"><span class="name">Ngưỡng score theo kích thước (B1)</span><span class="chip tri">Trí</span><span class="chip bad">✕ trượt tiny</span></div>
+  <div class="why">Vì sao: box nhỏ có score thấp hơn vì P-map yếu ở biên; một ngưỡng chung cắt chữ nhỏ hoặc giữ FP lớn.</div>
+  <div class="vflow">
+    <div class="box model" style="max-width:340px"><span class="t">Box B1 từ dump</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box tri" style="max-width:340px"><span class="t">Chia bin theo cạnh ngắn box</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box tri" style="max-width:340px"><span class="t">Ngưỡng score riêng mỗi bin, chọn trên A</span></div>
+  </div>
+  <div class="res">A +0,62 nhưng <b>tiny −7,1</b>; B −0,02.</div>
+  <div class="src">Nguồn: mixab/sizethr_janek.py · docs/handoff/artifacts/janek/sizethr_v1_T4/</div>
+</div>
+
+<div class="panel">
+  <div class="ph"><span class="name">ZB1 · Zoom cục bộ bằng B1</span><span class="chip tri">Trí</span><span class="chip bad">✕ dừng</span></div>
+  <div class="why">Vì sao: detector đưa mọi ảnh về cạnh ngắn 1.024, nên phóng cả ảnh không làm chữ to hơn trong mạng. Chỉ cắt vùng mới làm được.</div>
+  <div class="vflow">
+    <div class="box data" style="max-width:340px"><span class="t">300 nguồn A (hash), Clean + LR2</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box model" style="max-width:340px"><span class="t">F: B1 toàn ảnh + G2: 4 ô 2×2 (5 forward)</span><span class="d">Mỗi ô được resize lại cạnh ngắn 1.024 → chữ to hơn khoảng 1,5×</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box tri" style="max-width:340px"><span class="t">Giữ F, thêm box zoom cạnh ngắn LR2 &lt; 8 px và IoU &lt; 0,5</span></div>
+  </div>
+  <div class="res">G2 LR2 <b>−3,01 [−6,39; 0,66]</b>, Clean −3,65; tiny +10,8; TP +323 / FP +1.566. 84% FP thêm không chồng GT (nền hoặc thiếu nhãn). Mọi arm âm.</div>
+  <div class="src">Nguồn: zoom_pilot_spec_20261122 / zoom_pilot_result_20261123_janek.md · docs/handoff/artifacts/janek/zoom_pilot_v1_T4/</div>
+</div>
+
+<div class="panel">
+  <div class="ph"><span class="name">Flip-TTA trên P-map</span><span class="chip tri">Trí</span><span class="chip gray">? INCONCLUSIVE</span><span class="chip gray">1 checkpoint · 1,95×</span></div>
+  <div class="why">Vì sao: B1 được train với lật ngang 0,5; trung bình P-map hai hướng có thể giảm nhiễu mà không cần B-Clean.</div>
+  <div class="vflow">
+    <div class="box data" style="max-width:340px"><span class="t">Ảnh sau resize + pad</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box model" style="max-width:340px"><span class="t">B1 trên ảnh gốc ‖ B1 trên ảnh lật (chỉ vùng nội dung)</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box tri" style="max-width:340px"><span class="t">Lật lại, trung bình số học P-map → DBPostprocessor <code>.40/.60</code></span><span class="d">Kiểm căn chỉnh cứng 600/600</span></div>
+  </div>
+  <div class="res">LR2 +0,27 [−0,16; 0,66]; Clean +0,21 [−0,22; 0,68]; FP −8%; tiny LR2 −1,18. Chẩn đoán: so với B1 nâng ngưỡng cùng recall/FP, Clean +0,06, LR2 +0,19 đến +0,27 (CI chứa 0) → tương đương nâng ngưỡng.</div>
+  <div class="src">Nguồn: fliptta_spec / fliptta_result / fliptta_diagnosis_plan_20261123_janek.md · docs/handoff/artifacts/janek/fliptta_v1_T4/, fliptta_diag_v1/</div>
+</div>
+
+<div class="panel">
+  <div class="ph"><span class="name">Mix A-core · E-sel · E-BN</span><span class="chip tri">Trí</span><span class="chip bad">✕ âm</span></div>
+  <div class="why">Vì sao: hai checkpoint cùng gốc B0, đánh đổi ngược chiều; ý tưởng mượn từ WiSE-FT.</div>
+  <div class="vflow">
+    <div class="box model" style="max-width:340px"><span class="t">W_α = (1 − α)·W_B-Clean + α·W_B1</span><span class="d">α ∈ {0, ¼, ½, ¾, 1}; float64; BN nội suy</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box model" style="max-width:340px"><span class="t">5 model × 2.262 × 2 điều kiện × 72 setting</span><span class="d">Một job A100, khoảng 2,7 giờ</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box tri" style="max-width:340px"><span class="t">Chọn α* trên A → kiểm trên B</span></div>
+  </div>
+  <div class="res">α* = B-Clean. Trên B (mô tả): mean α ¼ / ½ / ¾ = 78,34 / 78,28 / 78,34 so với B-Clean 77,87, B1 78,11; mọi CI chứa 0.</div>
+  <div class="src">Nguồn: report_mix_a_v1_janek.md · docs/handoff/artifacts/janek/mix_a_v1/, explore_sel_v1/, bn_stage0_v1/</div>
+</div>
+
+<div class="panel">
+  <div class="ph"><span class="name">QRoute · P0 / P0b</span><span class="chip tri">Trí</span><span class="chip bad">✕ dừng</span><span class="chip good">✓ P0b là tín hiệu</span></div>
+  <div class="why">Vì sao: trên B, B-Clean cho Clean + B1 cho LR2 hơn cả hai endpoint (khám phá).</div>
+  <div class="vflow">
+    <div class="box data" style="max-width:340px"><span class="t">Counts NPZ A2r (2262, 2, 72, 5)</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box tri" style="max-width:340px"><span class="t">P0: oracle theo điều kiện (khóa 1 setting/chuyên gia)</span><span class="d">A +0,27 pp; router kích thước = oracle</span></div>
+    <div class="varrow"><svg viewBox="0 0 14 26"><path d="M7 0v20" stroke="currentColor" stroke-width="1.6"/><path d="M2 18l5 7 5-7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg></div>
+    <div class="box tri" style="max-width:340px"><span class="t">P0b: oracle theo từng ảnh + 3 cặp đối chứng</span><span class="d">LR2: cặp thật +3,70 so với 0,54 / 0,64 / 0,85</span></div>
+  </div>
+  <div class="res">Trần điều kiện quá thấp và dựa vào shortcut kích thước ảnh → dừng QRoute. P0b chỉ ra bổ sung nằm ở mức box trong ảnh LR2 → mở hướng gộp đầu ra.</div>
+  <div class="src">Nguồn: docs/handoff/artifacts/janek/diag_v2_cpu/ (p0_fixed_janek.json, p0b_per_image_oracle_janek.json)</div>
+</div>
+</div>
+
+<div class="panel">
+  <div class="ph"><span class="name">Box-quality scorer</span><span class="chip tri">Trí</span><span class="chip plan">◇ kế hoạch · P0 xong · chưa chạy GPU</span><span class="chip gray">1 checkpoint · 1 forward</span></div>
+  <div class="why">Vì sao: score DBNet là trung bình P-map trong box, không biết box có ôm đúng chữ không. Học một bộ chấm điểm nhỏ trên TRAIN để xếp lại box.</div>
+  <div class="flow">
+    <div class="box data"><span class="t">TRAIN 15.222 nguồn</span><span class="d">Không trùng dev (ID + SHA ảnh)</span></div>
+    <div class="arrow"></div>
+    <div class="box model"><span class="t">B1 một forward</span><span class="d">Box ứng viên + đặc trưng P-map</span></div>
+    <div class="arrow"></div>
+    <div class="box tri"><span class="t">Nhãn mô phỏng evaluator</span><span class="d">Box không chồng GT = âm; box bị ROI/ignore lọc = bỏ</span></div>
+    <div class="arrow"></div>
+    <div class="box tri"><span class="t">Fit logistic</span><span class="d">Chọn ngưỡng trên tập calibration (cũng thuộc TRAIN)</span></div>
+    <div class="arrow"></div>
+    <div class="box tri"><span class="t">So với raw score và score-only</span><span class="d">Cùng tập chọn ngưỡng</span></div>
+    <div class="arrow"></div>
+    <div class="box plan"><span class="t">Nhãn khóa</span><span class="d">NO_SIGNAL / INCONCLUSIVE / POSITIVE_BELOW_GATE / PASS_CALIBRATION_SCREEN / INVALID_CONTROL</span></div>
+  </div>
+  <div class="res">P0 đã kiểm: GT dev tái tạo 2.262/2.262; 2.010/2.010 ảnh có trong zip TextVQA chính thức; mean trong mask trùng <code>_get_bbox_score</code>. <b>Chưa có số chất lượng.</b> Dataset Kaggle phải tạo lại sau khi đổi cấu trúc 24/11.</div>
+  <div class="src">Nguồn: boxquality_spec_20261124_janek.md · docs/handoff/artifacts/janek/boxquality_p0_20261124/ · mixab/boxquality_janek.py</div>
+</div>
+
+<!-- ======================================================= 5 -->
+<h2 id="s5">5 · Biểu đồ Δ và khoảng tin cậy 95%</h2>
+<p class="lead">Mỗi dòng là một phép so sánh đã báo cáo, nhóm theo metric. Chấm là Δ (pp); vạch ngang là CI 95% ghép cặp theo nguồn. Đường liền tại 0; đường đứt tại +0,3 pp (luật dừng LR2 của Trí). Các dòng khác metric hoặc khác tập ảnh, nên không so trực tiếp giữa các nhóm. Rê chuột lên dòng để xem chi tiết. ZB1 (−3,01 [−6,39; 0,66]) nằm ngoài thang, xem bảng.</p>
+<div id="forest-wrap">
+  <svg id="forest" role="img" aria-label="Biểu đồ Δ Hmean với khoảng tin cậy 95% cho các phương pháp của Trí"></svg>
+  <div class="tooltip" id="tip"></div>
+</div>
+
+<!-- ======================================================= 6 -->
+<h2 id="s6">6 · Bảng kết quả (cùng dữ liệu với biểu đồ)</h2>
+<table>
+  <thead><tr><th>Phương pháp</th><th>Tập · metric</th><th>So với</th><th>Δ (pp)</th><th>CI 95%</th><th>Ràng buộc khác</th><th>Kết luận</th></tr></thead>
+  <tbody id="tbl"></tbody>
+</table>
+<p class="note">Không có CI đã báo cáo cho: DualAgree v1 (A +0,68 / B −0,41, tiny −19,8), ngưỡng theo kích thước (A +0,62 / B −0,02, tiny −7,1), QRoute (trần +0,27 trên A), E-sel (α ¾ +0,23 so với B1 trên B, tiny −3,07).</p>
+
+<!-- ======================================================= 7 -->
+<h2 id="s7">7 · Đối chiếu với phần Tuấn</h2>
+<div class="panel">
+  <div class="flow">
+    <div class="box tuan" style="max-width:300px"><span class="t">Tuấn · bên trong model, có train (H200)</span><span class="d">Dương có CI: thích nghi miền, calibration, EDSR (ngưỡng cũ). Không có lợi: PRC (chưa hợp lệ), KD, adapter, ASF, DySample, CRAFT</span></div>
+    <div class="arrow lbl"><svg viewBox="0 0 62 14"><path d="M0 7h56" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M54 2l7 5-7 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>checkpoint</div>
+    <div class="box tri" style="max-width:300px"><span class="t">Trí · bên ngoài model, không train (T4/A100)</span><span class="d">Dương có CI: CS-B1 so với nền của nó (+0,23). Còn lại âm, dừng hoặc chưa đủ bằng chứng</span></div>
+    <div class="arrow lbl"><svg viewBox="0 0 62 14"><path d="M0 7h56" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M54 2l7 5-7 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>chung</div>
+    <div class="box gray" style="max-width:300px"><span class="t">Việc chung còn mở</span><span class="d">Review bằng mắt (127 thẻ Tuấn; K01–K10 + 70 thẻ Trí) · vùng chữ thiếu nhãn · hỏi thầy "cải tiến" so với B0 hay B1 đã calibration</span></div>
+  </div>
+  <p class="note">Không trùng việc: hai bên can thiệp ở hai vị trí khác nhau (Sơ đồ 1). CS-B1 và Flip-TTA không phụ thuộc kiến trúc, nên về nguyên tắc ghép được với checkpoint của Tuấn; chưa thử vì chưa có per-source counts của checkpoint fusion (suy luận).</p>
+</div>
+</main>
+
+<footer>
+  Nguồn số liệu: <code>HANDOFF_janek.md</code>, <code>docs/research/janek/ROADMAP_toan_bo_20261123_janek.md</code> và các artifact ghi ở từng khung. Số của Tuấn lấy từ tài liệu "MONKEY_V2 · Bài toán, câu hỏi nghiên cứu, phương pháp và kết quả hiện tại" (24/11) và repo <code>ncat218/MONKEY_V2</code>. File này không tự tính lại số.
+</footer>
+
+<script>
+// Arrow glyph injected into every empty .arrow
+const ARROW = '<svg viewBox="0 0 30 14"><path d="M0 7h24" stroke="currentColor" stroke-width="1.6" fill="none"/><path d="M22 2l7 5-7 5" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>';
+document.querySelectorAll('.arrow').forEach(a => { if (!a.innerHTML.trim()) a.innerHTML = ARROW; });
+
+// --- data (pp). verdict: bad | warn | gray
+const ROWS = [
+  {g:'LR2 Hmean · đủ 2.262 nguồn', m:'CS-B1@0.7', ref:'B1 epsilon_005/.50 (nền)', d:0.23, lo:0.15, hi:0.32, v:'warn', vt:'Dương quá nhỏ', extra:'tiny +0,60'},
+  {g:'LR2 Hmean · đủ 2.262 nguồn', m:'CS-B1@0.7', ref:'B1 .40/.60', d:0.18, lo:-0.21, hi:0.58, v:'warn', vt:'Chưa đạt cổng', extra:'tiny −1,96; latency 1,99×'},
+  {g:'LR2 Hmean · split A', m:'MSB1', ref:'B1', d:0.224, lo:-0.40, hi:0.81, v:'warn', vt:'Chưa đạt cổng', extra:'tiny +5,3; +641 TP / +810 FP'},
+  {g:'LR2 Hmean · split A', m:'XV-B1', ref:'B1 .40/.60', d:0.153, lo:-0.46, hi:0.80, v:'bad', vt:'Dừng', extra:'tiny −3,33'},
+  {g:'LR2 Hmean · split A', m:'XV-B1', ref:'cha epsilon_005/.50', d:-0.079, lo:-0.14, hi:-0.02, v:'bad', vt:'Luật tự nó âm', extra:'xóa 128 TP, 131 FP'},
+  {g:'LR2 Hmean · 300 nguồn A', m:'Flip-TTA', ref:'B1 cùng lượt', d:0.27, lo:-0.16, hi:0.66, v:'gray', vt:'INCONCLUSIVE', extra:'FP −8%; tiny −1,18; 1,95×'},
+  {g:'LR2 Hmean · 300 nguồn A', m:'ZB1 zoom G2', ref:'B1 toàn ảnh', d:-3.01, lo:-6.39, hi:0.66, v:'bad', vt:'Dừng', extra:'tiny +10,8; FP +1.566', off:true},
+  {g:'Clean Hmean', m:'CS-B1@0.7', ref:'B1 .40/.60', d:0.39, lo:0.01, hi:0.81, v:'warn', vt:'Dương', extra:'2.262 nguồn, không định tuyến'},
+  {g:'Clean Hmean', m:'CS-B1@0.7', ref:'B-Clean', d:-1.02, lo:-1.76, hi:-0.49, v:'bad', vt:'Âm, cần router', extra:'2.262 nguồn'},
+  {g:'Clean Hmean', m:'Flip-TTA', ref:'B1 cùng lượt', d:0.21, lo:-0.22, hi:0.68, v:'gray', vt:'INCONCLUSIVE', extra:'300 nguồn A'},
+  {g:'Mean Hmean · split B (mô tả)', m:'Mix A α ¼', ref:'B-Clean', d:0.47, lo:-0.04, hi:0.90, v:'bad', vt:'Không được chọn', extra:'α* trên A = B-Clean'},
+  {g:'Mean Hmean · split B (mô tả)', m:'Mix A α ½', ref:'B-Clean', d:0.40, lo:-0.42, hi:1.26, v:'bad', vt:'Không được chọn', extra:''},
+  {g:'Mean Hmean · split B (mô tả)', m:'Mix A α ¾', ref:'B-Clean', d:0.46, lo:-0.53, hi:1.48, v:'bad', vt:'Không được chọn', extra:''},
+];
+const fmt = x => (x>0?'+':x<0?'−':'') + Math.abs(x).toFixed(Math.abs(x)<0.1&&x!==0?3:2).replace('.', ',');
+const chip = r => `<span class="chip ${r.v}">${r.v==='bad'?'✕':r.v==='warn'?'▲':'?'} ${r.vt}</span>`;
+
+// table
+document.getElementById('tbl').innerHTML = ROWS.map(r =>
+  `<tr><td>${r.m}</td><td>${r.g}</td><td>${r.ref}</td><td class="num">${fmt(r.d)}</td><td class="num">[${fmt(r.lo)}; ${fmt(r.hi)}]</td><td>${r.extra}</td><td>${chip(r)}</td></tr>`).join('');
+
+// forest plot
+(function(){
+  const svg = document.getElementById('forest'), tip = document.getElementById('tip'), wrap = document.getElementById('forest-wrap');
+  const ns = 'http://www.w3.org/2000/svg';
+  const W = 1240, labelW = 430, right = 30, rowH = 26, grpH = 28, top = 34;
+  const xmin = -2.0, xmax = 1.6;
+  let y = top; const items = [];
+  let lastG = null;
+  ROWS.forEach(r => { if (r.g !== lastG) { items.push({grp:r.g, y: y + 18}); y += grpH; lastG = r.g; } items.push({row:r, y: y + rowH/2}); y += rowH; });
+  const H = y + 30;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.style.width = '100%'; svg.style.height = 'auto';
+  const X = v => labelW + (Math.max(xmin, Math.min(xmax, v)) - xmin) / (xmax - xmin) * (W - labelW - right);
+  const el = (tag, attrs, parent=svg) => { const e = document.createElementNS(ns, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; };
+  // grid + axis ticks
+  for (let t = -2.0; t <= 1.6001; t += 0.4) {
+    const tv = Math.round(t*10)/10;
+    el('line', {x1:X(tv), x2:X(tv), y1:top-6, y2:H-26, class:'gridline'});
+    const tx = el('text', {x:X(tv), y:H-10, 'text-anchor':'middle'}); tx.textContent = fmt(tv);
+  }
+  const ax = el('text', {x:labelW, y:16, 'text-anchor':'start'}); ax.textContent = 'Δ Hmean (pp) · CI 95% ghép cặp theo nguồn';
+  el('line', {x1:X(0), x2:X(0), y1:top-6, y2:H-26, class:'zero'});
+  el('line', {x1:X(0.3), x2:X(0.3), y1:top-6, y2:H-26, class:'gate'});
+  const gl = el('text', {x:X(0.3)+4, y:top-10}); gl.textContent = '+0,3 luật dừng LR2';
+  items.forEach(it => {
+    if (it.grp) { const t = el('text', {x:8, y:it.y, class:'grp'}); t.textContent = it.grp; return; }
+    const r = it.row;
+    const hit = el('rect', {x:0, y:it.y - rowH/2, width:W, height:rowH, class:'hit'});
+    const lbl = el('text', {x:20, y:it.y+4, class:'rowlbl'}); lbl.textContent = `${r.m}  ·  so với ${r.ref}`;
+    el('line', {x1:X(r.lo), x2:X(r.hi), y1:it.y, y2:it.y, class:'ci'});
+    if (r.off) {
+      const t = el('text', {x:X(xmin)+4, y:it.y-6}); t.textContent = `◀ Δ ${fmt(r.d)} (ngoài thang)`;
+    } else {
+      el('circle', {cx:X(r.d), cy:it.y, r:5, class:'pt'});
+    }
+    const v = el('text', {x:W-right, y:it.y+4, 'text-anchor':'end'}); v.textContent = '';
+    hit.addEventListener('mousemove', ev => {
+      const b = wrap.getBoundingClientRect();
+      tip.innerHTML = `<b>${r.m}</b>${r.g}<br>So với: ${r.ref}<br>Δ ${fmt(r.d)} pp, CI [${fmt(r.lo)}; ${fmt(r.hi)}]${r.extra?'<br>'+r.extra:''}<br>${chip(r)}`;
+      tip.style.display = 'block';
+      let lx = ev.clientX - b.left + 14, ly = ev.clientY - b.top + 14;
+      if (lx + 340 > b.width) lx = ev.clientX - b.left - 350;
+      tip.style.left = lx + 'px'; tip.style.top = ly + 'px';
+    });
+    hit.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
+  });
+})();
+</script>
+</body>
+</html>

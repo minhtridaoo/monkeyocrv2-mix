@@ -1,0 +1,10 @@
+# Model weights and run outputs never go into the repo
+*.pth
+*.pt
+*.npz
+runtime/
+.runtime/
+outputs/
+__pycache__/
+*.pyc
+*.tmp

@@ -1,0 +1,2354 @@
+[
+  {
+    "old": ".gitignore",
+    "new": ".gitignore",
+    "sha256_before": "9fb431a45d14130406c8c4e21846f7325a2ba18fde89fb83db4b7ace2aa5ab4a",
+    "origin": "Janek workspace",
+    "sha256_after": "9fb431a45d14130406c8c4e21846f7325a2ba18fde89fb83db4b7ace2aa5ab4a"
+  },
+  {
+    "old": "HANDOFF.md",
+    "new": "HANDOFF_janek.md",
+    "sha256_before": "2caebb123c01b552c4142da089f015eb54feee2393deca83127b05f3f364d925",
+    "origin": "Janek workspace",
+    "sha256_after": "adb97063240e0cb4159d752b108265103c3572bb8b1f12ebaef843d219229660"
+  },
+  {
+    "old": "Ke_hoach_phoi_hop_MixA_MixB_20261119.md",
+    "new": "docs/research/janek/Ke_hoach_phoi_hop_MixA_MixB_20261119_janek.md",
+    "sha256_before": "cd9ce47d4d3cf767d83a6629ffe27ca60b6dfd17afa2ab85573940d606ccfdba",
+    "origin": "Janek workspace",
+    "sha256_after": "3fd3598f39ab6abf75e9465c1278109186cbd58e17108b0e71c68b36e3bb8404"
+  },
+  {
+    "old": "MonkeyOCRv2_TextDetection_Progress_Results_Research_Roadmap.md",
+    "new": "docs/research/janek/MonkeyOCRv2_TextDetection_Progress_Results_Research_Roadmap_janek.md",
+    "sha256_before": "299ccc6776cfcac64255a5d775bc8cf257dc1c953fd3b28201c549e117406a99",
+    "origin": "Janek workspace",
+    "sha256_after": "cf661d1c7371e5ffb64082232b37324a3ea44af076cb7deb9ed5d56237c5b6e6"
+  },
+  {
+    "old": "README.md",
+    "new": "README_janek.md",
+    "sha256_before": "ad497d29576051b4254d39cb2b33f803e0088f9f68ea4b31d278898c5f1eb61c",
+    "origin": "Janek workspace",
+    "sha256_after": "ffc12ea28149bf4b4ec77f193e061ebe6e9a1686a72903feb1c3f0c6954b7b5e"
+  },
+  {
+    "old": "WORKLOG.md",
+    "new": "docs/research/janek/WORKLOG_janek.md",
+    "sha256_before": "7f4758721ad4780b208926e58cd5d84c818ae30112bf87cd2eeab00b76c2d99e",
+    "origin": "Janek workspace",
+    "sha256_after": "55675f5a87ad5d4cae11c2a4fb5ceb7fb677290ade1170af7aec8c6c6598f2aa"
+  },
+  {
+    "old": "_archive/Method_Transfer_Plan_LR2_FP_Geometry.md",
+    "new": "docs/archive/janek/Method_Transfer_Plan_LR2_FP_Geometry_janek.md",
+    "sha256_before": "bb139f980acdffb7cf33a3294324e501cbb7768fc79c6d675ed93df0e859b9a4",
+    "origin": "Janek workspace",
+    "sha256_after": "0638593fedb3b032b1d2a85362d7a25e0de313c85f335ce8c089bc6aa8275150"
+  },
+  {
+    "old": "_archive/Phan_cua_toi_2_Mix_trong_pipeline_Tuan.md",
+    "new": "docs/archive/janek/Phan_cua_toi_2_Mix_trong_pipeline_Tuan_janek.md",
+    "sha256_before": "ca345c56bac348f3055d36c1e443639c64fdcf3424e899c11d843ab6f1399e20",
+    "origin": "Janek workspace",
+    "sha256_after": "084486b4808faecb761b12c67436a71d62ed2ac215e6a9979fc00a26a58df44e"
+  },
+  {
+    "old": "_archive/dashboard_PIPELINE_20261119.md",
+    "new": "docs/archive/janek/dashboard_PIPELINE_20261119_janek.md",
+    "sha256_before": "41c71738ad9202c1664cb63154c5984a0ed4efe547f5f873f34f407f5575fb98",
+    "origin": "Janek workspace",
+    "sha256_after": "9d51f716728225bd236a03793bc4c341644719cd5200919e1f3c20b77332ba0a"
+  },
+  {
+    "old": "configs/baseline_ab_v1.json",
+    "new": "configs/baseline_ab_v1_janek.json",
+    "sha256_before": "e07e9ef034d5a4a1abaa6bb96a9c830821d571b52faa3bee8fd69dea0d2f0ca7",
+    "origin": "Janek workspace",
+    "sha256_after": "e07e9ef034d5a4a1abaa6bb96a9c830821d571b52faa3bee8fd69dea0d2f0ca7"
+  },
+  {
+    "old": "dashboard/PIPELINE.md",
+    "new": "tools/dashboard_janek/PIPELINE_janek.md",
+    "sha256_before": "fc445ea3b29e63f19568f00b409a5f99c85202efa52f1abbf3f6f7435524b0fc",
+    "origin": "Janek workspace",
+    "sha256_after": "2a965a6a5fd3e66afe6dffa1cdec692ea77b7e0cf51cbbb968f682a989b3c87a"
+  },
+  {
+    "old": "dashboard/index.html",
+    "new": "tools/dashboard_janek/index_janek.html",
+    "sha256_before": "22bbf016948b2f7f0208e8fc72dfef586a5180d467e5fe56e0ed285f0835610e",
+    "origin": "Janek workspace",
+    "sha256_after": "1346ea6aad225ead2cd1e47fcb689a4137eae8efa9227ded3382339321a1edce"
+  },
+  {
+    "old": "dashboard/status.js",
+    "new": "tools/dashboard_janek/status_janek.js",
+    "sha256_before": "bf9664c2e5e8c771e6f92514f20e159e401e8097e9aca7fb24b263bb9d893514",
+    "origin": "Janek workspace",
+    "sha256_after": "48abda7143991667e0bb77d2531ff20583913c238376c1ebb288f0f98e40d44a"
+  },
+  {
+    "old": "docs/HUONG_DAN_KAGGLE_boxquality.md",
+    "new": "docs/research/janek/HUONG_DAN_KAGGLE_boxquality_janek.md",
+    "sha256_before": "af7d2a51837eb80d9cea68420b17dcf8b468816fba681e12df23be23edc64140",
+    "origin": "Janek workspace",
+    "sha256_after": "405e41e6cf68d341ad6c39ec8a49bb172bf91c811a5686062b458f591da87966"
+  },
+  {
+    "old": "docs/HUONG_DAN_KAGGLE_csb1_clean.md",
+    "new": "docs/research/janek/HUONG_DAN_KAGGLE_csb1_clean_janek.md",
+    "sha256_before": "f80d889b05e287f285fb65df5cf8dee2df4857d0717b6e89685e667b4d78e680",
+    "origin": "Janek workspace",
+    "sha256_after": "b273c8c101b3a3fec1fa3fa98ca4f04136a6fd8690d522876cd73852dbfab2fb"
+  },
+  {
+    "old": "docs/HUONG_DAN_KAGGLE_csb1_latency.md",
+    "new": "docs/research/janek/HUONG_DAN_KAGGLE_csb1_latency_janek.md",
+    "sha256_before": "9e5b18eda5d88121c59fb4962ee3227e616c84d34ab70db892060d4106b3c39d",
+    "origin": "Janek workspace",
+    "sha256_after": "56f890863dbdace2c67aefad200c39ee8f998238d53d38a061c89621452d927e"
+  },
+  {
+    "old": "docs/HUONG_DAN_KAGGLE_fliptta_pilot.md",
+    "new": "docs/research/janek/HUONG_DAN_KAGGLE_fliptta_pilot_janek.md",
+    "sha256_before": "c0f313f80da1a773fba45f6dee2d63b99f7c3e2ee5f9f4f15b8ab4189d1f86ca",
+    "origin": "Janek workspace",
+    "sha256_after": "340f3a5323e7c13870490ab1b957fe0fd80da0f5944305fb787253182383414e"
+  },
+  {
+    "old": "docs/HUONG_DAN_KAGGLE_zoom_pilot.md",
+    "new": "docs/research/janek/HUONG_DAN_KAGGLE_zoom_pilot_janek.md",
+    "sha256_before": "2a4a4484e04f1c69565e087071f17e7fdbeb35539ef4d8fda3226bab87371b12",
+    "origin": "Janek workspace",
+    "sha256_after": "c45fa86f41e23493b40bd1b007d0bada7caba42af189aec633b9d69b4cf463ab"
+  },
+  {
+    "old": "docs/KE_HOACH_BOX_QUALITY_20261124.md",
+    "new": "docs/research/janek/KE_HOACH_BOX_QUALITY_20261124_janek.md",
+    "sha256_before": "e798bb0057b33a4994d2aebe30b7bf7f0331d233678bf79d1d32bf30b63d92eb",
+    "origin": "Janek workspace",
+    "sha256_after": "37ad66d59ddf72a59f993ca042bbe21e08ab2bb424d11a3f1d54aa21e926d590"
+  },
+  {
+    "old": "docs/PROMPT_TIEP_TUC_20261123.md",
+    "new": "docs/research/janek/PROMPT_TIEP_TUC_20261123_janek.md",
+    "sha256_before": "83085b9f275616a90912b7f00880d43666dac73d601888fac4814599e9058d14",
+    "origin": "Janek workspace",
+    "sha256_after": "8de7d1ebb51700530bd661ed534fb26ab18e6e1e5584848f2f63a8b384bac696"
+  },
+  {
+    "old": "docs/ROADMAP_toan_bo_20261123.md",
+    "new": "docs/research/janek/ROADMAP_toan_bo_20261123_janek.md",
+    "sha256_before": "d0ba9591e5c9116b88a31a17971c8420290c138bc0f99601b51ce77c717ee531",
+    "origin": "Janek workspace",
+    "sha256_after": "6aaff9b749a5ed0875519ec40223169e328bbe3f5b9e03d0da07f4ac283cb00c"
+  },
+  {
+    "old": "docs/RUNBOOK_mix_a_T4_A100.md",
+    "new": "docs/research/janek/RUNBOOK_mix_a_T4_A100_janek.md",
+    "sha256_before": "d33a0bbdee96e599dbc1fc6d5ceec1bf7279cf6fe7925eab8f8124d1828531cf",
+    "origin": "Janek workspace",
+    "sha256_after": "37ef1440831cb928e7df5004bc0d4f38ad90c4cd3ae6d799c11598966ea69335"
+  },
+  {
+    "old": "docs/SESSION_START_20261123.md",
+    "new": "docs/research/janek/SESSION_START_20261123_janek.md",
+    "sha256_before": "fb13d34033f032562358036ba050b35a8d28afc3850efe77b3ea4b587b156769",
+    "origin": "Janek workspace",
+    "sha256_after": "a28bd8a4efb495240702d32601728f2dcafa4d2f54353d6212b2f84aba866912"
+  },
+  {
+    "old": "docs/audit_v2_vs_framework_20261122.md",
+    "new": "docs/research/janek/audit_v2_vs_framework_20261122_janek.md",
+    "sha256_before": "5ab60f88cff5bf2fcefca9035390bb0cbf8b7ee070eca7214ea6ec722b5bdec9",
+    "origin": "Janek workspace",
+    "sha256_after": "ba9f5a7534f9d0dc1e635b38fbc61008f3a1a7268e159b6064c052ab0ee8a579"
+  },
+  {
+    "old": "docs/boxquality_spec_20261124.md",
+    "new": "docs/research/janek/boxquality_spec_20261124_janek.md",
+    "sha256_before": "1a0f4477ab80027b54d14f099432f53abe8dad509172f6b0f4185ad06cf69d9c",
+    "origin": "Janek workspace",
+    "sha256_after": "0f4cf9d397053cd35d981fa1c8d0dc267a0361060ff566a241bd81017c859a9c"
+  },
+  {
+    "old": "docs/csb1_clean_check_spec_20261123.md",
+    "new": "docs/research/janek/csb1_clean_check_spec_20261123_janek.md",
+    "sha256_before": "69b04e406c586a601044989af9e509e4720348f18715e8b1d471340f87141593",
+    "origin": "Janek workspace",
+    "sha256_after": "fbf11c6a43bee06810cfc8f3aa694a367a33a4851c12a203563256b389a7abbb"
+  },
+  {
+    "old": "docs/csb1_clean_result_20261123.md",
+    "new": "docs/research/janek/csb1_clean_result_20261123_janek.md",
+    "sha256_before": "9a591da46ba7b21741b0ebd3c55d062f3bac96841027175790c44eb5b6d22597",
+    "origin": "Janek workspace",
+    "sha256_after": "a3015833c37aa6709139557a5f8923fafa8b326ca0c4ef74661e588dcc52e6bd"
+  },
+  {
+    "old": "docs/design_bn_recalibration_pilot.md",
+    "new": "docs/research/janek/design_bn_recalibration_pilot_janek.md",
+    "sha256_before": "ef4276ab869b0a3d0afae18ed5869ebc5572450a0b43afa2e9d52f16fc60c3f8",
+    "origin": "Janek workspace",
+    "sha256_after": "a7c03ebfc2c409d752000094e4d6ce7ab10916591186534483850ad3ea15dc4a"
+  },
+  {
+    "old": "docs/fliptta_diagnosis_plan_20261123.md",
+    "new": "docs/research/janek/fliptta_diagnosis_plan_20261123_janek.md",
+    "sha256_before": "f87f4d118a5d8f3b908326db4738cfa2bfd29d7582e8fb165b60c33f05e0becb",
+    "origin": "Janek workspace",
+    "sha256_after": "5e10c75bed2295c9ee5522c7a9c69eaa4ccb68e34b7ee9fee0efbf991eebc78f"
+  },
+  {
+    "old": "docs/fliptta_result_20261123.md",
+    "new": "docs/research/janek/fliptta_result_20261123_janek.md",
+    "sha256_before": "d4056bf803043b52ebfec40a73dd777a0d1ffe153980775a445894739b7b236b",
+    "origin": "Janek workspace",
+    "sha256_after": "5e72df8b0b29a4dc0a6e3c756a8fb2ebfb86bdaa5e7a3fa982e97b7ddb8a2411"
+  },
+  {
+    "old": "docs/fliptta_spec_20261123.md",
+    "new": "docs/research/janek/fliptta_spec_20261123_janek.md",
+    "sha256_before": "2da3d96f37fb623d29cc31104f618f657158e37faf752119287326ad4f24c171",
+    "origin": "Janek workspace",
+    "sha256_after": "f9da4f3d88f9c743bb9af90557ac35fba6201906957d73d64078c34de2ecba3b"
+  },
+  {
+    "old": "docs/msb1_result_20261122.md",
+    "new": "docs/research/janek/msb1_result_20261122_janek.md",
+    "sha256_before": "c321f30b5c384132af36d7e495f8e66e5077c51667f180cd90497c710aab19e4",
+    "origin": "Janek workspace",
+    "sha256_after": "479f8f6c6c769bfe2eda13e8ba413468a614c6a68baf1977de5d9220d1e6f077"
+  },
+  {
+    "old": "docs/msb1_spec_20261122.md",
+    "new": "docs/research/janek/msb1_spec_20261122_janek.md",
+    "sha256_before": "85f58180809d2e5ede1ad60110f1ea8646188647da62bfd1b70b4d6015a93596",
+    "origin": "Janek workspace",
+    "sha256_after": "7518ab6f0cf51b73acda1fd469955cf4489553df4006751be155099a9496a2ea"
+  },
+  {
+    "old": "docs/msg_tuan_20261120.md",
+    "new": "docs/research/janek/msg_tuan_20261120_janek.md",
+    "sha256_before": "2d6d1a1ae2b294815cd1fa006098803b0364fa69ceb4787700786fd14c78d9bf",
+    "origin": "Janek workspace",
+    "sha256_after": "30e25bd1dee00dd0c8d01f2b51397bb15930f18bf927d1bac07e6faa2e62ed0e"
+  },
+  {
+    "old": "docs/msg_tuan_20261120_mixA_result.md",
+    "new": "docs/research/janek/msg_tuan_20261120_mixA_result_janek.md",
+    "sha256_before": "65836a6caf297e4a2fbbc99e2d66efaf574d9b3f6999eae68defa421b60a8b75",
+    "origin": "Janek workspace",
+    "sha256_after": "ce8b46568d555c414d7be13c48e862e3603fbb2b45421321c004b8fb3648c291"
+  },
+  {
+    "old": "docs/msg_tuan_20261121_close_mixA.md",
+    "new": "docs/research/janek/msg_tuan_20261121_close_mixA_janek.md",
+    "sha256_before": "16a11c9fa0fb57c2efc9f7eb495673c356aca7feef4459ca2dfe6f96b2fd8d13",
+    "origin": "Janek workspace",
+    "sha256_after": "227ee43c4be670693b60357eed998d7fcd74a13be4bfbf18d855749870232b66"
+  },
+  {
+    "old": "docs/msg_tuan_20261123_csb1.md",
+    "new": "docs/research/janek/msg_tuan_20261123_csb1_janek.md",
+    "sha256_before": "c115412a055d8a478c4a89ee362972443f861c12e104971ec3d659292b731646",
+    "origin": "Janek workspace",
+    "sha256_after": "e424b32be9c0195bc6e9935a5dad86343f3ac7ac64b451960a4cc3c1ae904e2c"
+  },
+  {
+    "old": "docs/phase0_csb1_auto_results_20261122.md",
+    "new": "docs/research/janek/phase0_csb1_auto_results_20261122_janek.md",
+    "sha256_before": "462027b8388668470d4b4a453f5863918ed6ad875d955c354a29c98576d0c2aa",
+    "origin": "Janek workspace",
+    "sha256_after": "868c8b19b71dd1dfe07b92c57a87dbdd23495e5255c20d8b952eb93d135c99bc"
+  },
+  {
+    "old": "docs/phase0_csb1_plan_20261122.md",
+    "new": "docs/research/janek/phase0_csb1_plan_20261122_janek.md",
+    "sha256_before": "7cc7a2e7795731ae85457c046e32fb1bdeaa3eed5348247a77d57eb7384012b3",
+    "origin": "Janek workspace",
+    "sha256_after": "9473bb4b4e0b6821156d3e485d4e0458b57a9b5d7286522763b1c9d7a3ec6fd6"
+  },
+  {
+    "old": "docs/pipeline_v2_dualagree.mmd",
+    "new": "docs/research/janek/pipeline_v2_dualagree_janek.mmd",
+    "sha256_before": "f18bb047d0018ca9954560dab2e168933e2753e0245aa354a2d77aa0a0801f0c",
+    "origin": "Janek workspace",
+    "sha256_after": "f18bb047d0018ca9954560dab2e168933e2753e0245aa354a2d77aa0a0801f0c"
+  },
+  {
+    "old": "docs/report_mix_a_v1.md",
+    "new": "docs/research/janek/report_mix_a_v1_janek.md",
+    "sha256_before": "b02e2f9b0a277ef7b96ec5050a6b9d61dac8cad1e96af70faf9280dfdc96a5d2",
+    "origin": "Janek workspace",
+    "sha256_after": "e1e5d6dcece631fbb1023d66ef78ded667747da581cf43551874306b7c8faeda"
+  },
+  {
+    "old": "docs/research_v2_design_20261121.md",
+    "new": "docs/research/janek/research_v2_design_20261121_janek.md",
+    "sha256_before": "4db9aacc14c1c512c9c676af54a92c20c5a7cb78373babe38ccec86fbd138bdb",
+    "origin": "Janek workspace",
+    "sha256_after": "68b631184b47814905ed78f4370717bb15968f3387d8072b03bc61b2c8d3bff1"
+  },
+  {
+    "old": "docs/xvb1_result_20261123.md",
+    "new": "docs/research/janek/xvb1_result_20261123_janek.md",
+    "sha256_before": "a5248b25f79c1dd81cae1ae64fd719933ff2a111198ce97e0f585f5b6eb103fa",
+    "origin": "Janek workspace",
+    "sha256_after": "4b215e4bb7c688593144a531824cfa6a9c9cf226777457529c396cfb17727046"
+  },
+  {
+    "old": "docs/xvb1_spec_20261123.md",
+    "new": "docs/research/janek/xvb1_spec_20261123_janek.md",
+    "sha256_before": "558f623c158cd4f8d8ece1da73f824a5925e467a21dd5eeca8b5c9b6184af86a",
+    "origin": "Janek workspace",
+    "sha256_after": "0b7b275e5a27e1d016c043605b7b9cbf21b5d03b875b6fc5e3b3f31cb040c3a2"
+  },
+  {
+    "old": "docs/zoom_pilot_result_20261123.md",
+    "new": "docs/research/janek/zoom_pilot_result_20261123_janek.md",
+    "sha256_before": "3f36ab87d5e1224abb9498bfd4da110c5a81d91f5eab149a2e09e995e8274c7e",
+    "origin": "Janek workspace",
+    "sha256_after": "696701ce2e80c8e89d438b2cbea13cedcfcb7f415d9db4bc710d09e98d225470"
+  },
+  {
+    "old": "docs/zoom_pilot_spec_20261122.md",
+    "new": "docs/research/janek/zoom_pilot_spec_20261122_janek.md",
+    "sha256_before": "1c404ea4b9530816fe28250e02f4a0bf2903a278eb02de83d17f62a3e8f46148",
+    "origin": "Janek workspace",
+    "sha256_after": "45f63aa4382f4830f0c7f1e432966b47d155e550b65a1168bd35bbb1c30d40dc"
+  },
+  {
+    "old": "mixab/__init__.py",
+    "new": "mixab/__init__.py",
+    "sha256_before": "f0f5a70a8f48e894cd49e935e972d3c0135907bbe8b7d4a15181bf6b0d08e986",
+    "origin": "Janek workspace",
+    "sha256_after": "c34074faa7ebf40b2216691526176b319d2f8051a24a6ec4b133200a9a2ebec5"
+  },
+  {
+    "old": "mixab/bn_recal.py",
+    "new": "mixab/bn_recal_janek.py",
+    "sha256_before": "4becd51916e1c99dfef5e884a3a9872402add1c88fef9a62d32b7432a296922c",
+    "origin": "Janek workspace",
+    "sha256_after": "b5093537efa49bcd75895fe186c4572f6e8ef74d220eb56c14a754e9233d989f"
+  },
+  {
+    "old": "mixab/boxquality.py",
+    "new": "mixab/boxquality_janek.py",
+    "sha256_before": "ba7b2458b8a75fe45a169dd535bd80d73bfb7304156b2f1d2de62da3f5881fd2",
+    "origin": "Janek workspace",
+    "sha256_after": "2e0bee7b94d0301e48a16b99b3c08b126767e352a2b82e14f09458ec563c42d6"
+  },
+  {
+    "old": "mixab/colab_helpers.py",
+    "new": "mixab/colab_helpers_janek.py",
+    "sha256_before": "2178b3db5bbf5b175bf7eb9a14af7182cb4b381bd885e897841ffc31b46a37a0",
+    "origin": "Janek workspace",
+    "sha256_after": "7e14ce02b59864e585755c269f98caf1752b0fbb9cef81341015978e07b0b5d9"
+  },
+  {
+    "old": "mixab/csb1_clean.py",
+    "new": "mixab/csb1_clean_janek.py",
+    "sha256_before": "8f601abdbb647ed0cf87c71028509b1179ea9409d5f66240f221e7b6af673cfc",
+    "origin": "Janek workspace",
+    "sha256_after": "8622804a8ba9bdc75b58ebacc2f46c1671c29e0439f6df76222a47f3e8ce6681"
+  },
+  {
+    "old": "mixab/csb1_latency.py",
+    "new": "mixab/csb1_latency_janek.py",
+    "sha256_before": "568cb05b84b508ad41093bafc34755934ab83b06b4d88224e67c73f1de2a7481",
+    "origin": "Janek workspace",
+    "sha256_after": "41c8404ad4a512e918dc16930396ae52036a201c98049d082a38ca3ec23accb9"
+  },
+  {
+    "old": "mixab/doctor.py",
+    "new": "mixab/doctor_janek.py",
+    "sha256_before": "1f152fe07748435ad5f1cbb6ce24afb3c8413e8258f96e50e272d5e8eaae8060",
+    "origin": "Janek workspace",
+    "sha256_after": "a72bbd3af1d337168f82c79b544db77622aa6b0e0c98baf3b690eb47a5a514f0"
+  },
+  {
+    "old": "mixab/dualagree.py",
+    "new": "mixab/dualagree_janek.py",
+    "sha256_before": "042f478a24479fc6db1e6489e1657668ae345d4251f82029f60a98cfcda1471c",
+    "origin": "Janek workspace",
+    "sha256_after": "095e87490f3e549396fde452ff26204550e8180532969007c46961a32c204ebf"
+  },
+  {
+    "old": "mixab/explore_selection.py",
+    "new": "mixab/explore_selection_janek.py",
+    "sha256_before": "068b7bd1e0ffd90832575d7c6df4706806d961a695f9bf32d96aa00cd0694549",
+    "origin": "Janek workspace",
+    "sha256_after": "cf38f1b4698176eccda490401c72d377a713a80d161f94fb1d576fd29eb55ed4"
+  },
+  {
+    "old": "mixab/fliptta.py",
+    "new": "mixab/fliptta_janek.py",
+    "sha256_before": "2c0f1d99861783b0e853dfc0b7b925615f477890b02b984bdeddac6ce48f00fa",
+    "origin": "Janek workspace",
+    "sha256_after": "a012ba0b5e95123f1451bb4bdbee18abf1456529941298f2d600a9b33bc6772c"
+  },
+  {
+    "old": "mixab/fliptta_diag.py",
+    "new": "mixab/fliptta_diag_janek.py",
+    "sha256_before": "d53da28d8c80f11b5b5bf4cc52aee039b7f545aee804f34efd7b0ae224515c38",
+    "origin": "Janek workspace",
+    "sha256_after": "ff0bacf587dcfca79683862178b19387d94db0a4b7bf493b60432691c35ff653"
+  },
+  {
+    "old": "mixab/fsr.py",
+    "new": "mixab/fsr_janek.py",
+    "sha256_before": "82854836c0c2268ef635ab06ae02c656c7d377767d0e294a00810abcf26f2265",
+    "origin": "Janek workspace",
+    "sha256_after": "be657a476fd4410787e913b4de74f288bb0b3ad95c408a3004843109ec1243c7"
+  },
+  {
+    "old": "mixab/merge_audit.py",
+    "new": "mixab/merge_audit_janek.py",
+    "sha256_before": "66750f0b833042bb1cce918e1cecb91b46ab2167bfd70159f0ada4180647cc2b",
+    "origin": "Janek workspace",
+    "sha256_after": "03caa6d106fd4cde3b2322de3a54713926885d2a9918a4c64b7cf4c112c7ce61"
+  },
+  {
+    "old": "mixab/monkey.py",
+    "new": "mixab/monkey_janek.py",
+    "sha256_before": "2384796c5202e70eca34821c51c3194842fc5be8deff8ab39373d89326960d37",
+    "origin": "Janek workspace",
+    "sha256_after": "367d21adc64d00ad651707fffae2cba3f2fc326dadc180b1b8329d3cc4c2dd50"
+  },
+  {
+    "old": "mixab/msb1.py",
+    "new": "mixab/msb1_janek.py",
+    "sha256_before": "2d8b47208ba305f17bc18ec526af14ca9719a3477b72e7a24db725a912bd54eb",
+    "origin": "Janek workspace",
+    "sha256_after": "c0aa2222b5340fe1fe9f4f1d46b5cecaed95530463925890e5cca3a9d39bcddd"
+  },
+  {
+    "old": "mixab/phase0.py",
+    "new": "mixab/phase0_janek.py",
+    "sha256_before": "144c53694d36a758a3ff80e2605ff6a54abc68f8da7f01f90eac823a5b5fdb44",
+    "origin": "Janek workspace",
+    "sha256_after": "28fdb92ba49224ac710a7f9300f0291471e14c26f6b3c0ff1dc0659df4722ca6"
+  },
+  {
+    "old": "mixab/reselect_split.py",
+    "new": "mixab/reselect_split_janek.py",
+    "sha256_before": "aec4edc56e51c2812e7eb8f25d3ec469dec88546d6fac101894bed6cc9053b97",
+    "origin": "Janek workspace",
+    "sha256_after": "7a135c3cb5f10c0fb4a57878a639d3152245dc37a06d1f09c9d807753d221622"
+  },
+  {
+    "old": "mixab/sizethr.py",
+    "new": "mixab/sizethr_janek.py",
+    "sha256_before": "0cbdb479b5dc13cdf2e1ee7174547a1b31938455896fe34d9d8b00653f0c6349",
+    "origin": "Janek workspace",
+    "sha256_after": "45bad13452163794001d6d97ab4bdffae7739cda4ed83843ccccba9b1246c436"
+  },
+  {
+    "old": "mixab/vendor/__init__.py",
+    "new": "mixab/vendor/__init__.py",
+    "sha256_before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "origin": "upstream copy; attribution retained",
+    "sha256_after": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "old": "mixab/vendor/shared_manifest.py",
+    "new": "mixab/vendor/shared_manifest_janek.py",
+    "sha256_before": "6b2ecde7965222013e46669bbf75c240944068ba6cdd80779925e1670cee055b",
+    "origin": "upstream copy; attribution retained",
+    "sha256_after": "6b2ecde7965222013e46669bbf75c240944068ba6cdd80779925e1670cee055b"
+  },
+  {
+    "old": "mixab/weight_merge.py",
+    "new": "mixab/weight_merge_janek.py",
+    "sha256_before": "4be49c2ee91aec5ab4436b33943c757687bee02cb1dcca91227dbc1d51f8a710",
+    "origin": "Janek workspace",
+    "sha256_after": "1f234a65c2d65cd7c878537d8d771ecdcd34b068269fc133422a4cbc2055448f"
+  },
+  {
+    "old": "mixab/xvb1.py",
+    "new": "mixab/xvb1_janek.py",
+    "sha256_before": "d97cb0b68316c7fd47a80e113326bdab17406ab5ac14111126bd620bc0dc8ecb",
+    "origin": "Janek workspace",
+    "sha256_after": "7c6f680d2930e28f1ed9df6c2c22c7edf024f5cc3bb6729431a4ef32de263c1c"
+  },
+  {
+    "old": "mixab/zoom.py",
+    "new": "mixab/zoom_janek.py",
+    "sha256_before": "658652ffd16c3ad43805f15e26b21883de1cc80ac0eea677addc7bee8e93345a",
+    "origin": "Janek workspace",
+    "sha256_after": "25a8ba03cbd9dfd557c374824ed5a33d8deb5c21b37084b5c334a97fcaf9ddd5"
+  },
+  {
+    "old": "notebooks/colab_E1_A2_probe.ipynb",
+    "new": "notebooks/colab_E1_A2_probe_janek.ipynb",
+    "sha256_before": "c5307ff58cc7fbfb48367ab927aa030600fb10cd28c9ffa8b2d4c41f880f5751",
+    "origin": "Janek workspace",
+    "sha256_after": "2c01b696640f7c740cae2b01d42e68daa5948bd443e06c6bd4502706e3f678c4"
+  },
+  {
+    "old": "notebooks/colab_bn_pilot_stage0.ipynb",
+    "new": "notebooks/colab_bn_pilot_stage0_janek.ipynb",
+    "sha256_before": "a34878070ac79069736a4d97e8c2627aad5e35cbb6f273b8659b656f7f7e2943",
+    "origin": "Janek workspace",
+    "sha256_after": "4a70bb900e2f660cb67f4168d94270ed0fff040eb7347107152446a2409cffa1"
+  },
+  {
+    "old": "notebooks/colab_dualagree_v1.ipynb",
+    "new": "notebooks/colab_dualagree_v1_janek.ipynb",
+    "sha256_before": "5475962f6fc8e96350cb142960587c66877e2beb373efe32c5312b91015f868d",
+    "origin": "Janek workspace",
+    "sha256_after": "8dd0f16b5b46a7a9c96235937dbaf116b268fb7b48582dbed2773a9047a93820"
+  },
+  {
+    "old": "notebooks/kaggle_boxquality.ipynb",
+    "new": "notebooks/kaggle_boxquality_janek.ipynb",
+    "sha256_before": "6b268a53fa5b64373f8edc2ad72c06072c3a7ef2d8cb137a6c05c4d8627e4aee",
+    "origin": "Janek workspace",
+    "sha256_after": "9dae3e8c26f64aceebbd2e4fa42c1d120dbb70648d9ea5ff7146fd3481abce5c"
+  },
+  {
+    "old": "notebooks/kaggle_csb1_clean.ipynb",
+    "new": "notebooks/kaggle_csb1_clean_janek.ipynb",
+    "sha256_before": "9cf53eabf4fed843604408b4546bb40c6740e26acc9efa698ca755134f91d96a",
+    "origin": "Janek workspace",
+    "sha256_after": "edde6b6fed5d3e16ae381f232a6072b2a4409de2ea734b6caf40b5be496554dd"
+  },
+  {
+    "old": "notebooks/kaggle_csb1_latency.ipynb",
+    "new": "notebooks/kaggle_csb1_latency_janek.ipynb",
+    "sha256_before": "7923886de6ec12372c4ba274312007cc1a85781cb2d75496d7144c2816d0da79",
+    "origin": "Janek workspace",
+    "sha256_after": "2dfb72700a989965f47721b6e49ec85da6757ce6d096d6b8b203110ae7fc67cb"
+  },
+  {
+    "old": "notebooks/kaggle_fliptta_pilot.ipynb",
+    "new": "notebooks/kaggle_fliptta_pilot_janek.ipynb",
+    "sha256_before": "f33d30b47163be98c936a64a1021c49ce87247fb952b79facea995aa659d6b5d",
+    "origin": "Janek workspace",
+    "sha256_after": "90a8fb30c0e38ad8bc8384d415d8989170c2f817d2b218fa0e65441abbfd8f42"
+  },
+  {
+    "old": "notebooks/kaggle_zoom_pilot.ipynb",
+    "new": "notebooks/kaggle_zoom_pilot_janek.ipynb",
+    "sha256_before": "493ef3cd9f14fba1b133970672a5de2f416da7c5c4b8db9816ed620037bdd40e",
+    "origin": "Janek workspace",
+    "sha256_after": "c709266a65c38dd2e7513cb0a9c1ff2aab63561340f1284770aa73508f85fc15"
+  },
+  {
+    "old": "results/baseline_ab_v1/NOTES.md",
+    "new": "docs/handoff/artifacts/janek/baseline_ab_v1/NOTES_janek.md",
+    "sha256_before": "d1c7e18ddd8ced65d97159b4f94ff9ae953ddca28ab9d6ae0a693957a15ece13",
+    "origin": "Janek workspace",
+    "sha256_after": "8c04e35b7ee3142bc997d8385d556e22f5003caa89ae689087c310b5fff87eb8"
+  },
+  {
+    "old": "results/baseline_ab_v1/bootstrap_B.json",
+    "new": "docs/handoff/artifacts/janek/baseline_ab_v1/bootstrap_B_janek.json",
+    "sha256_before": "af8ffdced2897bc7ce1c14d22e6496d91867a06dc9857fbadb1c913edaca54d2",
+    "origin": "Janek workspace",
+    "sha256_after": "af8ffdced2897bc7ce1c14d22e6496d91867a06dc9857fbadb1c913edaca54d2"
+  },
+  {
+    "old": "results/baseline_ab_v1/decision.json",
+    "new": "docs/handoff/artifacts/janek/baseline_ab_v1/decision_janek.json",
+    "sha256_before": "78337533e8a645863256f534faa0974914f505b011c1b325192343bd7056ffb2",
+    "origin": "Janek workspace",
+    "sha256_after": "78337533e8a645863256f534faa0974914f505b011c1b325192343bd7056ffb2"
+  },
+  {
+    "old": "results/baseline_ab_v1/evaluation_B.csv",
+    "new": "docs/handoff/artifacts/janek/baseline_ab_v1/evaluation_B_janek.csv",
+    "sha256_before": "0bc78bcb67454ce51d9dfc3b2b5083b0c3f67feb94d820342f243ba8a70b4ebe",
+    "origin": "Janek workspace",
+    "sha256_after": "0bc78bcb67454ce51d9dfc3b2b5083b0c3f67feb94d820342f243ba8a70b4ebe"
+  },
+  {
+    "old": "results/baseline_ab_v1/selection.json",
+    "new": "docs/handoff/artifacts/janek/baseline_ab_v1/selection_janek.json",
+    "sha256_before": "b174589e7742443c4aae75a5e193b2c1420ed1309e284e992f4c6012b4edb488",
+    "origin": "Janek workspace",
+    "sha256_after": "b174589e7742443c4aae75a5e193b2c1420ed1309e284e992f4c6012b4edb488"
+  },
+  {
+    "old": "results/baseline_ab_v1/split_manifest.csv",
+    "new": "docs/handoff/artifacts/janek/baseline_ab_v1/split_manifest_janek.csv",
+    "sha256_before": "2951fd23a48589e50c4c8a27920424c5ba3645d7909a95b035445f23a1815ec8",
+    "origin": "Janek workspace",
+    "sha256_after": "2951fd23a48589e50c4c8a27920424c5ba3645d7909a95b035445f23a1815ec8"
+  },
+  {
+    "old": "results/bn_stage0_v1/NOTES.md",
+    "new": "docs/handoff/artifacts/janek/bn_stage0_v1/NOTES_janek.md",
+    "sha256_before": "19f5ea67fb0b464222e07a129653b4296716f2bbde1f8f04ad465191698e75b4",
+    "origin": "Janek workspace",
+    "sha256_after": "8c417de301ad21fd2eea71ec381347e6bf7dd85a3563c624f62015d1241e2770"
+  },
+  {
+    "old": "results/bn_stage0_v1/doctor_T4_20261120_073547.json",
+    "new": "docs/handoff/artifacts/janek/bn_stage0_v1/doctor_T4_20261120_073547_janek.json",
+    "sha256_before": "def22d8bf8bbc21839852a9339b8ca629fe160a25ff668e55c0a86b63248e69c",
+    "origin": "Janek workspace",
+    "sha256_after": "def22d8bf8bbc21839852a9339b8ca629fe160a25ff668e55c0a86b63248e69c"
+  },
+  {
+    "old": "results/bn_stage0_v1/env_T4_20261120_073012.json",
+    "new": "docs/handoff/artifacts/janek/bn_stage0_v1/env_T4_20261120_073012_janek.json",
+    "sha256_before": "6194a7e5803c11f3837af07ecb53f6972dcbefd5383699285823ee56dae5b98e",
+    "origin": "Janek workspace",
+    "sha256_after": "6194a7e5803c11f3837af07ecb53f6972dcbefd5383699285823ee56dae5b98e"
+  },
+  {
+    "old": "results/bn_stage0_v1/stage0_alpha_0.json",
+    "new": "docs/handoff/artifacts/janek/bn_stage0_v1/stage0_alpha_0_janek.json",
+    "sha256_before": "e9df3942451d829ce51e193244f799727e3c1806c110d9c2878368cec00c7bd4",
+    "origin": "Janek workspace",
+    "sha256_after": "e9df3942451d829ce51e193244f799727e3c1806c110d9c2878368cec00c7bd4"
+  },
+  {
+    "old": "results/bn_stage0_v1/stage0_alpha_1.json",
+    "new": "docs/handoff/artifacts/janek/bn_stage0_v1/stage0_alpha_1_janek.json",
+    "sha256_before": "540cf68befa104f3e4031290c7766cf3cd7c8b964e8c4c8b350bd2352bf63af8",
+    "origin": "Janek workspace",
+    "sha256_after": "540cf68befa104f3e4031290c7766cf3cd7c8b964e8c4c8b350bd2352bf63af8"
+  },
+  {
+    "old": "results/bn_stage0_v1/stage0_alpha_1_2.json",
+    "new": "docs/handoff/artifacts/janek/bn_stage0_v1/stage0_alpha_1_2_janek.json",
+    "sha256_before": "e8209e7234e5e37db61a255a64fabd75777934b990cf77e20f74e3409d2febc8",
+    "origin": "Janek workspace",
+    "sha256_after": "e8209e7234e5e37db61a255a64fabd75777934b990cf77e20f74e3409d2febc8"
+  },
+  {
+    "old": "results/bn_stage0_v1/stage0_alpha_1_4.json",
+    "new": "docs/handoff/artifacts/janek/bn_stage0_v1/stage0_alpha_1_4_janek.json",
+    "sha256_before": "e83fc0c8dbff53cb358d7dd62d7de7e94124e5e156a8910d32afd0eca4578143",
+    "origin": "Janek workspace",
+    "sha256_after": "e83fc0c8dbff53cb358d7dd62d7de7e94124e5e156a8910d32afd0eca4578143"
+  },
+  {
+    "old": "results/bn_stage0_v1/stage0_alpha_3_4.json",
+    "new": "docs/handoff/artifacts/janek/bn_stage0_v1/stage0_alpha_3_4_janek.json",
+    "sha256_before": "bd567d529cd3f920a0d5a3c78574df2c7442361c5bf9be2d6c90c9eca646becd",
+    "origin": "Janek workspace",
+    "sha256_after": "bd567d529cd3f920a0d5a3c78574df2c7442361c5bf9be2d6c90c9eca646becd"
+  },
+  {
+    "old": "results/bn_stage0_v1/stage0_identity.json",
+    "new": "docs/handoff/artifacts/janek/bn_stage0_v1/stage0_identity_janek.json",
+    "sha256_before": "98b936ca51fbc6a17ff580af2f70078024c9a4cd7650f0361df171820b1d9fd2",
+    "origin": "Janek workspace",
+    "sha256_after": "98b936ca51fbc6a17ff580af2f70078024c9a4cd7650f0361df171820b1d9fd2"
+  },
+  {
+    "old": "results/bn_stage0_v1/stage0_summary.json",
+    "new": "docs/handoff/artifacts/janek/bn_stage0_v1/stage0_summary_janek.json",
+    "sha256_before": "64dc3d34bc7d8921cf6fcc7251fda379ce639228acbdae7e03c15bbecf9e55b0",
+    "origin": "Janek workspace",
+    "sha256_after": "64dc3d34bc7d8921cf6fcc7251fda379ce639228acbdae7e03c15bbecf9e55b0"
+  },
+  {
+    "old": "results/bn_stage0_v1/train_check.json",
+    "new": "docs/handoff/artifacts/janek/bn_stage0_v1/train_check_janek.json",
+    "sha256_before": "00d3f735a9e7fbedb0fad2f98542eb22153f1176d739180e60fcfad4d01f912d",
+    "origin": "Janek workspace",
+    "sha256_after": "00d3f735a9e7fbedb0fad2f98542eb22153f1176d739180e60fcfad4d01f912d"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/devcheck_sources.json",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/devcheck_sources_janek.json",
+    "sha256_before": "76dfff710586f53935efa333ab551041220696c36a9394fad7dee0d2aa932d00",
+    "origin": "Janek workspace",
+    "sha256_after": "76dfff710586f53935efa333ab551041220696c36a9394fad7dee0d2aa932d00"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/p0.json",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/p0_janek.json",
+    "sha256_before": "94ebfbb83aa61dfcf4c88f5cf974bc46e140de2dba75d1c2006fa6c3119a3367",
+    "origin": "Janek workspace",
+    "sha256_after": "94ebfbb83aa61dfcf4c88f5cf974bc46e140de2dba75d1c2006fa6c3119a3367"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/selection.csv",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/selection_janek.csv",
+    "sha256_before": "b7163ada78cf738d7aaa203d3b44b5b612c33fffa8797b9ccfcee5fb77f4e947",
+    "origin": "Janek workspace",
+    "sha256_after": "b7163ada78cf738d7aaa203d3b44b5b612c33fffa8797b9ccfcee5fb77f4e947"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/smoke_fetch_local.json",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/smoke_fetch_local_janek.json",
+    "sha256_before": "8542da1a52f403f56e459e21530438dcae279648f0fd429e890d0b15e92db6d0",
+    "origin": "Janek workspace",
+    "sha256_after": "8542da1a52f403f56e459e21530438dcae279648f0fd429e890d0b15e92db6d0"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/smoke_gt_overlays/0054c91397f2fe05_v1_i0.jpg",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/smoke_gt_overlays/0054c91397f2fe05_v1_i0_janek.jpg",
+    "sha256_before": "dbb53271272a5de5660e43ba8bf2836bfe0a0d84034cd6217ff22d76386c9f4c",
+    "origin": "Janek workspace",
+    "sha256_after": "dbb53271272a5de5660e43ba8bf2836bfe0a0d84034cd6217ff22d76386c9f4c"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/smoke_gt_overlays/0811ed78e277de6f_v4_i4.jpg",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/smoke_gt_overlays/0811ed78e277de6f_v4_i4_janek.jpg",
+    "sha256_before": "44a9e6c5ef14a87bf7c264b9e9eda7766e2199a2112f8e9ddeb73f3c289dfd18",
+    "origin": "Janek workspace",
+    "sha256_after": "44a9e6c5ef14a87bf7c264b9e9eda7766e2199a2112f8e9ddeb73f3c289dfd18"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/smoke_gt_overlays/0cf2f33b16c40ee8_v10_i0.jpg",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/smoke_gt_overlays/0cf2f33b16c40ee8_v10_i0_janek.jpg",
+    "sha256_before": "15e80d740a7dd83bd5f0cf2ae826ac711d252a1c45121bed079ac68ebd11c815",
+    "origin": "Janek workspace",
+    "sha256_after": "15e80d740a7dd83bd5f0cf2ae826ac711d252a1c45121bed079ac68ebd11c815"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/smoke_gt_overlays/0f998ceca1845da1_v2_i0.jpg",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/smoke_gt_overlays/0f998ceca1845da1_v2_i0_janek.jpg",
+    "sha256_before": "615846559f271c3b0636a77c0b62d274b8435b2bf12c078239cb35ef438aa578",
+    "origin": "Janek workspace",
+    "sha256_after": "615846559f271c3b0636a77c0b62d274b8435b2bf12c078239cb35ef438aa578"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/smoke_gt_overlays/19e2ba53d3c11691_v9_i12.jpg",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/smoke_gt_overlays/19e2ba53d3c11691_v9_i12_janek.jpg",
+    "sha256_before": "940c5d2a36ba6aaedd03ac702655c26ad785ff6ee7eb0ddbfcc77b5b26b22590",
+    "origin": "Janek workspace",
+    "sha256_after": "940c5d2a36ba6aaedd03ac702655c26ad785ff6ee7eb0ddbfcc77b5b26b22590"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/smoke_gt_overlays/273c0ce3867a57b3_v12_i8.jpg",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/smoke_gt_overlays/273c0ce3867a57b3_v12_i8_janek.jpg",
+    "sha256_before": "9e563951cac44e307ec31da6ee15ce7c6f32d6ad8b71299f91f0d81bf744c44b",
+    "origin": "Janek workspace",
+    "sha256_after": "9e563951cac44e307ec31da6ee15ce7c6f32d6ad8b71299f91f0d81bf744c44b"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/smoke_gt_overlays/5c4cad83cd8ba6ae_v11_i3.jpg",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/smoke_gt_overlays/5c4cad83cd8ba6ae_v11_i3_janek.jpg",
+    "sha256_before": "1ada786ceaf2bb1cb1f8e0701c25aff28837a00a2768e2587b8d179d5aab3e59",
+    "origin": "Janek workspace",
+    "sha256_after": "1ada786ceaf2bb1cb1f8e0701c25aff28837a00a2768e2587b8d179d5aab3e59"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/smoke_gt_overlays/94a296f46fc201a5_v24_i10.jpg",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/smoke_gt_overlays/94a296f46fc201a5_v24_i10_janek.jpg",
+    "sha256_before": "b16f4a33c4d4f876e931580d46ee4b49834a3343e3ae448cea4488ef140ff69b",
+    "origin": "Janek workspace",
+    "sha256_after": "b16f4a33c4d4f876e931580d46ee4b49834a3343e3ae448cea4488ef140ff69b"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/smoke_gt_overlays/b43ecf6d0e2959f6_v19_i6.jpg",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/smoke_gt_overlays/b43ecf6d0e2959f6_v19_i6_janek.jpg",
+    "sha256_before": "070e8acb7a8c7d43972fa9c7fd7049191026913851bddf4e7331c8e95a0dcc41",
+    "origin": "Janek workspace",
+    "sha256_after": "070e8acb7a8c7d43972fa9c7fd7049191026913851bddf4e7331c8e95a0dcc41"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/smoke_gt_overlays/f21dad0c801ac873_v4_i0.jpg",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/smoke_gt_overlays/f21dad0c801ac873_v4_i0_janek.jpg",
+    "sha256_before": "ab539eb18e4b7665d415dc4b6bc231e17ab6ee0df32456140c450b4687a9652d",
+    "origin": "Janek workspace",
+    "sha256_after": "ab539eb18e4b7665d415dc4b6bc231e17ab6ee0df32456140c450b4687a9652d"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/train_rows.jsonl.gz",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/train_rows.jsonl_janek.gz",
+    "sha256_before": "dbe1668de76008ce1a27f780d85adcc11a5a1ef7d8e5fca79e0bb9df6b7b1d1a",
+    "origin": "Janek workspace",
+    "sha256_after": "dbe1668de76008ce1a27f780d85adcc11a5a1ef7d8e5fca79e0bb9df6b7b1d1a"
+  },
+  {
+    "old": "results/boxquality_p0_20261124/zip_listing.json",
+    "new": "docs/handoff/artifacts/janek/boxquality_p0_20261124/zip_listing_janek.json",
+    "sha256_before": "7a958b55ce32c51947db45cc40687dbea7f5ff82781db041fd2ac1ccf3c57bdf",
+    "origin": "Janek workspace",
+    "sha256_after": "7a958b55ce32c51947db45cc40687dbea7f5ff82781db041fd2ac1ccf3c57bdf"
+  },
+  {
+    "old": "results/boxquality_preparation_20261124/proposed_train_sources.csv",
+    "new": "docs/handoff/artifacts/janek/boxquality_preparation_20261124/proposed_train_sources_janek.csv",
+    "sha256_before": "18866ee644ac4f9a0cdc031025d5b848033c09ddaa524f7c412b79ecd5f94910",
+    "origin": "Janek workspace",
+    "sha256_after": "18866ee644ac4f9a0cdc031025d5b848033c09ddaa524f7c412b79ecd5f94910"
+  },
+  {
+    "old": "results/boxquality_preparation_20261124/receipt.json",
+    "new": "docs/handoff/artifacts/janek/boxquality_preparation_20261124/receipt_janek.json",
+    "sha256_before": "2f55b674454a79b9794233318bb5fc580f77f6f1d64ac53701a0ca6e504f1f91",
+    "origin": "Janek workspace",
+    "sha256_after": "2f55b674454a79b9794233318bb5fc580f77f6f1d64ac53701a0ca6e504f1f91"
+  },
+  {
+    "old": "results/csb1_clean_v1_T4/checkpoint_path_compatibility.json",
+    "new": "docs/handoff/artifacts/janek/csb1_clean_v1_T4/checkpoint_path_compatibility_janek.json",
+    "sha256_before": "c0e52852a39e5ea796af157a5fa414dfc5bcb6d59df72b0a4be8ebd373520cc6",
+    "origin": "Janek workspace",
+    "sha256_after": "c0e52852a39e5ea796af157a5fa414dfc5bcb6d59df72b0a4be8ebd373520cc6"
+  },
+  {
+    "old": "results/csb1_clean_v1_T4/code_manifest_sha256.txt",
+    "new": "docs/handoff/artifacts/janek/csb1_clean_v1_T4/code_manifest_sha256_janek.txt",
+    "sha256_before": "39b5b9131dc46231fbe7d13749a897cf8ad9f068c97e6dbc84e1a10f63760c75",
+    "origin": "Janek workspace",
+    "sha256_after": "39b5b9131dc46231fbe7d13749a897cf8ad9f068c97e6dbc84e1a10f63760c75"
+  },
+  {
+    "old": "results/csb1_clean_v1_T4/csb1_clean_result.json",
+    "new": "docs/handoff/artifacts/janek/csb1_clean_v1_T4/csb1_clean_result_janek.json",
+    "sha256_before": "e9674e218e0cd989772b676854d00dada2767deab4a74710f4cdb1d016a2840d",
+    "origin": "Janek workspace",
+    "sha256_after": "e9674e218e0cd989772b676854d00dada2767deab4a74710f4cdb1d016a2840d"
+  },
+  {
+    "old": "results/csb1_clean_v1_T4/dump_done.json",
+    "new": "docs/handoff/artifacts/janek/csb1_clean_v1_T4/dump_done_janek.json",
+    "sha256_before": "23dc3025007a892385c0c23bf557b0505bd77c55571d3f3a1e1b1959f7d34eae",
+    "origin": "Janek workspace",
+    "sha256_after": "23dc3025007a892385c0c23bf557b0505bd77c55571d3f3a1e1b1959f7d34eae"
+  },
+  {
+    "old": "results/csb1_clean_v1_T4/dump_identity.json",
+    "new": "docs/handoff/artifacts/janek/csb1_clean_v1_T4/dump_identity_janek.json",
+    "sha256_before": "4e4e56c15d5916d374f9f405af9d002d358e2ec59d17fb9b96b0f247030bc497",
+    "origin": "Janek workspace",
+    "sha256_after": "4e4e56c15d5916d374f9f405af9d002d358e2ec59d17fb9b96b0f247030bc497"
+  },
+  {
+    "old": "results/csb1_clean_v1_T4/env_T4.json",
+    "new": "docs/handoff/artifacts/janek/csb1_clean_v1_T4/env_T4_janek.json",
+    "sha256_before": "e2d8ba29fc59c399de3905d716179cdf3566606e7cb275cfec90888d12be689e",
+    "origin": "Janek workspace",
+    "sha256_after": "e2d8ba29fc59c399de3905d716179cdf3566606e7cb275cfec90888d12be689e"
+  },
+  {
+    "old": "results/csb1_clean_v1_T4/intake_receipt.json",
+    "new": "docs/handoff/artifacts/janek/csb1_clean_v1_T4/intake_receipt_janek.json",
+    "sha256_before": "b87b6036ce1b63b7cd9e878746263f6900cbc40d1ed3d525629bc2506cd05471",
+    "origin": "Janek workspace",
+    "sha256_after": "b87b6036ce1b63b7cd9e878746263f6900cbc40d1ed3d525629bc2506cd05471"
+  },
+  {
+    "old": "results/csb1_clean_v1_T4/probe40_fidelity_vs_a2r.json",
+    "new": "docs/handoff/artifacts/janek/csb1_clean_v1_T4/probe40_fidelity_vs_a2r_janek.json",
+    "sha256_before": "1ea07d71779af13a60baf482514939a4d811c03187b0ddce5a90b93bec272bbd",
+    "origin": "Janek workspace",
+    "sha256_after": "1ea07d71779af13a60baf482514939a4d811c03187b0ddce5a90b93bec272bbd"
+  },
+  {
+    "old": "results/csb1_full_v1_T4/baseline_check.json",
+    "new": "docs/handoff/artifacts/janek/csb1_full_v1_T4/baseline_check_janek.json",
+    "sha256_before": "8f649f37d91ff6035ea3722047f5a05557283ad7b07780c225a02a77211a2a91",
+    "origin": "Janek workspace",
+    "sha256_after": "8f649f37d91ff6035ea3722047f5a05557283ad7b07780c225a02a77211a2a91"
+  },
+  {
+    "old": "results/csb1_full_v1_T4/csb1_full.json",
+    "new": "docs/handoff/artifacts/janek/csb1_full_v1_T4/csb1_full_janek.json",
+    "sha256_before": "e6aa6f6c4644c7af06607c771c76d42f9b497dca7a27df83951d2f63e7d48f8d",
+    "origin": "Janek workspace",
+    "sha256_after": "e6aa6f6c4644c7af06607c771c76d42f9b497dca7a27df83951d2f63e7d48f8d"
+  },
+  {
+    "old": "results/csb1_full_v1_T4/system_mean_descriptive.json",
+    "new": "docs/handoff/artifacts/janek/csb1_full_v1_T4/system_mean_descriptive_janek.json",
+    "sha256_before": "278ebbe84c33da1681faee17cda85e8928fce4dbb98830c3790e335ba5460ca0",
+    "origin": "Janek workspace",
+    "sha256_after": "278ebbe84c33da1681faee17cda85e8928fce4dbb98830c3790e335ba5460ca0"
+  },
+  {
+    "old": "results/csb1_latency_v1_T4/env_T4.json",
+    "new": "docs/handoff/artifacts/janek/csb1_latency_v1_T4/env_T4_janek.json",
+    "sha256_before": "b0a76c3d2161c18bd757c1a48ab4cdc68a38f2dfa4a48711f496eaf1ed7afb4d",
+    "origin": "Janek workspace",
+    "sha256_after": "b0a76c3d2161c18bd757c1a48ab4cdc68a38f2dfa4a48711f496eaf1ed7afb4d"
+  },
+  {
+    "old": "results/csb1_latency_v1_T4/latency.json",
+    "new": "docs/handoff/artifacts/janek/csb1_latency_v1_T4/latency_janek.json",
+    "sha256_before": "dcc753ad70cd2b9b16ee6ab54f6a3da7473c3a8e6d9db6abc5427326a6f68ec3",
+    "origin": "Janek workspace",
+    "sha256_after": "dcc753ad70cd2b9b16ee6ab54f6a3da7473c3a8e6d9db6abc5427326a6f68ec3"
+  },
+  {
+    "old": "results/csb1_latency_v1_T4/samples.csv",
+    "new": "docs/handoff/artifacts/janek/csb1_latency_v1_T4/samples_janek.csv",
+    "sha256_before": "bcc4cd970e4f9e4585b3b7011c5e93efe3e823a8a810926dccb0e31c0deedc6b",
+    "origin": "Janek workspace",
+    "sha256_after": "bcc4cd970e4f9e4585b3b7011c5e93efe3e823a8a810926dccb0e31c0deedc6b"
+  },
+  {
+    "old": "results/diag_v2_cpu/diagnosis.json",
+    "new": "docs/handoff/artifacts/janek/diag_v2_cpu/diagnosis_janek.json",
+    "sha256_before": "548f58def72ad9668d1d614fa444e609ab00a7634681b94a25196fc23021ce8a",
+    "origin": "Janek workspace",
+    "sha256_after": "548f58def72ad9668d1d614fa444e609ab00a7634681b94a25196fc23021ce8a"
+  },
+  {
+    "old": "results/diag_v2_cpu/p0_fixed.json",
+    "new": "docs/handoff/artifacts/janek/diag_v2_cpu/p0_fixed_janek.json",
+    "sha256_before": "582ee93e683b275f3d27d95deeacfc5f9cc712d7ee7031b218edc9276558eb71",
+    "origin": "Janek workspace",
+    "sha256_after": "582ee93e683b275f3d27d95deeacfc5f9cc712d7ee7031b218edc9276558eb71"
+  },
+  {
+    "old": "results/diag_v2_cpu/p0b_per_image_oracle.json",
+    "new": "docs/handoff/artifacts/janek/diag_v2_cpu/p0b_per_image_oracle_janek.json",
+    "sha256_before": "01317d7ed5ff1dc8320df712db762d6d41fa078e84d85b1135c238ee85db8c82",
+    "origin": "Janek workspace",
+    "sha256_after": "01317d7ed5ff1dc8320df712db762d6d41fa078e84d85b1135c238ee85db8c82"
+  },
+  {
+    "old": "results/diag_v2_cpu/partial_from_csv.json",
+    "new": "docs/handoff/artifacts/janek/diag_v2_cpu/partial_from_csv_janek.json",
+    "sha256_before": "0fa64a3076ee5a0fc5a77845ecde01e81fac92467293575d9818ae4658d90ec7",
+    "origin": "Janek workspace",
+    "sha256_after": "0fa64a3076ee5a0fc5a77845ecde01e81fac92467293575d9818ae4658d90ec7"
+  },
+  {
+    "old": "results/dualagree_v1_T4_followup.json",
+    "new": "docs/handoff/artifacts/janek/./dualagree_v1_T4_followup_janek.json",
+    "sha256_before": "8eb29b6ee6ca80a5b6b5930ceda519f6b5582430cb00f4b4b528c40a3a66a856",
+    "origin": "Janek workspace",
+    "sha256_after": "8eb29b6ee6ca80a5b6b5930ceda519f6b5582430cb00f4b4b528c40a3a66a856"
+  },
+  {
+    "old": "results/explore_sel_v1/NOTES.md",
+    "new": "docs/handoff/artifacts/janek/explore_sel_v1/NOTES_janek.md",
+    "sha256_before": "84a6c38d01c457df9b9f85ef09e26d7f6701650aa03fc4814aed96bcb760e14b",
+    "origin": "Janek workspace",
+    "sha256_after": "6dcca1b644e90ec7a44a661166ab0ec439fd47e372b365402f95ee708425d1d4"
+  },
+  {
+    "old": "results/explore_sel_v1/explore_selection.json",
+    "new": "docs/handoff/artifacts/janek/explore_sel_v1/explore_selection_janek.json",
+    "sha256_before": "5e493883978284ed8effa051ab1e9abe0e94fdfb8ce788c80fc678415600ee05",
+    "origin": "Janek workspace",
+    "sha256_after": "5e493883978284ed8effa051ab1e9abe0e94fdfb8ce788c80fc678415600ee05"
+  },
+  {
+    "old": "results/fliptta_diag_v1/event_margins.json",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/event_margins_janek.json",
+    "sha256_before": "30cce0909cee69a69fcc36e23fb4c58ee6c75f476efa3c3077b1920e24738144",
+    "origin": "Janek workspace",
+    "sha256_after": "30cce0909cee69a69fcc36e23fb4c58ee6c75f476efa3c3077b1920e24738144"
+  },
+  {
+    "old": "results/fliptta_diag_v1/events_clean.json.gz",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/events_clean.json_janek.gz",
+    "sha256_before": "f9997c806c5bdbfbe6b2f9c28b2b5c78a2eaa7bb9256da705cecff871731340b",
+    "origin": "Janek workspace",
+    "sha256_after": "f9997c806c5bdbfbe6b2f9c28b2b5c78a2eaa7bb9256da705cecff871731340b"
+  },
+  {
+    "old": "results/fliptta_diag_v1/events_lr2.json.gz",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/events_lr2.json_janek.gz",
+    "sha256_before": "1f53ab44161b91c1b02403d181d1156546c826288a86c1c2ae9b4b1ef1c537a2",
+    "origin": "Janek workspace",
+    "sha256_after": "1f53ab44161b91c1b02403d181d1156546c826288a86c1c2ae9b4b1ef1c537a2"
+  },
+  {
+    "old": "results/fliptta_diag_v1/figures/01_gt_lost_score_lr2.png",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/figures/01_gt_lost_score_lr2_janek.png",
+    "sha256_before": "0fc55eaab7dac64d5a279dc8342857ae9ef24194500bd2bce09fdd58fb622673",
+    "origin": "Janek workspace",
+    "sha256_after": "0fc55eaab7dac64d5a279dc8342857ae9ef24194500bd2bce09fdd58fb622673"
+  },
+  {
+    "old": "results/fliptta_diag_v1/figures/02_gt_lost_score_clean.png",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/figures/02_gt_lost_score_clean_janek.png",
+    "sha256_before": "97516cc091506ecaf7d41cc262a37225cb9b23df3ea8ee40bfad39756e40e5ea",
+    "origin": "Janek workspace",
+    "sha256_after": "97516cc091506ecaf7d41cc262a37225cb9b23df3ea8ee40bfad39756e40e5ea"
+  },
+  {
+    "old": "results/fliptta_diag_v1/figures/03_gt_lost_score_clean.png",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/figures/03_gt_lost_score_clean_janek.png",
+    "sha256_before": "1fd82f3b0f04716c572e07e6959463ab19e8901d691d2f7266c670f79c37fe54",
+    "origin": "Janek workspace",
+    "sha256_after": "1fd82f3b0f04716c572e07e6959463ab19e8901d691d2f7266c670f79c37fe54"
+  },
+  {
+    "old": "results/fliptta_diag_v1/figures/04_gt_lost_other_lr2.png",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/figures/04_gt_lost_other_lr2_janek.png",
+    "sha256_before": "6b5934e2fa3678fcdd4168a3c44fca894518a74a34a5782d70a02823513e0e84",
+    "origin": "Janek workspace",
+    "sha256_after": "6b5934e2fa3678fcdd4168a3c44fca894518a74a34a5782d70a02823513e0e84"
+  },
+  {
+    "old": "results/fliptta_diag_v1/figures/05_gt_lost_other_lr2.png",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/figures/05_gt_lost_other_lr2_janek.png",
+    "sha256_before": "20bdc8ea207971a59590f569a55a162628e560770fb852c1c7ac42c768878475",
+    "origin": "Janek workspace",
+    "sha256_after": "20bdc8ea207971a59590f569a55a162628e560770fb852c1c7ac42c768878475"
+  },
+  {
+    "old": "results/fliptta_diag_v1/figures/06_gt_lost_other_clean.png",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/figures/06_gt_lost_other_clean_janek.png",
+    "sha256_before": "bbe9763a79882c034b8ef20f35b64352f17b4d51f6e40cd95f4b20fae4b1f242",
+    "origin": "Janek workspace",
+    "sha256_after": "bbe9763a79882c034b8ef20f35b64352f17b4d51f6e40cd95f4b20fae4b1f242"
+  },
+  {
+    "old": "results/fliptta_diag_v1/figures/07_gt_gained_score_lr2.png",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/figures/07_gt_gained_score_lr2_janek.png",
+    "sha256_before": "f0b795cc8a83c52b69682646fc3909668fd945491577c06e6df5e20c840e8f60",
+    "origin": "Janek workspace",
+    "sha256_after": "f0b795cc8a83c52b69682646fc3909668fd945491577c06e6df5e20c840e8f60"
+  },
+  {
+    "old": "results/fliptta_diag_v1/figures/08_gt_gained_score_lr2.png",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/figures/08_gt_gained_score_lr2_janek.png",
+    "sha256_before": "74d486041dbd5c5abcafd759fadaec5faa5e869aaa57d63379f3c9be2699627b",
+    "origin": "Janek workspace",
+    "sha256_after": "74d486041dbd5c5abcafd759fadaec5faa5e869aaa57d63379f3c9be2699627b"
+  },
+  {
+    "old": "results/fliptta_diag_v1/figures/09_gt_gained_score_lr2.png",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/figures/09_gt_gained_score_lr2_janek.png",
+    "sha256_before": "1e67d5353c278a4dbe9bf35cd22b6de4d7d1c241d8c1b14a990954535bec3258",
+    "origin": "Janek workspace",
+    "sha256_after": "1e67d5353c278a4dbe9bf35cd22b6de4d7d1c241d8c1b14a990954535bec3258"
+  },
+  {
+    "old": "results/fliptta_diag_v1/figures/10_gt_gained_other_lr2.png",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/figures/10_gt_gained_other_lr2_janek.png",
+    "sha256_before": "fc7e01b7a94a923ce4db31c1750e1f3ad12bdfae64543f2cdc9f73027ad4e58a",
+    "origin": "Janek workspace",
+    "sha256_after": "fc7e01b7a94a923ce4db31c1750e1f3ad12bdfae64543f2cdc9f73027ad4e58a"
+  },
+  {
+    "old": "results/fliptta_diag_v1/figures/11_gt_gained_other_clean.png",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/figures/11_gt_gained_other_clean_janek.png",
+    "sha256_before": "6eb272a875dfa731d20e9f241c466e84c4c4b3b934c4c80aee9a293423d20e29",
+    "origin": "Janek workspace",
+    "sha256_after": "6eb272a875dfa731d20e9f241c466e84c4c4b3b934c4c80aee9a293423d20e29"
+  },
+  {
+    "old": "results/fliptta_diag_v1/figures/12_gt_gained_other_lr2.png",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/figures/12_gt_gained_other_lr2_janek.png",
+    "sha256_before": "220b05ad938756830b88eaa1722b9045d19fcc91b66e4c25f500001ed4fc363f",
+    "origin": "Janek workspace",
+    "sha256_after": "220b05ad938756830b88eaa1722b9045d19fcc91b66e4c25f500001ed4fc363f"
+  },
+  {
+    "old": "results/fliptta_diag_v1/figures/figures_index.json",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/figures/figures_index_janek.json",
+    "sha256_before": "d4bb3b034497dbfb13478f7e4852c67a58b7d0746390922836f079b666345057",
+    "origin": "Janek workspace",
+    "sha256_after": "d4bb3b034497dbfb13478f7e4852c67a58b7d0746390922836f079b666345057"
+  },
+  {
+    "old": "results/fliptta_diag_v1/fliptta_diag.json",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/fliptta_diag_janek.json",
+    "sha256_before": "c87448cf8a98f27337b25c56fb0ed0a268f74cca22dc895ccbf8f4d9717b2d0a",
+    "origin": "Janek workspace",
+    "sha256_after": "c87448cf8a98f27337b25c56fb0ed0a268f74cca22dc895ccbf8f4d9717b2d0a"
+  },
+  {
+    "old": "results/fliptta_diag_v1/fp_correction_20261124.json",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/fp_correction_20261124_janek.json",
+    "sha256_before": "4738614009f9fb489b3fd50da8f8bee6280a09496bd755affbe39e60bffed28c",
+    "origin": "Janek workspace",
+    "sha256_after": "4738614009f9fb489b3fd50da8f8bee6280a09496bd755affbe39e60bffed28c"
+  },
+  {
+    "old": "results/fliptta_diag_v1/matched_control.json",
+    "new": "docs/handoff/artifacts/janek/fliptta_diag_v1/matched_control_janek.json",
+    "sha256_before": "776559f199fafcc14fe9ce59221697b2f470b62c348046860d8d6fe59a5b1211",
+    "origin": "Janek workspace",
+    "sha256_after": "776559f199fafcc14fe9ce59221697b2f470b62c348046860d8d6fe59a5b1211"
+  },
+  {
+    "old": "results/fliptta_v1_T4/code_manifest_sha256.txt",
+    "new": "docs/handoff/artifacts/janek/fliptta_v1_T4/code_manifest_sha256_janek.txt",
+    "sha256_before": "932b4fe7fd9981e47e0e5f3362b0d29fc0deabd3dd23d2a4a9cfa3ce705a728d",
+    "origin": "Janek workspace",
+    "sha256_after": "932b4fe7fd9981e47e0e5f3362b0d29fc0deabd3dd23d2a4a9cfa3ce705a728d"
+  },
+  {
+    "old": "results/fliptta_v1_T4/env_T4.json",
+    "new": "docs/handoff/artifacts/janek/fliptta_v1_T4/env_T4_janek.json",
+    "sha256_before": "e2d8ba29fc59c399de3905d716179cdf3566606e7cb275cfec90888d12be689e",
+    "origin": "Janek workspace",
+    "sha256_after": "e2d8ba29fc59c399de3905d716179cdf3566606e7cb275cfec90888d12be689e"
+  },
+  {
+    "old": "results/fliptta_v1_T4/fliptta_result.json",
+    "new": "docs/handoff/artifacts/janek/fliptta_v1_T4/fliptta_result_janek.json",
+    "sha256_before": "de01b7ac6e9c639f05f39f596e0f5aede3616cea978ee88e434a9160410a2f7a",
+    "origin": "Janek workspace",
+    "sha256_after": "de01b7ac6e9c639f05f39f596e0f5aede3616cea978ee88e434a9160410a2f7a"
+  },
+  {
+    "old": "results/fliptta_v1_T4/infer_summary.json",
+    "new": "docs/handoff/artifacts/janek/fliptta_v1_T4/infer_summary_janek.json",
+    "sha256_before": "277fb56005e5e55d10121dbae9b67200085b97d84afb983f40d5cf792858c8c1",
+    "origin": "Janek workspace",
+    "sha256_after": "277fb56005e5e55d10121dbae9b67200085b97d84afb983f40d5cf792858c8c1"
+  },
+  {
+    "old": "results/fliptta_v1_T4/intake_receipt.json",
+    "new": "docs/handoff/artifacts/janek/fliptta_v1_T4/intake_receipt_janek.json",
+    "sha256_before": "784e390a9c4e4b543c49b5302ac7481a78f956a4bfa348b364b751ee960b1c76",
+    "origin": "Janek workspace",
+    "sha256_after": "784e390a9c4e4b543c49b5302ac7481a78f956a4bfa348b364b751ee960b1c76"
+  },
+  {
+    "old": "results/fliptta_v1_T4/per_source.csv",
+    "new": "docs/handoff/artifacts/janek/fliptta_v1_T4/per_source_janek.csv",
+    "sha256_before": "e90417772ea24283355eda5d7bd01485433e664ac288be38075a136b06c7c250",
+    "origin": "Janek workspace",
+    "sha256_after": "e90417772ea24283355eda5d7bd01485433e664ac288be38075a136b06c7c250"
+  },
+  {
+    "old": "results/fliptta_v1_T4/sample.json",
+    "new": "docs/handoff/artifacts/janek/fliptta_v1_T4/sample_janek.json",
+    "sha256_before": "5dc2a0b8ded10fabd058fd9f37ad6f8ea6a3111c7ade31c7011f6cfb00c085f3",
+    "origin": "Janek workspace",
+    "sha256_after": "5dc2a0b8ded10fabd058fd9f37ad6f8ea6a3111c7ade31c7011f6cfb00c085f3"
+  },
+  {
+    "old": "results/fliptta_v1_T4/smoke_summary.json",
+    "new": "docs/handoff/artifacts/janek/fliptta_v1_T4/smoke_summary_janek.json",
+    "sha256_before": "323d39cde8f5d00e3972dfa0d1a356800b80835cdf071b41477e930827c35540",
+    "origin": "Janek workspace",
+    "sha256_after": "323d39cde8f5d00e3972dfa0d1a356800b80835cdf071b41477e930827c35540"
+  },
+  {
+    "old": "results/mix_a_v1/NOTES.md",
+    "new": "docs/handoff/artifacts/janek/mix_a_v1/NOTES_janek.md",
+    "sha256_before": "861998e7d5eb57861fb13d0f5501737b10ff6629ad033233af2100c4fed97a6f",
+    "origin": "Janek workspace",
+    "sha256_after": "49f50a5a04c9a8b5b716e537e7239eaeeef4294f4a5fa325389d9691c3c7ecb3"
+  },
+  {
+    "old": "results/mix_a_v1/alpha_curve_B.png",
+    "new": "docs/handoff/artifacts/janek/mix_a_v1/alpha_curve_B_janek.png",
+    "sha256_before": "b603ccdcc264e9bef2064e5f670eed15b513e4068af708daa084fd108ee1992a",
+    "origin": "Janek workspace",
+    "sha256_after": "b603ccdcc264e9bef2064e5f670eed15b513e4068af708daa084fd108ee1992a"
+  },
+  {
+    "old": "results/mix_a_v1/audit_identity.json",
+    "new": "docs/handoff/artifacts/janek/mix_a_v1/audit_identity_janek.json",
+    "sha256_before": "c39a238bff830b0a6946f65dd54f8af50606e4797fbd4f2cb4732a8204879157",
+    "origin": "Janek workspace",
+    "sha256_after": "c39a238bff830b0a6946f65dd54f8af50606e4797fbd4f2cb4732a8204879157"
+  },
+  {
+    "old": "results/mix_a_v1/bootstrap_B.json",
+    "new": "docs/handoff/artifacts/janek/mix_a_v1/bootstrap_B_janek.json",
+    "sha256_before": "1173277bcb2edeeae1c14fcc5d73ff51b998938d6b36d96f63ea2f8e4376fed6",
+    "origin": "Janek workspace",
+    "sha256_after": "1173277bcb2edeeae1c14fcc5d73ff51b998938d6b36d96f63ea2f8e4376fed6"
+  },
+  {
+    "old": "results/mix_a_v1/compare_vs_H200_full.json",
+    "new": "docs/handoff/artifacts/janek/mix_a_v1/compare_vs_H200_full_janek.json",
+    "sha256_before": "0cbc90fe9cfdba7f581f26868e6767ec5e3d00b105cc27ce05f1dcc250d65981",
+    "origin": "Janek workspace",
+    "sha256_after": "0cbc90fe9cfdba7f581f26868e6767ec5e3d00b105cc27ce05f1dcc250d65981"
+  },
+  {
+    "old": "results/mix_a_v1/decision.json",
+    "new": "docs/handoff/artifacts/janek/mix_a_v1/decision_janek.json",
+    "sha256_before": "3a65e1b99cac816c418d1b3dbb8cedd0763d67f52a0e8423d0d27979ce3674f0",
+    "origin": "Janek workspace",
+    "sha256_after": "3a65e1b99cac816c418d1b3dbb8cedd0763d67f52a0e8423d0d27979ce3674f0"
+  },
+  {
+    "old": "results/mix_a_v1/decision_colab_legacy42.json",
+    "new": "docs/handoff/artifacts/janek/mix_a_v1/decision_colab_legacy42_janek.json",
+    "sha256_before": "62c868ff4a874ba84faf3bb351be3ea8289fafdda6acdfd5d573a87a4fa948c8",
+    "origin": "Janek workspace",
+    "sha256_after": "62c868ff4a874ba84faf3bb351be3ea8289fafdda6acdfd5d573a87a4fa948c8"
+  },
+  {
+    "old": "results/mix_a_v1/evaluation_B.csv",
+    "new": "docs/handoff/artifacts/janek/mix_a_v1/evaluation_B_janek.csv",
+    "sha256_before": "ce0af13ae10ef9405a5f1439408447506f4f48f0151fb4245e824ee89eb4c8c6",
+    "origin": "Janek workspace",
+    "sha256_after": "ce0af13ae10ef9405a5f1439408447506f4f48f0151fb4245e824ee89eb4c8c6"
+  },
+  {
+    "old": "results/mix_a_v1/gates.json",
+    "new": "docs/handoff/artifacts/janek/mix_a_v1/gates_janek.json",
+    "sha256_before": "417cc9a02a67c99fde51688b5df487aa9f72892076c02cb6b59285427d57d89f",
+    "origin": "Janek workspace",
+    "sha256_after": "417cc9a02a67c99fde51688b5df487aa9f72892076c02cb6b59285427d57d89f"
+  },
+  {
+    "old": "results/mix_a_v1/profile.json",
+    "new": "docs/handoff/artifacts/janek/mix_a_v1/profile_janek.json",
+    "sha256_before": "be13fe9ff125cb21b9a2b05dca27e4a942e4b6dcad929a899963808fdb8eb7f6",
+    "origin": "Janek workspace",
+    "sha256_after": "be13fe9ff125cb21b9a2b05dca27e4a942e4b6dcad929a899963808fdb8eb7f6"
+  },
+  {
+    "old": "results/mix_a_v1/reselect_spec_local.json",
+    "new": "docs/handoff/artifacts/janek/mix_a_v1/reselect_spec_local_janek.json",
+    "sha256_before": "359c59fb88e584129ba8b1ca5451d1675874bfd9293e72aa35ce68a8913dade4",
+    "origin": "Janek workspace",
+    "sha256_after": "359c59fb88e584129ba8b1ca5451d1675874bfd9293e72aa35ce68a8913dade4"
+  },
+  {
+    "old": "results/mix_a_v1/selection.json",
+    "new": "docs/handoff/artifacts/janek/mix_a_v1/selection_janek.json",
+    "sha256_before": "6ce61cc9974ef55d30e6691f8227723e81f5e7f5faad80ec38b6f306013652c8",
+    "origin": "Janek workspace",
+    "sha256_after": "6ce61cc9974ef55d30e6691f8227723e81f5e7f5faad80ec38b6f306013652c8"
+  },
+  {
+    "old": "results/mix_a_v1/split_manifest.csv",
+    "new": "docs/handoff/artifacts/janek/mix_a_v1/split_manifest_janek.csv",
+    "sha256_before": "2951fd23a48589e50c4c8a27920424c5ba3645d7909a95b035445f23a1815ec8",
+    "origin": "Janek workspace",
+    "sha256_after": "2951fd23a48589e50c4c8a27920424c5ba3645d7909a95b035445f23a1815ec8"
+  },
+  {
+    "old": "results/msb1_v1_T4/examples/tach_dung_1.png",
+    "new": "docs/handoff/artifacts/janek/msb1_v1_T4/examples/tach_dung_1_janek.png",
+    "sha256_before": "309359e62dc165a4f757074a517d81cbea55c744ae9cbf8c0f488fe8febb9816",
+    "origin": "Janek workspace",
+    "sha256_after": "309359e62dc165a4f757074a517d81cbea55c744ae9cbf8c0f488fe8febb9816"
+  },
+  {
+    "old": "results/msb1_v1_T4/examples/tach_dung_2.png",
+    "new": "docs/handoff/artifacts/janek/msb1_v1_T4/examples/tach_dung_2_janek.png",
+    "sha256_before": "0868fc985279b9e786666f205fb4c9fc62e9da53b215b0032f7df4fc46ca8eba",
+    "origin": "Janek workspace",
+    "sha256_after": "0868fc985279b9e786666f205fb4c9fc62e9da53b215b0032f7df4fc46ca8eba"
+  },
+  {
+    "old": "results/msb1_v1_T4/examples/tach_dung_3.png",
+    "new": "docs/handoff/artifacts/janek/msb1_v1_T4/examples/tach_dung_3_janek.png",
+    "sha256_before": "6f1be1f15f4efcc312ffe96dbae3c25339e4232be98c02570fbcb6e1bf8da635",
+    "origin": "Janek workspace",
+    "sha256_after": "6f1be1f15f4efcc312ffe96dbae3c25339e4232be98c02570fbcb6e1bf8da635"
+  },
+  {
+    "old": "results/msb1_v1_T4/examples/tach_dung_4.png",
+    "new": "docs/handoff/artifacts/janek/msb1_v1_T4/examples/tach_dung_4_janek.png",
+    "sha256_before": "9eadde73119ced0cfa19962e1a4ab1438cb50cddeed964402af90de1eb26681d",
+    "origin": "Janek workspace",
+    "sha256_after": "9eadde73119ced0cfa19962e1a4ab1438cb50cddeed964402af90de1eb26681d"
+  },
+  {
+    "old": "results/msb1_v1_T4/examples/tach_sai_1.png",
+    "new": "docs/handoff/artifacts/janek/msb1_v1_T4/examples/tach_sai_1_janek.png",
+    "sha256_before": "10160db2d15a6665816a2b6f3619d8eaf443f8a9d9480bfb4b3b7868c8fa3514",
+    "origin": "Janek workspace",
+    "sha256_after": "10160db2d15a6665816a2b6f3619d8eaf443f8a9d9480bfb4b3b7868c8fa3514"
+  },
+  {
+    "old": "results/msb1_v1_T4/examples/tach_sai_2.png",
+    "new": "docs/handoff/artifacts/janek/msb1_v1_T4/examples/tach_sai_2_janek.png",
+    "sha256_before": "e40a632280fe27f30acfa3b376887921f05a2f9f88e605056eff19ca803b62d8",
+    "origin": "Janek workspace",
+    "sha256_after": "e40a632280fe27f30acfa3b376887921f05a2f9f88e605056eff19ca803b62d8"
+  },
+  {
+    "old": "results/msb1_v1_T4/examples/tach_sai_3.png",
+    "new": "docs/handoff/artifacts/janek/msb1_v1_T4/examples/tach_sai_3_janek.png",
+    "sha256_before": "c2eeda61f74998e9fbdf9f5e77c3eb346a505375a695cf6ba75631e75e50bb23",
+    "origin": "Janek workspace",
+    "sha256_after": "c2eeda61f74998e9fbdf9f5e77c3eb346a505375a695cf6ba75631e75e50bb23"
+  },
+  {
+    "old": "results/msb1_v1_T4/examples/tach_sai_4.png",
+    "new": "docs/handoff/artifacts/janek/msb1_v1_T4/examples/tach_sai_4_janek.png",
+    "sha256_before": "3b6ff0b72be0dfb45e4f38c27e3fa6578bf49ec43e14204e7979b44853ea2d81",
+    "origin": "Janek workspace",
+    "sha256_after": "3b6ff0b72be0dfb45e4f38c27e3fa6578bf49ec43e14204e7979b44853ea2d81"
+  },
+  {
+    "old": "results/msb1_v1_T4/examples/toan_canh_nguon_tach_nhieu_nhat.png",
+    "new": "docs/handoff/artifacts/janek/msb1_v1_T4/examples/toan_canh_nguon_tach_nhieu_nhat_janek.png",
+    "sha256_before": "eef2644397c911bb7f22c245201cdc865778b210d83721f6111efeda56c546b5",
+    "origin": "Janek workspace",
+    "sha256_after": "eef2644397c911bb7f22c245201cdc865778b210d83721f6111efeda56c546b5"
+  },
+  {
+    "old": "results/msb1_v1_T4/msb1_result.json",
+    "new": "docs/handoff/artifacts/janek/msb1_v1_T4/msb1_result_janek.json",
+    "sha256_before": "ad64b41babcbc3435db4f4287e1d4297f44ffacdda368dab12258c6da480eb52",
+    "origin": "Janek workspace",
+    "sha256_after": "ad64b41babcbc3435db4f4287e1d4297f44ffacdda368dab12258c6da480eb52"
+  },
+  {
+    "old": "results/phase0/auto_stats.json",
+    "new": "docs/handoff/artifacts/janek/phase0/auto_stats_janek.json",
+    "sha256_before": "1944395cb4a8fcfd16e20c8783041fc40499e750851e4928e1f74f681fd11a10",
+    "origin": "Janek workspace",
+    "sha256_after": "1944395cb4a8fcfd16e20c8783041fc40499e750851e4928e1f74f681fd11a10"
+  },
+  {
+    "old": "results/phase0/reference_check.json",
+    "new": "docs/handoff/artifacts/janek/phase0/reference_check_janek.json",
+    "sha256_before": "4cfe5caf9008a418fa88b6cc5ac8103b5355b4ad2fbe1a6d79c3e1c53d326d0e",
+    "origin": "Janek workspace",
+    "sha256_after": "4cfe5caf9008a418fa88b6cc5ac8103b5355b4ad2fbe1a6d79c3e1c53d326d0e"
+  },
+  {
+    "old": "results/phase0/review/HUONG_DAN_CHAM.md",
+    "new": "docs/handoff/artifacts/janek/phase0/review/HUONG_DAN_CHAM_janek.md",
+    "sha256_before": "e7f784bb1b62bb5a2fb416d6b4373bf523d3d42a43df5733379dee086406ada3",
+    "origin": "Janek workspace",
+    "sha256_after": "c3acac019b66505057b5bad8130e83f263fcfbc55dde254fdd292544fe75964e"
+  },
+  {
+    "old": "results/phase0/review/calibration/K01.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/calibration/K01_janek.png",
+    "sha256_before": "6ab99259d754cede3a99702143afa090501a43dca7264e6d7f296b1a331f446b",
+    "origin": "Janek workspace",
+    "sha256_after": "6ab99259d754cede3a99702143afa090501a43dca7264e6d7f296b1a331f446b"
+  },
+  {
+    "old": "results/phase0/review/calibration/K02.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/calibration/K02_janek.png",
+    "sha256_before": "b8407996bd188a20723801d6e0f799253b9d7fe03d0f8015b3434b8ae213b744",
+    "origin": "Janek workspace",
+    "sha256_after": "b8407996bd188a20723801d6e0f799253b9d7fe03d0f8015b3434b8ae213b744"
+  },
+  {
+    "old": "results/phase0/review/calibration/K03.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/calibration/K03_janek.png",
+    "sha256_before": "5d6074d3a678efeff3656b768b23f9f2c4bce03d0b6ce67f3641345b25c329e3",
+    "origin": "Janek workspace",
+    "sha256_after": "5d6074d3a678efeff3656b768b23f9f2c4bce03d0b6ce67f3641345b25c329e3"
+  },
+  {
+    "old": "results/phase0/review/calibration/K04.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/calibration/K04_janek.png",
+    "sha256_before": "aa00ab97ac27484656dc81aef9a9d500500f3d8e44afddf4ea090127c10b3410",
+    "origin": "Janek workspace",
+    "sha256_after": "aa00ab97ac27484656dc81aef9a9d500500f3d8e44afddf4ea090127c10b3410"
+  },
+  {
+    "old": "results/phase0/review/calibration/K05.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/calibration/K05_janek.png",
+    "sha256_before": "a00a1afec9fd783f18ac36f77de77247bf4663f0179995183ec3cde61240e871",
+    "origin": "Janek workspace",
+    "sha256_after": "a00a1afec9fd783f18ac36f77de77247bf4663f0179995183ec3cde61240e871"
+  },
+  {
+    "old": "results/phase0/review/calibration/K06.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/calibration/K06_janek.png",
+    "sha256_before": "09a9b1f733dbd8139395df96e200973ad53a0e024f8e3b1227791435e15b338b",
+    "origin": "Janek workspace",
+    "sha256_after": "09a9b1f733dbd8139395df96e200973ad53a0e024f8e3b1227791435e15b338b"
+  },
+  {
+    "old": "results/phase0/review/calibration/K07.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/calibration/K07_janek.png",
+    "sha256_before": "2d484aec53439240ec62a411fab6946c5d33978007b3642878ad7777fe6941a7",
+    "origin": "Janek workspace",
+    "sha256_after": "2d484aec53439240ec62a411fab6946c5d33978007b3642878ad7777fe6941a7"
+  },
+  {
+    "old": "results/phase0/review/calibration/K08.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/calibration/K08_janek.png",
+    "sha256_before": "e805fd439a508fb93d995a9ccc8159c949f7fa034b9c20a1e88fa7d509506c1b",
+    "origin": "Janek workspace",
+    "sha256_after": "e805fd439a508fb93d995a9ccc8159c949f7fa034b9c20a1e88fa7d509506c1b"
+  },
+  {
+    "old": "results/phase0/review/calibration/K09.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/calibration/K09_janek.png",
+    "sha256_before": "53e317c55bec84121acaff3071106f4b2dc8d77770eddab8c1c25858b1ef7004",
+    "origin": "Janek workspace",
+    "sha256_after": "53e317c55bec84121acaff3071106f4b2dc8d77770eddab8c1c25858b1ef7004"
+  },
+  {
+    "old": "results/phase0/review/calibration/K10.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/calibration/K10_janek.png",
+    "sha256_before": "ecae8b494e628f1ab7f00884a4b8326bb8d43c3eb96971244f149bbca8590f4f",
+    "origin": "Janek workspace",
+    "sha256_after": "ecae8b494e628f1ab7f00884a4b8326bb8d43c3eb96971244f149bbca8590f4f"
+  },
+  {
+    "old": "results/phase0/review/calibration_sheet.csv",
+    "new": "docs/handoff/artifacts/janek/phase0/review/calibration_sheet_janek.csv",
+    "sha256_before": "910c37cef8c905266e73a928382f2e395c74c2fe597c454e26af30bdf6f247e9",
+    "origin": "Janek workspace",
+    "sha256_after": "910c37cef8c905266e73a928382f2e395c74c2fe597c454e26af30bdf6f247e9"
+  },
+  {
+    "old": "results/phase0/review/card_decode.json",
+    "new": "docs/handoff/artifacts/janek/phase0/review/card_decode_janek.json",
+    "sha256_before": "f2a1a723dbdbf9097716a88ef4f4ec2795de6cd33288718ac11dffad718d22ad",
+    "origin": "Janek workspace",
+    "sha256_after": "f2a1a723dbdbf9097716a88ef4f4ec2795de6cd33288718ac11dffad718d22ad"
+  },
+  {
+    "old": "results/phase0/review/cards/C01.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C01_janek.png",
+    "sha256_before": "de55c1ed5bc6ed4f505e49418ee49c1ecc12abd01c9575294ca35281ae3129a4",
+    "origin": "Janek workspace",
+    "sha256_after": "de55c1ed5bc6ed4f505e49418ee49c1ecc12abd01c9575294ca35281ae3129a4"
+  },
+  {
+    "old": "results/phase0/review/cards/C02.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C02_janek.png",
+    "sha256_before": "16de489928993e332b76ac32140570d46b9ba9ceeab05790efa35ce261d85710",
+    "origin": "Janek workspace",
+    "sha256_after": "16de489928993e332b76ac32140570d46b9ba9ceeab05790efa35ce261d85710"
+  },
+  {
+    "old": "results/phase0/review/cards/C03.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C03_janek.png",
+    "sha256_before": "b3e98898aad73aa2ee3f960a297fc89a9586bf66398d8b1ad8ccac040bb40d8e",
+    "origin": "Janek workspace",
+    "sha256_after": "b3e98898aad73aa2ee3f960a297fc89a9586bf66398d8b1ad8ccac040bb40d8e"
+  },
+  {
+    "old": "results/phase0/review/cards/C04.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C04_janek.png",
+    "sha256_before": "efae892d7f11cc0d753349e2a2084e779470ec5f3684320c52994c3f8b945a47",
+    "origin": "Janek workspace",
+    "sha256_after": "efae892d7f11cc0d753349e2a2084e779470ec5f3684320c52994c3f8b945a47"
+  },
+  {
+    "old": "results/phase0/review/cards/C05.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C05_janek.png",
+    "sha256_before": "dd05880d9638a3f90d991a77f322e4c420ad35c461f57dd2629b7293660b2bd6",
+    "origin": "Janek workspace",
+    "sha256_after": "dd05880d9638a3f90d991a77f322e4c420ad35c461f57dd2629b7293660b2bd6"
+  },
+  {
+    "old": "results/phase0/review/cards/C06.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C06_janek.png",
+    "sha256_before": "d4b06b4b2c5d601b47df70ab5faa2e644dcbf1a382d530c9fc1a28eec134a21c",
+    "origin": "Janek workspace",
+    "sha256_after": "d4b06b4b2c5d601b47df70ab5faa2e644dcbf1a382d530c9fc1a28eec134a21c"
+  },
+  {
+    "old": "results/phase0/review/cards/C07.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C07_janek.png",
+    "sha256_before": "32f4c15872389f3314c2f5b41d5f615b5c55da8713d2197c558b4ef4f9b136c2",
+    "origin": "Janek workspace",
+    "sha256_after": "32f4c15872389f3314c2f5b41d5f615b5c55da8713d2197c558b4ef4f9b136c2"
+  },
+  {
+    "old": "results/phase0/review/cards/C08.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C08_janek.png",
+    "sha256_before": "be72aef3b98ec52f19803ca8f468f50c8ab6e7bb4fd1bfa174d9f1ee8ba0982d",
+    "origin": "Janek workspace",
+    "sha256_after": "be72aef3b98ec52f19803ca8f468f50c8ab6e7bb4fd1bfa174d9f1ee8ba0982d"
+  },
+  {
+    "old": "results/phase0/review/cards/C09.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C09_janek.png",
+    "sha256_before": "afd3786c3356061f81dcbdd7fd455861084c5e01542cd216e457cba51c0eeb3c",
+    "origin": "Janek workspace",
+    "sha256_after": "afd3786c3356061f81dcbdd7fd455861084c5e01542cd216e457cba51c0eeb3c"
+  },
+  {
+    "old": "results/phase0/review/cards/C10.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C10_janek.png",
+    "sha256_before": "9f5288acfa311d2240e04dd858a506fab2b61ff76849388a81045f0ad0af728d",
+    "origin": "Janek workspace",
+    "sha256_after": "9f5288acfa311d2240e04dd858a506fab2b61ff76849388a81045f0ad0af728d"
+  },
+  {
+    "old": "results/phase0/review/cards/C11.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C11_janek.png",
+    "sha256_before": "8e3f76a14f8a40f36fbee4dd46121eb6deb13ebd0c1557be0e34a8535b7499dc",
+    "origin": "Janek workspace",
+    "sha256_after": "8e3f76a14f8a40f36fbee4dd46121eb6deb13ebd0c1557be0e34a8535b7499dc"
+  },
+  {
+    "old": "results/phase0/review/cards/C12.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C12_janek.png",
+    "sha256_before": "8807ebbdc5baf0f116c8e6d623728d0dad6086fb8d20b881b0094858f9dfcaa0",
+    "origin": "Janek workspace",
+    "sha256_after": "8807ebbdc5baf0f116c8e6d623728d0dad6086fb8d20b881b0094858f9dfcaa0"
+  },
+  {
+    "old": "results/phase0/review/cards/C13.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C13_janek.png",
+    "sha256_before": "6df11e1ad959d7c8bc9b1c1a3c76c693aefed9551e03527718249d9059815399",
+    "origin": "Janek workspace",
+    "sha256_after": "6df11e1ad959d7c8bc9b1c1a3c76c693aefed9551e03527718249d9059815399"
+  },
+  {
+    "old": "results/phase0/review/cards/C14.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C14_janek.png",
+    "sha256_before": "1893e70a915a8af4b24c4f83cf4782daa5262ddf8ae39ef318710429cfa58d61",
+    "origin": "Janek workspace",
+    "sha256_after": "1893e70a915a8af4b24c4f83cf4782daa5262ddf8ae39ef318710429cfa58d61"
+  },
+  {
+    "old": "results/phase0/review/cards/C15.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C15_janek.png",
+    "sha256_before": "c21f54b1e3f88fe9007b9f3ef3190409872344f968ee934de692db8473271897",
+    "origin": "Janek workspace",
+    "sha256_after": "c21f54b1e3f88fe9007b9f3ef3190409872344f968ee934de692db8473271897"
+  },
+  {
+    "old": "results/phase0/review/cards/C16.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C16_janek.png",
+    "sha256_before": "34cdeeb5ef7e9ae3b1d9068d45573ab7515d9b1d34f196032e68298ca1815042",
+    "origin": "Janek workspace",
+    "sha256_after": "34cdeeb5ef7e9ae3b1d9068d45573ab7515d9b1d34f196032e68298ca1815042"
+  },
+  {
+    "old": "results/phase0/review/cards/C17.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C17_janek.png",
+    "sha256_before": "e32bc756560e7757d1204fc48532ce5754645a4d80f8b48a2adb6fd5662e64e1",
+    "origin": "Janek workspace",
+    "sha256_after": "e32bc756560e7757d1204fc48532ce5754645a4d80f8b48a2adb6fd5662e64e1"
+  },
+  {
+    "old": "results/phase0/review/cards/C18.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C18_janek.png",
+    "sha256_before": "950a00aa30fcc476ad9aff64fb4732ac74bb9f8cb4cdadb9198006ae60fd25b4",
+    "origin": "Janek workspace",
+    "sha256_after": "950a00aa30fcc476ad9aff64fb4732ac74bb9f8cb4cdadb9198006ae60fd25b4"
+  },
+  {
+    "old": "results/phase0/review/cards/C19.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C19_janek.png",
+    "sha256_before": "fe2d88a88bb174c43250ddc1184f94cfb6a85b2b75ad48b3e088facba47cc3ef",
+    "origin": "Janek workspace",
+    "sha256_after": "fe2d88a88bb174c43250ddc1184f94cfb6a85b2b75ad48b3e088facba47cc3ef"
+  },
+  {
+    "old": "results/phase0/review/cards/C20.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C20_janek.png",
+    "sha256_before": "757f0d07bb7691782b8e18bb1fdb75a20664ecd43190e79f5df2d19b128de6cb",
+    "origin": "Janek workspace",
+    "sha256_after": "757f0d07bb7691782b8e18bb1fdb75a20664ecd43190e79f5df2d19b128de6cb"
+  },
+  {
+    "old": "results/phase0/review/cards/C21.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C21_janek.png",
+    "sha256_before": "4af75c64bffa8e136c4655f40f46c4e591d08bc5c69d62169304a6b6f8c67224",
+    "origin": "Janek workspace",
+    "sha256_after": "4af75c64bffa8e136c4655f40f46c4e591d08bc5c69d62169304a6b6f8c67224"
+  },
+  {
+    "old": "results/phase0/review/cards/C22.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C22_janek.png",
+    "sha256_before": "5bee849ec10d8610c0390ca608c3e5420b7d18c839642a4b857d41d2a49da710",
+    "origin": "Janek workspace",
+    "sha256_after": "5bee849ec10d8610c0390ca608c3e5420b7d18c839642a4b857d41d2a49da710"
+  },
+  {
+    "old": "results/phase0/review/cards/C23.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C23_janek.png",
+    "sha256_before": "2d44a3223676159a6f31fd471a072e3db0f90e025e7e3387ced79bca677cc5fe",
+    "origin": "Janek workspace",
+    "sha256_after": "2d44a3223676159a6f31fd471a072e3db0f90e025e7e3387ced79bca677cc5fe"
+  },
+  {
+    "old": "results/phase0/review/cards/C24.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C24_janek.png",
+    "sha256_before": "d121aed02d627c07c9375b8a2b1aeebb302c3a178ee5fb00d2cb253efa1cb9d3",
+    "origin": "Janek workspace",
+    "sha256_after": "d121aed02d627c07c9375b8a2b1aeebb302c3a178ee5fb00d2cb253efa1cb9d3"
+  },
+  {
+    "old": "results/phase0/review/cards/C25.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C25_janek.png",
+    "sha256_before": "ba6d340f1b5277b7eaf8c66326dd5859e2328f123562985852f3bcbe1d6d83c9",
+    "origin": "Janek workspace",
+    "sha256_after": "ba6d340f1b5277b7eaf8c66326dd5859e2328f123562985852f3bcbe1d6d83c9"
+  },
+  {
+    "old": "results/phase0/review/cards/C26.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C26_janek.png",
+    "sha256_before": "be5b6b20aacb7c1b9bd3c2fd46cc79c81dd8cf293ffe108ff10c0dd893701ff6",
+    "origin": "Janek workspace",
+    "sha256_after": "be5b6b20aacb7c1b9bd3c2fd46cc79c81dd8cf293ffe108ff10c0dd893701ff6"
+  },
+  {
+    "old": "results/phase0/review/cards/C27.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C27_janek.png",
+    "sha256_before": "301f1fb070bc66ceb9151574815259b311e65ce36cf78970c5bab34d85f85129",
+    "origin": "Janek workspace",
+    "sha256_after": "301f1fb070bc66ceb9151574815259b311e65ce36cf78970c5bab34d85f85129"
+  },
+  {
+    "old": "results/phase0/review/cards/C28.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C28_janek.png",
+    "sha256_before": "240b9ce2c1163fefe683b3fae3a3da2eb8458f130b4a9de3858468fba753ec04",
+    "origin": "Janek workspace",
+    "sha256_after": "240b9ce2c1163fefe683b3fae3a3da2eb8458f130b4a9de3858468fba753ec04"
+  },
+  {
+    "old": "results/phase0/review/cards/C29.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C29_janek.png",
+    "sha256_before": "2e585d3c18e4b8f13661f6880f107e43de7807f11e54931bf35ba02dff224452",
+    "origin": "Janek workspace",
+    "sha256_after": "2e585d3c18e4b8f13661f6880f107e43de7807f11e54931bf35ba02dff224452"
+  },
+  {
+    "old": "results/phase0/review/cards/C30.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C30_janek.png",
+    "sha256_before": "b6f417a847e27f7d351a0202c64622fe6b24562ca983988246f264cd5d7f7065",
+    "origin": "Janek workspace",
+    "sha256_after": "b6f417a847e27f7d351a0202c64622fe6b24562ca983988246f264cd5d7f7065"
+  },
+  {
+    "old": "results/phase0/review/cards/C31.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C31_janek.png",
+    "sha256_before": "88a346eb208451f629b828987ae5fea659c0fda7bf3b878490cfcf9d80de1859",
+    "origin": "Janek workspace",
+    "sha256_after": "88a346eb208451f629b828987ae5fea659c0fda7bf3b878490cfcf9d80de1859"
+  },
+  {
+    "old": "results/phase0/review/cards/C32.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C32_janek.png",
+    "sha256_before": "08496bca85a9faf7606c31b20df464bb2a116f0c99e5303d4a0a7ffb2a772356",
+    "origin": "Janek workspace",
+    "sha256_after": "08496bca85a9faf7606c31b20df464bb2a116f0c99e5303d4a0a7ffb2a772356"
+  },
+  {
+    "old": "results/phase0/review/cards/C33.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C33_janek.png",
+    "sha256_before": "4c4e5ce8a44b5bdf1ba28fe4df28ef04716f602f5da1244a6c4c486a3a0e93fe",
+    "origin": "Janek workspace",
+    "sha256_after": "4c4e5ce8a44b5bdf1ba28fe4df28ef04716f602f5da1244a6c4c486a3a0e93fe"
+  },
+  {
+    "old": "results/phase0/review/cards/C34.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C34_janek.png",
+    "sha256_before": "764d3dac62cc4ae59ce0485055872bbb3afe81c6db88f077172e84cd7cbaf9b0",
+    "origin": "Janek workspace",
+    "sha256_after": "764d3dac62cc4ae59ce0485055872bbb3afe81c6db88f077172e84cd7cbaf9b0"
+  },
+  {
+    "old": "results/phase0/review/cards/C35.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C35_janek.png",
+    "sha256_before": "c73580593eab54689e70032dc39011987126a50cfe001991ba923ca63229d6d1",
+    "origin": "Janek workspace",
+    "sha256_after": "c73580593eab54689e70032dc39011987126a50cfe001991ba923ca63229d6d1"
+  },
+  {
+    "old": "results/phase0/review/cards/C36.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C36_janek.png",
+    "sha256_before": "63131c522ee9469d1e9efb0fd6662413333f86d3db78a959ece4e486bf12f8bd",
+    "origin": "Janek workspace",
+    "sha256_after": "63131c522ee9469d1e9efb0fd6662413333f86d3db78a959ece4e486bf12f8bd"
+  },
+  {
+    "old": "results/phase0/review/cards/C37.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C37_janek.png",
+    "sha256_before": "2c95d058ac7dd89fa4db4518a8026d092d2657160f9f98b9d597ca11575cf029",
+    "origin": "Janek workspace",
+    "sha256_after": "2c95d058ac7dd89fa4db4518a8026d092d2657160f9f98b9d597ca11575cf029"
+  },
+  {
+    "old": "results/phase0/review/cards/C38.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C38_janek.png",
+    "sha256_before": "14b953218358892171022d7af5f40dc899e50ec9b893e31b5a211cc5405668ca",
+    "origin": "Janek workspace",
+    "sha256_after": "14b953218358892171022d7af5f40dc899e50ec9b893e31b5a211cc5405668ca"
+  },
+  {
+    "old": "results/phase0/review/cards/C39.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C39_janek.png",
+    "sha256_before": "38b4c41124ead5491091550303d92645ebdd437ab661d233f22fea65ff0016d5",
+    "origin": "Janek workspace",
+    "sha256_after": "38b4c41124ead5491091550303d92645ebdd437ab661d233f22fea65ff0016d5"
+  },
+  {
+    "old": "results/phase0/review/cards/C40.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C40_janek.png",
+    "sha256_before": "85a22643a69df290e13a8a82445c06430afebaf8d65aec2a59f6f8c29a88301b",
+    "origin": "Janek workspace",
+    "sha256_after": "85a22643a69df290e13a8a82445c06430afebaf8d65aec2a59f6f8c29a88301b"
+  },
+  {
+    "old": "results/phase0/review/cards/C41.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C41_janek.png",
+    "sha256_before": "1ab9795e5fb8204392522d0be5333362d38e189a76aa475c639805645ddb158b",
+    "origin": "Janek workspace",
+    "sha256_after": "1ab9795e5fb8204392522d0be5333362d38e189a76aa475c639805645ddb158b"
+  },
+  {
+    "old": "results/phase0/review/cards/C42.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C42_janek.png",
+    "sha256_before": "7d15ff5bbf341290f089b0be1da4ff385492cece633102db19ae451f2b385f5e",
+    "origin": "Janek workspace",
+    "sha256_after": "7d15ff5bbf341290f089b0be1da4ff385492cece633102db19ae451f2b385f5e"
+  },
+  {
+    "old": "results/phase0/review/cards/C43.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C43_janek.png",
+    "sha256_before": "271580c2d42d7b35b1c93368d9c1fdabb416cd79d5afec9e002a86a984695bb7",
+    "origin": "Janek workspace",
+    "sha256_after": "271580c2d42d7b35b1c93368d9c1fdabb416cd79d5afec9e002a86a984695bb7"
+  },
+  {
+    "old": "results/phase0/review/cards/C44.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C44_janek.png",
+    "sha256_before": "37cac671b540b87c3ffd147f01ac0bd3a3fc303e051995f66d32ea75bb753c6c",
+    "origin": "Janek workspace",
+    "sha256_after": "37cac671b540b87c3ffd147f01ac0bd3a3fc303e051995f66d32ea75bb753c6c"
+  },
+  {
+    "old": "results/phase0/review/cards/C45.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C45_janek.png",
+    "sha256_before": "fa69ed1e1d3721128a6e633b30368096349cad759af24b8cc7687f9a9c74cf57",
+    "origin": "Janek workspace",
+    "sha256_after": "fa69ed1e1d3721128a6e633b30368096349cad759af24b8cc7687f9a9c74cf57"
+  },
+  {
+    "old": "results/phase0/review/cards/C46.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C46_janek.png",
+    "sha256_before": "1429c7899c887662e19ee87c9d42e0cdbe9fcf00ef3eeeecac4f9cd2747e83f9",
+    "origin": "Janek workspace",
+    "sha256_after": "1429c7899c887662e19ee87c9d42e0cdbe9fcf00ef3eeeecac4f9cd2747e83f9"
+  },
+  {
+    "old": "results/phase0/review/cards/C47.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C47_janek.png",
+    "sha256_before": "a08e093b9559e96098ac2b902fe01bd8c11784be8b8ece7d72c72b9e90a7529d",
+    "origin": "Janek workspace",
+    "sha256_after": "a08e093b9559e96098ac2b902fe01bd8c11784be8b8ece7d72c72b9e90a7529d"
+  },
+  {
+    "old": "results/phase0/review/cards/C48.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C48_janek.png",
+    "sha256_before": "e27dcebed2505d7a79f04ac3999c843ecccbe3836801350e99ee73aa74525454",
+    "origin": "Janek workspace",
+    "sha256_after": "e27dcebed2505d7a79f04ac3999c843ecccbe3836801350e99ee73aa74525454"
+  },
+  {
+    "old": "results/phase0/review/cards/C49.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C49_janek.png",
+    "sha256_before": "00140f2f6fcb9616bec76f3991770344d09c9b07ee9a90fdaa83e5bcfda2fcc3",
+    "origin": "Janek workspace",
+    "sha256_after": "00140f2f6fcb9616bec76f3991770344d09c9b07ee9a90fdaa83e5bcfda2fcc3"
+  },
+  {
+    "old": "results/phase0/review/cards/C50.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C50_janek.png",
+    "sha256_before": "ba32b0c2efd863640151ddd7ba34e9df4a985e7ceb3abf989f32cf5a03aaa515",
+    "origin": "Janek workspace",
+    "sha256_after": "ba32b0c2efd863640151ddd7ba34e9df4a985e7ceb3abf989f32cf5a03aaa515"
+  },
+  {
+    "old": "results/phase0/review/cards/C51.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C51_janek.png",
+    "sha256_before": "caf7eb5a86b2fd764f641049422e853aeed2e725e5d2adf59b8d574f1a5ece39",
+    "origin": "Janek workspace",
+    "sha256_after": "caf7eb5a86b2fd764f641049422e853aeed2e725e5d2adf59b8d574f1a5ece39"
+  },
+  {
+    "old": "results/phase0/review/cards/C52.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C52_janek.png",
+    "sha256_before": "9554ede3d5ef47ff5e42aab8e18b8144b865c618a6539d280f7a19d21f96b428",
+    "origin": "Janek workspace",
+    "sha256_after": "9554ede3d5ef47ff5e42aab8e18b8144b865c618a6539d280f7a19d21f96b428"
+  },
+  {
+    "old": "results/phase0/review/cards/C53.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C53_janek.png",
+    "sha256_before": "aa7a5acf0065ec1af949fa8da1bc04b7cd80ba24b613b20466924b003bb3dbc0",
+    "origin": "Janek workspace",
+    "sha256_after": "aa7a5acf0065ec1af949fa8da1bc04b7cd80ba24b613b20466924b003bb3dbc0"
+  },
+  {
+    "old": "results/phase0/review/cards/C54.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C54_janek.png",
+    "sha256_before": "d929d4c1eb0749bf7d810df7a1eadd0569c83470920ad7958608df810843a1bc",
+    "origin": "Janek workspace",
+    "sha256_after": "d929d4c1eb0749bf7d810df7a1eadd0569c83470920ad7958608df810843a1bc"
+  },
+  {
+    "old": "results/phase0/review/cards/C55.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C55_janek.png",
+    "sha256_before": "9fd727e159d9abc3de7d5225b263bd4bf2f28afeb9e90a69888ca6bd4fa378ef",
+    "origin": "Janek workspace",
+    "sha256_after": "9fd727e159d9abc3de7d5225b263bd4bf2f28afeb9e90a69888ca6bd4fa378ef"
+  },
+  {
+    "old": "results/phase0/review/cards/C56.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C56_janek.png",
+    "sha256_before": "6308a8dfc29930ff4ddfa14e9844e42ad5c0c5843e762221261079943346a64f",
+    "origin": "Janek workspace",
+    "sha256_after": "6308a8dfc29930ff4ddfa14e9844e42ad5c0c5843e762221261079943346a64f"
+  },
+  {
+    "old": "results/phase0/review/cards/C57.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C57_janek.png",
+    "sha256_before": "001080304db13859c7d4d4d55a9293607fdfc869d97d4147d7a2f788f4be2445",
+    "origin": "Janek workspace",
+    "sha256_after": "001080304db13859c7d4d4d55a9293607fdfc869d97d4147d7a2f788f4be2445"
+  },
+  {
+    "old": "results/phase0/review/cards/C58.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C58_janek.png",
+    "sha256_before": "1e712784eed913d908d9cf033eb87e3971e32e9e0b7ad6c66cca0de54776e6f6",
+    "origin": "Janek workspace",
+    "sha256_after": "1e712784eed913d908d9cf033eb87e3971e32e9e0b7ad6c66cca0de54776e6f6"
+  },
+  {
+    "old": "results/phase0/review/cards/C59.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C59_janek.png",
+    "sha256_before": "4c4a15d5ec43b2a60a825ec1c5f56663a5433a93e25d530dd44799706d40a3fd",
+    "origin": "Janek workspace",
+    "sha256_after": "4c4a15d5ec43b2a60a825ec1c5f56663a5433a93e25d530dd44799706d40a3fd"
+  },
+  {
+    "old": "results/phase0/review/cards/C60.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C60_janek.png",
+    "sha256_before": "adeec5226386c4c41cbf4a2fe58d41aee4afd3c13ab73078bdfe250a84ea1ab8",
+    "origin": "Janek workspace",
+    "sha256_after": "adeec5226386c4c41cbf4a2fe58d41aee4afd3c13ab73078bdfe250a84ea1ab8"
+  },
+  {
+    "old": "results/phase0/review/cards/C61.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C61_janek.png",
+    "sha256_before": "612413d633a90a33efea0fada367f446b24c9bac1d998653fb9a670bd1dc7885",
+    "origin": "Janek workspace",
+    "sha256_after": "612413d633a90a33efea0fada367f446b24c9bac1d998653fb9a670bd1dc7885"
+  },
+  {
+    "old": "results/phase0/review/cards/C62.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C62_janek.png",
+    "sha256_before": "619736aba507966dd13202b3b3065cc94517835e4ceda7fa12343e465ab30853",
+    "origin": "Janek workspace",
+    "sha256_after": "619736aba507966dd13202b3b3065cc94517835e4ceda7fa12343e465ab30853"
+  },
+  {
+    "old": "results/phase0/review/cards/C63.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C63_janek.png",
+    "sha256_before": "daacb65a3843f8194f307887a31fe8423f5ad4c78ff0f76190c797bfc6e749a3",
+    "origin": "Janek workspace",
+    "sha256_after": "daacb65a3843f8194f307887a31fe8423f5ad4c78ff0f76190c797bfc6e749a3"
+  },
+  {
+    "old": "results/phase0/review/cards/C64.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C64_janek.png",
+    "sha256_before": "a2ee32da50ad273845be790e602ab677116e7a38c820bf51f34b3a33a3cfaaf8",
+    "origin": "Janek workspace",
+    "sha256_after": "a2ee32da50ad273845be790e602ab677116e7a38c820bf51f34b3a33a3cfaaf8"
+  },
+  {
+    "old": "results/phase0/review/cards/C65.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C65_janek.png",
+    "sha256_before": "fd561379f978b425c518180cf84e4cf4b372b5a5d5f0829f45f78bfbc414abe3",
+    "origin": "Janek workspace",
+    "sha256_after": "fd561379f978b425c518180cf84e4cf4b372b5a5d5f0829f45f78bfbc414abe3"
+  },
+  {
+    "old": "results/phase0/review/cards/C66.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C66_janek.png",
+    "sha256_before": "338f6c59372791dad40dab5a839fe3ca58e74a057fc9ed043eda1896a6c39bc2",
+    "origin": "Janek workspace",
+    "sha256_after": "338f6c59372791dad40dab5a839fe3ca58e74a057fc9ed043eda1896a6c39bc2"
+  },
+  {
+    "old": "results/phase0/review/cards/C67.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C67_janek.png",
+    "sha256_before": "5b8986570e3d624f4882fc456d2cf402ea07aef96c7d1bc7233a424c1aa19f66",
+    "origin": "Janek workspace",
+    "sha256_after": "5b8986570e3d624f4882fc456d2cf402ea07aef96c7d1bc7233a424c1aa19f66"
+  },
+  {
+    "old": "results/phase0/review/cards/C68.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C68_janek.png",
+    "sha256_before": "c71968bc4de302c108f3df134af9b4ac4ec4fd3af154a8ce9b17d27a5141b110",
+    "origin": "Janek workspace",
+    "sha256_after": "c71968bc4de302c108f3df134af9b4ac4ec4fd3af154a8ce9b17d27a5141b110"
+  },
+  {
+    "old": "results/phase0/review/cards/C69.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C69_janek.png",
+    "sha256_before": "d28c24944e2d847992efb2c18a50fa6b615574c529463844ccb13f22f46fd689",
+    "origin": "Janek workspace",
+    "sha256_after": "d28c24944e2d847992efb2c18a50fa6b615574c529463844ccb13f22f46fd689"
+  },
+  {
+    "old": "results/phase0/review/cards/C70.png",
+    "new": "docs/handoff/artifacts/janek/phase0/review/cards/C70_janek.png",
+    "sha256_before": "5757d3ae22f88c284c713c705002be393933f8573c0407340654d741a0283dba",
+    "origin": "Janek workspace",
+    "sha256_after": "5757d3ae22f88c284c713c705002be393933f8573c0407340654d741a0283dba"
+  },
+  {
+    "old": "results/phase0/review/review_sheet.csv",
+    "new": "docs/handoff/artifacts/janek/phase0/review/review_sheet_janek.csv",
+    "sha256_before": "b1ad35fd9a06d8c4d2d456bda8edc1c9463a5186c5623828a7e2c82660b5f961",
+    "origin": "Janek workspace",
+    "sha256_after": "b1ad35fd9a06d8c4d2d456bda8edc1c9463a5186c5623828a7e2c82660b5f961"
+  },
+  {
+    "old": "results/phase0/review/selection.json",
+    "new": "docs/handoff/artifacts/janek/phase0/review/selection_janek.json",
+    "sha256_before": "fbbd80a60bedd93e2584108da49c962c7179bdd5dfc6f70b1e851026e6d6c05a",
+    "origin": "Janek workspace",
+    "sha256_after": "fbbd80a60bedd93e2584108da49c962c7179bdd5dfc6f70b1e851026e6d6c05a"
+  },
+  {
+    "old": "results/probe_A100_v1/NOTES.md",
+    "new": "docs/handoff/artifacts/janek/probe_A100_v1/NOTES_janek.md",
+    "sha256_before": "99f139125f07b5ad7bd60db275cb690185675ea12f292271dcbabb03d49293cd",
+    "origin": "Janek workspace",
+    "sha256_after": "500347a27a615445cb099de4f775e867d8d804a418deceeb068e91b97852bf00"
+  },
+  {
+    "old": "results/probe_A100_v1/audit_identity.json",
+    "new": "docs/handoff/artifacts/janek/probe_A100_v1/audit_identity_janek.json",
+    "sha256_before": "35014a96154e7125b79afd4b4ceee15839f50b84332e803539040099c435a5b2",
+    "origin": "Janek workspace",
+    "sha256_after": "35014a96154e7125b79afd4b4ceee15839f50b84332e803539040099c435a5b2"
+  },
+  {
+    "old": "results/probe_A100_v1/compare_vs_H200_probe40.json",
+    "new": "docs/handoff/artifacts/janek/probe_A100_v1/compare_vs_H200_probe40_janek.json",
+    "sha256_before": "fc791775ebabccf60a2e042768987be4206fefa7fb5b102548c5a3d248fc7ae3",
+    "origin": "Janek workspace",
+    "sha256_after": "fc791775ebabccf60a2e042768987be4206fefa7fb5b102548c5a3d248fc7ae3"
+  },
+  {
+    "old": "results/probe_A100_v1/doctor_A100-SXM4-40GB_20261119_193007.json",
+    "new": "docs/handoff/artifacts/janek/probe_A100_v1/doctor_A100-SXM4-40GB_20261119_193007_janek.json",
+    "sha256_before": "fa99552d8d016dca886d2084672ee000afcfdf36226051ce2a0f4bfe2a8bb871",
+    "origin": "Janek workspace",
+    "sha256_after": "fa99552d8d016dca886d2084672ee000afcfdf36226051ce2a0f4bfe2a8bb871"
+  },
+  {
+    "old": "results/probe_A100_v1/env_A100-SXM4-40GB_20261119_191713.json",
+    "new": "docs/handoff/artifacts/janek/probe_A100_v1/env_A100-SXM4-40GB_20261119_191713_janek.json",
+    "sha256_before": "53829126f76e28ffe6bc978a2b584a3c09169a8d3ff7af899c618a18fb3c4d62",
+    "origin": "Janek workspace",
+    "sha256_after": "53829126f76e28ffe6bc978a2b584a3c09169a8d3ff7af899c618a18fb3c4d62"
+  },
+  {
+    "old": "results/probe_A100_v1/gates.json",
+    "new": "docs/handoff/artifacts/janek/probe_A100_v1/gates_janek.json",
+    "sha256_before": "25077fb0892f1bc8d3d5d5c532339a2c4504a276fdffc176f83eb4bd4f604dc4",
+    "origin": "Janek workspace",
+    "sha256_after": "25077fb0892f1bc8d3d5d5c532339a2c4504a276fdffc176f83eb4bd4f604dc4"
+  },
+  {
+    "old": "results/probe_A100_v1/probe_summary.json",
+    "new": "docs/handoff/artifacts/janek/probe_A100_v1/probe_summary_janek.json",
+    "sha256_before": "9b583585c18792582ae74470fc1bba290c3181a602bb07df2350651a3dd060fb",
+    "origin": "Janek workspace",
+    "sha256_after": "9b583585c18792582ae74470fc1bba290c3181a602bb07df2350651a3dd060fb"
+  },
+  {
+    "old": "results/probe_A100_v1/profile.json",
+    "new": "docs/handoff/artifacts/janek/probe_A100_v1/profile_janek.json",
+    "sha256_before": "556250454dc4151402acfe53f0595c0eb779cf73cb7d6fcc81765bd2df7270c4",
+    "origin": "Janek workspace",
+    "sha256_after": "556250454dc4151402acfe53f0595c0eb779cf73cb7d6fcc81765bd2df7270c4"
+  },
+  {
+    "old": "results/sizethr_v1_T4/run.log",
+    "new": "docs/handoff/artifacts/janek/sizethr_v1_T4/run_janek.log",
+    "sha256_before": "5f43603035d6b75103543bd94344eca06aeadb3d625fe744a14c19a84440dd43",
+    "origin": "Janek workspace",
+    "sha256_after": "5f43603035d6b75103543bd94344eca06aeadb3d625fe744a14c19a84440dd43"
+  },
+  {
+    "old": "results/sizethr_v1_T4/size_decision.json",
+    "new": "docs/handoff/artifacts/janek/sizethr_v1_T4/size_decision_janek.json",
+    "sha256_before": "0917bb533ea08426da4b5d5c9371593094a65ddbc86670c04b8d3d710ef7c367",
+    "origin": "Janek workspace",
+    "sha256_after": "0917bb533ea08426da4b5d5c9371593094a65ddbc86670c04b8d3d710ef7c367"
+  },
+  {
+    "old": "results/t4_repeatability.json",
+    "new": "docs/handoff/artifacts/janek/./t4_repeatability_janek.json",
+    "sha256_before": "348cbb446275b42d16ceb276ab27fe1187c285b879febff4c792c67bf1240e3f",
+    "origin": "Janek workspace",
+    "sha256_after": "348cbb446275b42d16ceb276ab27fe1187c285b879febff4c792c67bf1240e3f"
+  },
+  {
+    "old": "results/xvb1_v1_T4/per_source_A.csv",
+    "new": "docs/handoff/artifacts/janek/xvb1_v1_T4/per_source_A_janek.csv",
+    "sha256_before": "7837a6a197189ac7d8e10ff07f399dee22134781c7912f686e9185dd5cdca7ea",
+    "origin": "Janek workspace",
+    "sha256_after": "7837a6a197189ac7d8e10ff07f399dee22134781c7912f686e9185dd5cdca7ea"
+  },
+  {
+    "old": "results/xvb1_v1_T4/xvb1_result.json",
+    "new": "docs/handoff/artifacts/janek/xvb1_v1_T4/xvb1_result_janek.json",
+    "sha256_before": "296977a3045bd1100fbae3b04bcfa9373eb7a6024040c2f41309e3c1518d67da",
+    "origin": "Janek workspace",
+    "sha256_after": "296977a3045bd1100fbae3b04bcfa9373eb7a6024040c2f41309e3c1518d67da"
+  },
+  {
+    "old": "results/zoom_pilot_v1_T4/descriptive_without_dense_page.json",
+    "new": "docs/handoff/artifacts/janek/zoom_pilot_v1_T4/descriptive_without_dense_page_janek.json",
+    "sha256_before": "00be31aeaffeb2bc2c0fe19315bab36605305eacac0e86d0ba85a1806a2f6925",
+    "origin": "Janek workspace",
+    "sha256_after": "00be31aeaffeb2bc2c0fe19315bab36605305eacac0e86d0ba85a1806a2f6925"
+  },
+  {
+    "old": "results/zoom_pilot_v1_T4/infer_summary.json",
+    "new": "docs/handoff/artifacts/janek/zoom_pilot_v1_T4/infer_summary_janek.json",
+    "sha256_before": "998cf251e7c97b5935d6e814e6562ca02c5d6b34802860ae810f771686ab226e",
+    "origin": "Janek workspace",
+    "sha256_after": "998cf251e7c97b5935d6e814e6562ca02c5d6b34802860ae810f771686ab226e"
+  },
+  {
+    "old": "results/zoom_pilot_v1_T4/pagecheck.json",
+    "new": "docs/handoff/artifacts/janek/zoom_pilot_v1_T4/pagecheck_janek.json",
+    "sha256_before": "c46374b13b5f941ba41490643cbd500b15b2938dcb8ec251653aa29c6445749e",
+    "origin": "Janek workspace",
+    "sha256_after": "c46374b13b5f941ba41490643cbd500b15b2938dcb8ec251653aa29c6445749e"
+  },
+  {
+    "old": "results/zoom_pilot_v1_T4/pagecheck_dense_source.png",
+    "new": "docs/handoff/artifacts/janek/zoom_pilot_v1_T4/pagecheck_dense_source_janek.png",
+    "sha256_before": "7149f558900e7edf3b59d6d1983e2703f40ad2c835a4435d4c8223be17c19663",
+    "origin": "Janek workspace",
+    "sha256_after": "7149f558900e7edf3b59d6d1983e2703f40ad2c835a4435d4c8223be17c19663"
+  },
+  {
+    "old": "results/zoom_pilot_v1_T4/sample.json",
+    "new": "docs/handoff/artifacts/janek/zoom_pilot_v1_T4/sample_janek.json",
+    "sha256_before": "8a8e0611b02da5ab3d52cb6a4f041412f5e7cc3ac9f030efb124e5028ca9281a",
+    "origin": "Janek workspace",
+    "sha256_after": "8a8e0611b02da5ab3d52cb6a4f041412f5e7cc3ac9f030efb124e5028ca9281a"
+  },
+  {
+    "old": "results/zoom_pilot_v1_T4/smoke_summary.json",
+    "new": "docs/handoff/artifacts/janek/zoom_pilot_v1_T4/smoke_summary_janek.json",
+    "sha256_before": "48971940af2bd8fde1c08c4ebd10ad881d40fc2d1c0d112e0d1a9c0d4c30cbb1",
+    "origin": "Janek workspace",
+    "sha256_after": "48971940af2bd8fde1c08c4ebd10ad881d40fc2d1c0d112e0d1a9c0d4c30cbb1"
+  },
+  {
+    "old": "results/zoom_pilot_v1_T4/zoom_result.json",
+    "new": "docs/handoff/artifacts/janek/zoom_pilot_v1_T4/zoom_result_janek.json",
+    "sha256_before": "7bff574110b46ca0aef231b879d7f5083982f0b1695b9981f4d915a916ce6706",
+    "origin": "Janek workspace",
+    "sha256_after": "7bff574110b46ca0aef231b879d7f5083982f0b1695b9981f4d915a916ce6706"
+  },
+  {
+    "old": "scripts/boxquality_p0.py",
+    "new": "scripts/boxquality_p0_janek.py",
+    "sha256_before": "4d16e45a86fde91686dc934a6305c0ef7ef3b555e0c37ae0c59e8d94f0f4d062",
+    "origin": "Janek workspace",
+    "sha256_after": "1da1f34f9fc3394251ceb5f2c7912272073b49030ef559a1fa935660a4bea3dd"
+  },
+  {
+    "old": "scripts/boxquality_zip_listing.py",
+    "new": "scripts/boxquality_zip_listing_janek.py",
+    "sha256_before": "04bf2fc31fac45bdb1b4a7561eec1622a91218f740d5c5bb695968a055f67a2a",
+    "origin": "Janek workspace",
+    "sha256_after": "a818a6d1ccf56727f571e9f22074745ecc91d9449ffb3690444eec97f3e2752c"
+  },
+  {
+    "old": "scripts/build_bn_notebook.py",
+    "new": "scripts/build_bn_notebook_janek.py",
+    "sha256_before": "69e10391a7235af30165fb817fc0683164bd8215d6acdf3590042ec0e2f8343e",
+    "origin": "Janek workspace",
+    "sha256_after": "33952453f64eeb31f8da48c1acb4a4b9f156064591be701d034c70d62798abdd"
+  },
+  {
+    "old": "scripts/build_colab_notebook.py",
+    "new": "scripts/build_colab_notebook_janek.py",
+    "sha256_before": "25ddb03d36dfbe29a32a0661cee079536a63ff664d81614c19df973c005ab100",
+    "origin": "Janek workspace",
+    "sha256_after": "28c67a91a0de96be525d9c5164c68ec44d69175d06b6a7c83ea45cf1d29b9d08"
+  },
+  {
+    "old": "scripts/build_dualagree_notebook.py",
+    "new": "scripts/build_dualagree_notebook_janek.py",
+    "sha256_before": "6d5d413b2bf8caeeff3a6102087281aecdf3f96df05c170b855be41f3f80f3fe",
+    "origin": "Janek workspace",
+    "sha256_after": "b9aef90561d3b9aa4d0ac7e4fb6f409d0109d6465c881df89b6a083ee888e896"
+  },
+  {
+    "old": "scripts/build_kaggle_boxquality_notebook.py",
+    "new": "scripts/build_kaggle_boxquality_notebook_janek.py",
+    "sha256_before": "eefd9a72bf30f60b56b0276816b33ebac271953fe30a8f084b5daa1928cf3cc4",
+    "origin": "Janek workspace",
+    "sha256_after": "78bc47879df569854294c7ca03e08779a33f63e736d8a9e0291d993f2942d4f4"
+  },
+  {
+    "old": "scripts/build_kaggle_csb1_clean_notebook.py",
+    "new": "scripts/build_kaggle_csb1_clean_notebook_janek.py",
+    "sha256_before": "aaba5c69b2b13b36d7131eb2e26bdbcc855166a018bc7d2e6b26d9ce2ebc7b57",
+    "origin": "Janek workspace",
+    "sha256_after": "c987900d86371cfbaddd2e67032009924f84d4d41a6b6830ca6f5462c9c69b3f"
+  },
+  {
+    "old": "scripts/build_kaggle_fliptta_notebook.py",
+    "new": "scripts/build_kaggle_fliptta_notebook_janek.py",
+    "sha256_before": "5c8e1c1c9561b85ab0f86efa87d05bf85cc4bffae91d27b8486a4e10de568f8b",
+    "origin": "Janek workspace",
+    "sha256_after": "5aa13d13f0dc86fc48ddff6396b8cc0b480e6d27bfdda764605428fca9676aa7"
+  },
+  {
+    "old": "scripts/build_kaggle_notebook.py",
+    "new": "scripts/build_kaggle_notebook_janek.py",
+    "sha256_before": "28dc9c3fb8830a4221435b9b511e39a9718906eec56345b79ee48f8a40430638",
+    "origin": "Janek workspace",
+    "sha256_after": "4fe99b3e7bfe4a7ad1e54c8b050b91d467114f44922f975154a3dacc882f2856"
+  },
+  {
+    "old": "scripts/build_kaggle_zoom_notebook.py",
+    "new": "scripts/build_kaggle_zoom_notebook_janek.py",
+    "sha256_before": "0039d9478c2f3233da8bea24467559bf28bf1198c97e5ac6906ffa3a846a6987",
+    "origin": "Janek workspace",
+    "sha256_after": "adef696672690c1ae22fbbfd3df1d6bb5c7900cc6390f5ee12498bcc2890b527"
+  },
+  {
+    "old": "scripts/compare_probe_reference.py",
+    "new": "scripts/compare_probe_reference_janek.py",
+    "sha256_before": "236fc7e433e1874a4e79c466228891b4cb249c24bc018672d0eb3778b82c076a",
+    "origin": "Janek workspace",
+    "sha256_after": "d2fc91328ce84ac36ee36e18919168601040d2fc4e6cca63127a556bf16a6baa"
+  },
+  {
+    "old": "scripts/csb1_full_verify.py",
+    "new": "scripts/csb1_full_verify_janek.py",
+    "sha256_before": "110810fa2e959a0bc40d904c33846eba61a003392c8255b090b440e58bb0f606",
+    "origin": "Janek workspace",
+    "sha256_after": "d8e6a395bf2d8890370904269a9bdcb0b9954fc9658412698ad4711002edad72"
+  },
+  {
+    "old": "scripts/diagnose_tradeoff_v2.py",
+    "new": "scripts/diagnose_tradeoff_v2_janek.py",
+    "sha256_before": "830099dfa91bf4b4aeca0fc2b474dbc644340019d1692a192ec0a410d2e42d63",
+    "origin": "Janek workspace",
+    "sha256_after": "d8bc76898b6988e137bb9cc8b433f0291356c0da9f7c84d55b36b4dfe239e611"
+  },
+  {
+    "old": "scripts/dualagree_followup_bconly.py",
+    "new": "scripts/dualagree_followup_bconly_janek.py",
+    "sha256_before": "91ae1b22b4dc3b82aa7baad9a16854b202977ff2f8de87795221c8907e73564d",
+    "origin": "Janek workspace",
+    "sha256_after": "7a0b9890d776e8e1ce742ba4f24ac85f65b8f43f4dd62fdb158d7d85f59ecbda"
+  },
+  {
+    "old": "scripts/fliptta_matched_control.py",
+    "new": "scripts/fliptta_matched_control_janek.py",
+    "sha256_before": "8e0abbb580d2009112ccb93454be2d9026720970fff9250f28d2dfa797959b88",
+    "origin": "Janek workspace",
+    "sha256_after": "adfb85164ecea7301176ae26a260405b1b81eb4034453dd41c3a5cd1bf9a7523"
+  },
+  {
+    "old": "scripts/make_colab_upload.py",
+    "new": "scripts/make_colab_upload_janek.py",
+    "sha256_before": "8a8bbef7f54263dc64f0340dd3a9568d0c39adabc82074367b0c319f812bef59",
+    "origin": "Janek workspace",
+    "sha256_after": "de5c4c0569d8ed7903af148fc9495bfbd9e2ec168b4af42cfb9ebcdd85f31fb9"
+  },
+  {
+    "old": "scripts/make_kaggle_boxquality_dataset.py",
+    "new": "scripts/make_kaggle_boxquality_dataset_janek.py",
+    "sha256_before": "b075e7e88e3aa8240d324e9177afd35ecdd1e6c0fa6a9e10c62bee7929b56022",
+    "origin": "Janek workspace",
+    "sha256_after": "dcd277020b7901bcfd2f1ae9e465a1931100944a98b7405cf1f1979e4833a53d"
+  },
+  {
+    "old": "scripts/make_kaggle_csb1_clean_dataset.py",
+    "new": "scripts/make_kaggle_csb1_clean_dataset_janek.py",
+    "sha256_before": "4783e24429e2d3eb7b49de09015e21e5cd37e2cf968dd9ce83a75cef484f1004",
+    "origin": "Janek workspace",
+    "sha256_after": "b8894c24e1b185090eab9634a6fe35af23e2d21b923096e45cb51b593b4343cc"
+  },
+  {
+    "old": "scripts/make_kaggle_dataset.py",
+    "new": "scripts/make_kaggle_dataset_janek.py",
+    "sha256_before": "607bd41bebec48295ea2ac2b04e15536dd7884b065799491888da9f48ece9623",
+    "origin": "Janek workspace",
+    "sha256_after": "f6367ad72d53291752992f0699c472dc7a6eeb7f0b9a041c78ea62dd29f61633"
+  },
+  {
+    "old": "scripts/make_kaggle_fliptta_dataset.py",
+    "new": "scripts/make_kaggle_fliptta_dataset_janek.py",
+    "sha256_before": "c85977317c5c6c39c70c78c92b689f8493c40d219ec9053765c246ebf3d312e2",
+    "origin": "Janek workspace",
+    "sha256_after": "2b703427621050e6122d478034ffc4b9ba9eba7d3ec42a1df262f20a6f7d073c"
+  },
+  {
+    "old": "scripts/make_kaggle_zoom_dataset.py",
+    "new": "scripts/make_kaggle_zoom_dataset_janek.py",
+    "sha256_before": "79949882c8513c80f6c0870a80ed5e4183f422de2e2c4b25e9637622179cebf7",
+    "origin": "Janek workspace",
+    "sha256_after": "6bceaa1db1164ec6e77437d1ab0cf1fb6b293ef5f80985b7e0981b31c33994a4"
+  },
+  {
+    "old": "scripts/p0_fixed_router_eval.py",
+    "new": "scripts/p0_fixed_router_eval_janek.py",
+    "sha256_before": "9f311d673da0eae37d4318b23164f824cf610ff711a34e613d4b37781de03313",
+    "origin": "Janek workspace",
+    "sha256_after": "8efcbdefdd1ebfee1db0efd92b22c2e8fe8284bf094ee66e9041ac7e82161cef"
+  },
+  {
+    "old": "scripts/p0b_null_pairs.py",
+    "new": "scripts/p0b_null_pairs_janek.py",
+    "sha256_before": "7ed3d33f6cf85d20f11703a907273ea9118f8b7e6279f230b033ea1408339d60",
+    "origin": "Janek workspace",
+    "sha256_after": "edd6476f2fe64093016da284206bfb65c0880ae89806ca10584cf3c2b6eb6a64"
+  },
+  {
+    "old": "scripts/p0b_per_image_oracle.py",
+    "new": "scripts/p0b_per_image_oracle_janek.py",
+    "sha256_before": "268309a57388ea233cfd60753187d025c46a9e796193b88087cd8d5d470a2f1b",
+    "origin": "Janek workspace",
+    "sha256_after": "94ba3c1130144516900597bad9ac3b262ce71f07930d033dca85d29d3b3d1c71"
+  },
+  {
+    "old": "scripts/plot_alpha_curve.py",
+    "new": "scripts/plot_alpha_curve_janek.py",
+    "sha256_before": "54699cddf46b29b95636c4d5653d511d3028459976129ab9741dedf5a2579f05",
+    "origin": "Janek workspace",
+    "sha256_after": "83b335a09dcf569eac352153f0ae40cbc5cdf93a1a2c73e60c1cff0cf1a33e1d"
+  },
+  {
+    "old": "scripts/run_probe.sh",
+    "new": "scripts/run_probe_janek.sh",
+    "sha256_before": "e76300aaeaf05f2b4d78489df2117372e5f0014bf70c6fe1781197848bf4590e",
+    "origin": "Janek workspace",
+    "sha256_after": "71bdd4fce70304174268036eb631965433e276b9ea681ad133b3af9a2a398c26"
+  },
+  {
+    "old": "scripts/t4_repeatability.py",
+    "new": "scripts/t4_repeatability_janek.py",
+    "sha256_before": "dbb32d22a426ab648bfada29ca5961223b9a7552834bf0d85036e92d1a98adcc",
+    "origin": "Janek workspace",
+    "sha256_after": "a981f79fa0b78391537d311a3c790f243573af22e2997b00aad674d268c8c7b9"
+  },
+  {
+    "old": "tests/__init__.py",
+    "new": "tests/__init__.py",
+    "sha256_before": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "origin": "Janek workspace",
+    "sha256_after": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "old": "tests/test_bn_recal.py",
+    "new": "tests/test_bn_recal_janek.py",
+    "sha256_before": "5de5e8929f2eb55ef6a6e5a49da8d9bcf7284619321fa3a452392dd9e341df51",
+    "origin": "Janek workspace",
+    "sha256_after": "cf871adc37f2febf9edeb7af8874b80a34367ed961b58f58acbd8c56f8ceb10e"
+  },
+  {
+    "old": "tests/test_boxquality.py",
+    "new": "tests/test_boxquality_janek.py",
+    "sha256_before": "5489af883b325f06c02020bb1e899e680811a608d0a799e56dd428d0099055d8",
+    "origin": "Janek workspace",
+    "sha256_after": "91ac2c48f00a815e81edb814024289979a47936554cc03eb441b65c768575b4b"
+  },
+  {
+    "old": "tests/test_colab_helpers.py",
+    "new": "tests/test_colab_helpers_janek.py",
+    "sha256_before": "9fad2d966de1bbededfe5b50f1722036b9ca67f0bb1075646f3daab9ecaefdd4",
+    "origin": "Janek workspace",
+    "sha256_after": "97d5e23318b74cccc5907ca7199e83434531c712cf0e825607d941bce4cb21e6"
+  },
+  {
+    "old": "tests/test_csb1_clean.py",
+    "new": "tests/test_csb1_clean_janek.py",
+    "sha256_before": "a596947f7b516d9cbe3c0185b102a4283c69886d2bbe5da6af43953ce6772aaf",
+    "origin": "Janek workspace",
+    "sha256_after": "851fa33f42b5bee04ed90ac4812ff45018e77a982eec401540f9f0c493f04fdc"
+  },
+  {
+    "old": "tests/test_doctor.py",
+    "new": "tests/test_doctor_janek.py",
+    "sha256_before": "a0db389d544ed54eb4fbff56305a228954ae08839ac2ba61f73594a9e22046c7",
+    "origin": "Janek workspace",
+    "sha256_after": "57620b44781bbf4550d857f1098f642105800fcab15176cea6e61c19557c3ec1"
+  },
+  {
+    "old": "tests/test_dualagree.py",
+    "new": "tests/test_dualagree_janek.py",
+    "sha256_before": "99cf81952c75e047fffbfb4c92706655dcd97932d0f601bf8db46ab18524badd",
+    "origin": "Janek workspace",
+    "sha256_after": "a8d3d3dc8b26ad60e76de04d5a16e21e112a178241d09273af8979df6594ef6b"
+  },
+  {
+    "old": "tests/test_explore_selection.py",
+    "new": "tests/test_explore_selection_janek.py",
+    "sha256_before": "d015883dd6adadb6f1b7efce17683d30e6522c086d541fc1b0477d1fa2ebe712",
+    "origin": "Janek workspace",
+    "sha256_after": "11f75805af3c142f311aa051bac15935a1572b37d17a0a7364ad54865baf2539"
+  },
+  {
+    "old": "tests/test_fliptta.py",
+    "new": "tests/test_fliptta_janek.py",
+    "sha256_before": "16202b5435766cce993ee21bbbe3e55f6f13aa5d4bfe1bea0123be135a70fd41",
+    "origin": "Janek workspace",
+    "sha256_after": "7066e7b30c5decbcb282c17b51e8e6d98b8b0d106d60d5e5253cc311c29477cf"
+  },
+  {
+    "old": "tests/test_fliptta_diag.py",
+    "new": "tests/test_fliptta_diag_janek.py",
+    "sha256_before": "df599969a4b64d5c7911e8cc8c2f568161bcbe2fb3188e108a290a6c5a2fc4b9",
+    "origin": "Janek workspace",
+    "sha256_after": "faea8b84514bb72a632c6d148bd5627f51767f3ffd35d285d9b76579cf0dc03a"
+  },
+  {
+    "old": "tests/test_fsr.py",
+    "new": "tests/test_fsr_janek.py",
+    "sha256_before": "6f804cdb60fe34671e6652f3cb3587d0df5a953108eb2cd2e39a682df89954c7",
+    "origin": "Janek workspace",
+    "sha256_after": "b816a47c877759340af4a0750ee50df99111a54c660cd7522539b6e2b8a898ac"
+  },
+  {
+    "old": "tests/test_merge_audit.py",
+    "new": "tests/test_merge_audit_janek.py",
+    "sha256_before": "3269ea2fe0fb4bf310eba1fb02234bf55d544bf3592664c66412078c39673f7a",
+    "origin": "Janek workspace",
+    "sha256_after": "11e7ee35b27dd8ffa957cb14ebf45bc4407d37d97c516fae601abb6c3c6d9228"
+  },
+  {
+    "old": "tests/test_msb1.py",
+    "new": "tests/test_msb1_janek.py",
+    "sha256_before": "30df776fa6388f5a3907e2011202c2a08873055dc26cf92a09aef92241eeada6",
+    "origin": "Janek workspace",
+    "sha256_after": "032b6f1422ac11e2fd5d8a397feef9850185d24e6b9c2e02930a283b1aa3ddf8"
+  },
+  {
+    "old": "tests/test_phase0.py",
+    "new": "tests/test_phase0_janek.py",
+    "sha256_before": "bcbe06a77ee2251c237c668f7dc4d71328507a0f64bec85796f28e968229454a",
+    "origin": "Janek workspace",
+    "sha256_after": "7ece313416fa5a88af2eee7df34cf2e7be3692522809a7e9d03a68852aa424f3"
+  },
+  {
+    "old": "tests/test_reselect_split.py",
+    "new": "tests/test_reselect_split_janek.py",
+    "sha256_before": "eaeab3ebca90360613404909f27974618c48a6594b4401cd86c3481f431f5244",
+    "origin": "Janek workspace",
+    "sha256_after": "1ed16e0f97937529f08e047fd0d6684d21efacd1f86c3052da060651a8663036"
+  },
+  {
+    "old": "tests/test_sizethr.py",
+    "new": "tests/test_sizethr_janek.py",
+    "sha256_before": "73cf42057ad329e97772554bc58cb9076b407fe179d7cca85ac1675975df80ef",
+    "origin": "Janek workspace",
+    "sha256_after": "14c693aa10e98509daad59ea4040306ba9adec4aed1061b4453e713e90119ced"
+  },
+  {
+    "old": "tests/test_weight_merge.py",
+    "new": "tests/test_weight_merge_janek.py",
+    "sha256_before": "413f5e4c198d57a6f092a6cea744781da1e447cb8f58768ea742aba025f55823",
+    "origin": "Janek workspace",
+    "sha256_after": "42441e1768f9c824e42825567f44909e8b4e7cb832ff9be19cb39971cd29fc31"
+  },
+  {
+    "old": "tests/test_xvb1.py",
+    "new": "tests/test_xvb1_janek.py",
+    "sha256_before": "64c19f07fac938d5f81e211461e778f13ae020163a6eed6895df588ec4f23a72",
+    "origin": "Janek workspace",
+    "sha256_after": "12ca95af2fee6b779997d5ffe516c33bfe69aa5a2a3add9d607106e099574b7d"
+  },
+  {
+    "old": "tests/test_zoom.py",
+    "new": "tests/test_zoom_janek.py",
+    "sha256_before": "0cf2e6b80361a383b5dbfcd46f31231aa80608cf90214e94c65c259b5ddb8a1e",
+    "origin": "Janek workspace",
+    "sha256_after": "98174822ee7aafd42c0b5f4f12a9fdaf944c972dbc9e94121c56319aa036646f"
+  }
+]
